@@ -1,0 +1,11 @@
+URL: "http://www.baidu.com"
+URL_CROWD: "http://172.17.3.34"
+log:
+  file_name: test.log
+  backup: 5
+  console_level: DEBUG
+  file_level: DEBUG
+  pattern: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+
+ip: 127.0.0.1
+port: 8080

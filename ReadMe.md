@@ -1,0 +1,14 @@
+```
+Faker==0.9.1
+jmespath==0.9.3
+mysql-connector==2.1.6
+mysql-connector-python==8.0.12
+PyYAML==3.13
+requests==2.19.1
+selenium==3.14.0
+urllib3==1.23
+xlrd==1.1.0
+xlwt==1.3.0
+yamlreader==3.0.4
+yml==0.0.1
+```
