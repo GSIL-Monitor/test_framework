@@ -30,7 +30,7 @@ class TestLogin(unittest.TestCase):
         self.assertIn('token', res1.text)
         return res1.json()['token']
 
-    @unittest.skipIf(True, "I don't want to run this case.")
+    # @unittest.skipIf(True, "I don't want to run this case.")
     def test_login_fail(self):
         """使用错误密码登录失败"""
         res2 = self.login('admin', 'admin1', [401, 405])

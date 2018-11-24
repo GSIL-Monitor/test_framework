@@ -62,18 +62,19 @@ class Email:
         try:
             smtp_server = smtplib.SMTP_SSL(self.server)
         except (gaierror or error) as e:
-            logger.exception('发送邮件失败，无法链接smtp服务器，检查网络或服务器. %s', e)
+            logger.error('发送邮件失败，无法链接smtp服务器，检查网络或服务器. %s' % e)
         else:
             try:
                 smtp_server.login(self.sender, self.password)  # 登录
             except smtplib.SMTPAuthenticationError as e:
-                logger.exception('用户名密码验证失败！%s', e)
+                logger.error('用户名密码验证失败！%s' % e)
             else:
                 smtp_server.sendmail(self.sender, self.receiver.split(';'), self.msg.as_string())  # 发送
-            finally:
-                smtp_server.quit()  # 断开
                 logger.info('发送邮件"{title}"成功! 收件人：{receiver}。如果没有收到邮件，请检查垃圾箱，'
                             '同时检查收件人地址是否正确'.format(title=self.title, receiver=self.receiver))
+            finally:
+                smtp_server.quit()  # 断开
+
 
 
 if __name__ == '__main__':
@@ -84,7 +85,7 @@ if __name__ == '__main__':
               receiver='zhangjiukun@sensenets.com',
               server='smtp.exmail.qq.com:465',
               sender='zhangjiukun@sensenets.com',
-              password='Sensenets1992',
+              password='A79C8mjxcLk2Ycqj',
               path='../report/report.html'
               )
     e.send()

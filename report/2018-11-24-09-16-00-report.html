@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>测试框架练习</title>
+    <title>测试框架</title>
     <meta name="generator" content="HTMLTestRunner 0.9.1"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     
@@ -199,13 +199,13 @@
     <div id="div_base">
         
     <div class='page-header'>
-        <h1>测试框架练习</h1>
-    <p class='attribute'><strong>开始时间:</strong> 2018-11-24 09:19:58</p>
-<p class='attribute'><strong>运行时长:</strong> 0:00:00.045714</p>
-<p class='attribute'><strong>状态:</strong> 错误 3</p>
+        <h1>测试框架</h1>
+    <p class='attribute'><strong>开始时间:</strong> 2018-11-24 09:16:00</p>
+<p class='attribute'><strong>运行时长:</strong> 0:00:00.045613</p>
+<p class='attribute'><strong>状态:</strong> 通过 1</p>
 
     </div>
-    <div style="float: left;width:50%;"><p class='description'>生成html报告</p></div>
+    <div style="float: left;width:50%;"><p class='description'>接口html报告</p></div>
     <div id="chart" style="width:50%;height:400px;float:left;"></div>
 
         
@@ -233,133 +233,31 @@
             <td>查看</td>
         </tr>
         
-    <tr class='errorClass'>
-        <td>TestBaiDu</td>
-        <td>3</td>
+    <tr class='passClass'>
+        <td>TestBaiDuHTTP</td>
+        <td>1</td>
+        <td>1</td>
         <td>0</td>
         <td>0</td>
-        <td>3</td>
-        <td><a href="javascript:showClassDetail('c1',3)">详情</a></td>
+        <td><a href="javascript:showClassDetail('c1',1)">详情</a></td>
     </tr>
 
-<tr id='ft1.1' class='none'>
-    <td class='errorCase'><div class='testcase'>test_search</div></td>
+<tr id='pt1.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_baidu_http</div></td>
     <td colspan='5' align='center'>
 
     <!--css div popup start-->
-    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft1.1')" >
-        错误</a>
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.1')" >
+        通过</a>
 
-    <div id='div_ft1.1' class="popup_window">
-        <pre>ft1.1: 
-SubTestCase Error:
-test_search (__main__.TestBaiDu) (data={'search': 'selenium'})Traceback (most recent call last):
-  File "/Users/jiukunz/.local/share/virtualenvs/test_framework-5sPFVmNC/lib/python3.7/site-packages/selenium/webdriver/common/service.py", line 76, in start
-    stdin=PIPE)
-  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/subprocess.py", line 769, in __init__
-    restore_signals, start_new_session)
-  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/subprocess.py", line 1516, in _execute_child
-    raise child_exception_type(errno_num, err_msg, err_filename)
-FileNotFoundError: [Errno 2] No such file or directory: '/Users/jiukunz/git/test_framework/drivers\\chromedriver.exe': '/Users/jiukunz/git/test_framework/drivers\\chromedriver.exe'
+    <div id='div_pt1.1' class="popup_window">
+        <pre>pt1.1: 2018-11-24 09:16:00,663 - framework - INFO - GET http://www.baidu.com/
+2018-11-24 09:16:00,663 - framework - INFO - 响应结果: &lt;Response [200]&gt;
+&lt;!DOCTYPE html&gt;
+&lt;!--STATUS OK--&gt;&lt;html&gt; &lt;head&gt;&lt;meta http-equiv=content-type content=text/html;charset=utf-8&gt;&lt;meta http-equiv=X-UA-Compatible content=IE=Edge&gt;&lt;meta content=always name=referrer&gt;&lt;link rel=stylesheet type=text/css href=http://s1.bdstatic.com/r/www/cache/bdorz/baidu.min.css&gt;&lt;title&gt;百度一下，你就知道&lt;/title&gt;&lt;/head&gt; &lt;body link=#0000cc&gt; &lt;div id=wrapper&gt; &lt;div id=head&gt; &lt;div class=head_wrapper&gt; &lt;div class=s_form&gt; &lt;div class=s_form_wrapper&gt; &lt;div id=lg&gt; &lt;img hidefocus=true src=//www.baidu.com/img/bd_logo1.png width=270 height=129&gt; &lt;/div&gt; &lt;form id=form name=f action=//www.baidu.com/s class=fm&gt; &lt;input type=hidden name=bdorz_come value=1&gt; &lt;input type=hidden name=ie value=utf-8&gt; &lt;input type=hidden name=f value=8&gt; &lt;input type=hidden name=rsv_bp value=1&gt; &lt;input type=hidden name=rsv_idx value=1&gt; &lt;input type=hidden name=tn value=baidu&gt;&lt;span class="bg s_ipt_wr"&gt;&lt;input id=kw name=wd class=s_ipt value maxlength=255 autocomplete=off autofocus&gt;&lt;/span&gt;&lt;span class="bg s_btn_wr"&gt;&lt;input type=submit id=su value=百度一下 class="bg s_btn"&gt;&lt;/span&gt; &lt;/form&gt; &lt;/div&gt; &lt;/div&gt; &lt;div id=u1&gt; &lt;a href=http://news.baidu.com name=tj_trnews class=mnav&gt;新闻&lt;/a&gt; &lt;a href=http://www.hao123.com name=tj_trhao123 class=mnav&gt;hao123&lt;/a&gt; &lt;a href=http://map.baidu.com name=tj_trmap class=mnav&gt;地图&lt;/a&gt; &lt;a href=http://v.baidu.com name=tj_trvideo class=mnav&gt;视频&lt;/a&gt; &lt;a href=http://tieba.baidu.com name=tj_trtieba class=mnav&gt;贴吧&lt;/a&gt; &lt;noscript&gt; &lt;a href=http://www.baidu.com/bdorz/login.gif?login&amp;amp;tpl=mn&amp;amp;u=http%3A%2F%2Fwww.baidu.com%2f%3fbdorz_come%3d1 name=tj_login class=lb&gt;登录&lt;/a&gt; &lt;/noscript&gt; &lt;script&gt;document.write('&lt;a href="http://www.baidu.com/bdorz/login.gif?login&amp;tpl=mn&amp;u='+ encodeURIComponent(window.location.href+ (window.location.search === "" ? "?" : "&amp;")+ "bdorz_come=1")+ '" name="tj_login" class="lb"&gt;登录&lt;/a&gt;');&lt;/script&gt; &lt;a href=//www.baidu.com/more/ name=tj_briicon class=bri style="display: block;"&gt;更多产品&lt;/a&gt; &lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;div id=ftCon&gt; &lt;div id=ftConw&gt; &lt;p id=lh&gt; &lt;a href=http://home.baidu.com&gt;关于百度&lt;/a&gt; &lt;a href=http://ir.baidu.com&gt;About Baidu&lt;/a&gt; &lt;/p&gt; &lt;p id=cp&gt;&amp;copy;2017&amp;nbsp;Baidu&amp;nbsp;&lt;a href=http://www.baidu.com/duty/&gt;使用百度前必读&lt;/a&gt;&amp;nbsp; &lt;a href=http://jianyi.baidu.com/ class=cp-feedback&gt;意见反馈&lt;/a&gt;&amp;nbsp;京ICP证030173号&amp;nbsp; &lt;img src=//www.baidu.com/img/gs.gif&gt; &lt;/p&gt; &lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;/body&gt; &lt;/html&gt;
 
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/Users/jiukunz/git/test_framework/test/case/test_baidu.py", line 37, in test_search
-    self.sub_setUp()
-  File "/Users/jiukunz/git/test_framework/test/case/test_baidu.py", line 27, in sub_setUp
-    self.page = BaiDuMainPage(browser_type='chrome').get(self.URL, maximize_window=False)
-  File "/Users/jiukunz/git/test_framework/test/common/browser.py", line 30, in get
-    self.driver = self.browser(executable_path=EXECUTABLE_PATH[self._type])
-  File "/Users/jiukunz/.local/share/virtualenvs/test_framework-5sPFVmNC/lib/python3.7/site-packages/selenium/webdriver/chrome/webdriver.py", line 73, in __init__
-    self.service.start()
-  File "/Users/jiukunz/.local/share/virtualenvs/test_framework-5sPFVmNC/lib/python3.7/site-packages/selenium/webdriver/common/service.py", line 83, in start
-    os.path.basename(self.path), self.start_error_message)
-selenium.common.exceptions.WebDriverException: Message: 'drivers\chromedriver.exe' executable needs to be in PATH. Please see https://sites.google.com/a/chromium.org/chromedriver/home
-
-</pre>
-    </div>
-    <!--css div popup end-->
-
-    </td>
-</tr>
-
-<tr id='ft1.2' class='none'>
-    <td class='errorCase'><div class='testcase'>test_search</div></td>
-    <td colspan='5' align='center'>
-
-    <!--css div popup start-->
-    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft1.2')" >
-        错误</a>
-
-    <div id='div_ft1.2' class="popup_window">
-        <pre>ft1.2: 
-SubTestCase Error:
-test_search (__main__.TestBaiDu) (data={'search': 'python'})Traceback (most recent call last):
-  File "/Users/jiukunz/.local/share/virtualenvs/test_framework-5sPFVmNC/lib/python3.7/site-packages/selenium/webdriver/common/service.py", line 76, in start
-    stdin=PIPE)
-  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/subprocess.py", line 769, in __init__
-    restore_signals, start_new_session)
-  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/subprocess.py", line 1516, in _execute_child
-    raise child_exception_type(errno_num, err_msg, err_filename)
-FileNotFoundError: [Errno 2] No such file or directory: '/Users/jiukunz/git/test_framework/drivers\\chromedriver.exe': '/Users/jiukunz/git/test_framework/drivers\\chromedriver.exe'
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/Users/jiukunz/git/test_framework/test/case/test_baidu.py", line 37, in test_search
-    self.sub_setUp()
-  File "/Users/jiukunz/git/test_framework/test/case/test_baidu.py", line 27, in sub_setUp
-    self.page = BaiDuMainPage(browser_type='chrome').get(self.URL, maximize_window=False)
-  File "/Users/jiukunz/git/test_framework/test/common/browser.py", line 30, in get
-    self.driver = self.browser(executable_path=EXECUTABLE_PATH[self._type])
-  File "/Users/jiukunz/.local/share/virtualenvs/test_framework-5sPFVmNC/lib/python3.7/site-packages/selenium/webdriver/chrome/webdriver.py", line 73, in __init__
-    self.service.start()
-  File "/Users/jiukunz/.local/share/virtualenvs/test_framework-5sPFVmNC/lib/python3.7/site-packages/selenium/webdriver/common/service.py", line 83, in start
-    os.path.basename(self.path), self.start_error_message)
-selenium.common.exceptions.WebDriverException: Message: 'drivers\chromedriver.exe' executable needs to be in PATH. Please see https://sites.google.com/a/chromium.org/chromedriver/home
-
-</pre>
-    </div>
-    <!--css div popup end-->
-
-    </td>
-</tr>
-
-<tr id='ft1.3' class='none'>
-    <td class='errorCase'><div class='testcase'>test_search</div></td>
-    <td colspan='5' align='center'>
-
-    <!--css div popup start-->
-    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft1.3')" >
-        错误</a>
-
-    <div id='div_ft1.3' class="popup_window">
-        <pre>ft1.3: 
-SubTestCase Error:
-test_search (__main__.TestBaiDu) (data={'search': '九坤'})Traceback (most recent call last):
-  File "/Users/jiukunz/.local/share/virtualenvs/test_framework-5sPFVmNC/lib/python3.7/site-packages/selenium/webdriver/common/service.py", line 76, in start
-    stdin=PIPE)
-  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/subprocess.py", line 769, in __init__
-    restore_signals, start_new_session)
-  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/subprocess.py", line 1516, in _execute_child
-    raise child_exception_type(errno_num, err_msg, err_filename)
-FileNotFoundError: [Errno 2] No such file or directory: '/Users/jiukunz/git/test_framework/drivers\\chromedriver.exe': '/Users/jiukunz/git/test_framework/drivers\\chromedriver.exe'
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/Users/jiukunz/git/test_framework/test/case/test_baidu.py", line 37, in test_search
-    self.sub_setUp()
-  File "/Users/jiukunz/git/test_framework/test/case/test_baidu.py", line 27, in sub_setUp
-    self.page = BaiDuMainPage(browser_type='chrome').get(self.URL, maximize_window=False)
-  File "/Users/jiukunz/git/test_framework/test/common/browser.py", line 30, in get
-    self.driver = self.browser(executable_path=EXECUTABLE_PATH[self._type])
-  File "/Users/jiukunz/.local/share/virtualenvs/test_framework-5sPFVmNC/lib/python3.7/site-packages/selenium/webdriver/chrome/webdriver.py", line 73, in __init__
-    self.service.start()
-  File "/Users/jiukunz/.local/share/virtualenvs/test_framework-5sPFVmNC/lib/python3.7/site-packages/selenium/webdriver/common/service.py", line 83, in start
-    os.path.basename(self.path), self.start_error_message)
-selenium.common.exceptions.WebDriverException: Message: 'drivers\chromedriver.exe' executable needs to be in PATH. Please see https://sites.google.com/a/chromium.org/chromedriver/home
+2018-11-24 09:16:00,669 - framework - DEBUG - &lt;!DOCTYPE html&gt;
+&lt;!--STATUS OK--&gt;&lt;html&gt; &lt;head&gt;&lt;meta http-equiv=content-type content=text/html;charset=utf-8&gt;&lt;meta http-equiv=X-UA-Compatible content=IE=Edge&gt;&lt;meta content=always name=referrer&gt;&lt;link rel=stylesheet type=text/css href=http://s1.bdstatic.com/r/www/cache/bdorz/baidu.min.css&gt;&lt;title&gt;百度一下，你就知道&lt;/title&gt;&lt;/head&gt; &lt;body link=#0000cc&gt; &lt;div id=wrapper&gt; &lt;div id=head&gt; &lt;div class=head_wrapper&gt; &lt;div class=s_form&gt; &lt;div class=s_form_wrapper&gt; &lt;div id=lg&gt; &lt;img hidefocus=true src=//www.baidu.com/img/bd_logo1.png width=270 height=129&gt; &lt;/div&gt; &lt;form id=form name=f action=//www.baidu.com/s class=fm&gt; &lt;input type=hidden name=bdorz_come value=1&gt; &lt;input type=hidden name=ie value=utf-8&gt; &lt;input type=hidden name=f value=8&gt; &lt;input type=hidden name=rsv_bp value=1&gt; &lt;input type=hidden name=rsv_idx value=1&gt; &lt;input type=hidden name=tn value=baidu&gt;&lt;span class="bg s_ipt_wr"&gt;&lt;input id=kw name=wd class=s_ipt value maxlength=255 autocomplete=off autofocus&gt;&lt;/span&gt;&lt;span class="bg s_btn_wr"&gt;&lt;input type=submit id=su value=百度一下 class="bg s_btn"&gt;&lt;/span&gt; &lt;/form&gt; &lt;/div&gt; &lt;/div&gt; &lt;div id=u1&gt; &lt;a href=http://news.baidu.com name=tj_trnews class=mnav&gt;新闻&lt;/a&gt; &lt;a href=http://www.hao123.com name=tj_trhao123 class=mnav&gt;hao123&lt;/a&gt; &lt;a href=http://map.baidu.com name=tj_trmap class=mnav&gt;地图&lt;/a&gt; &lt;a href=http://v.baidu.com name=tj_trvideo class=mnav&gt;视频&lt;/a&gt; &lt;a href=http://tieba.baidu.com name=tj_trtieba class=mnav&gt;贴吧&lt;/a&gt; &lt;noscript&gt; &lt;a href=http://www.baidu.com/bdorz/login.gif?login&amp;amp;tpl=mn&amp;amp;u=http%3A%2F%2Fwww.baidu.com%2f%3fbdorz_come%3d1 name=tj_login class=lb&gt;登录&lt;/a&gt; &lt;/noscript&gt; &lt;script&gt;document.write('&lt;a href="http://www.baidu.com/bdorz/login.gif?login&amp;tpl=mn&amp;u='+ encodeURIComponent(window.location.href+ (window.location.search === "" ? "?" : "&amp;")+ "bdorz_come=1")+ '" name="tj_login" class="lb"&gt;登录&lt;/a&gt;');&lt;/script&gt; &lt;a href=//www.baidu.com/more/ name=tj_briicon class=bri style="display: block;"&gt;更多产品&lt;/a&gt; &lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;div id=ftCon&gt; &lt;div id=ftConw&gt; &lt;p id=lh&gt; &lt;a href=http://home.baidu.com&gt;关于百度&lt;/a&gt; &lt;a href=http://ir.baidu.com&gt;About Baidu&lt;/a&gt; &lt;/p&gt; &lt;p id=cp&gt;&amp;copy;2017&amp;nbsp;Baidu&amp;nbsp;&lt;a href=http://www.baidu.com/duty/&gt;使用百度前必读&lt;/a&gt;&amp;nbsp; &lt;a href=http://jianyi.baidu.com/ class=cp-feedback&gt;意见反馈&lt;/a&gt;&amp;nbsp;京ICP证030173号&amp;nbsp; &lt;img src=//www.baidu.com/img/gs.gif&gt; &lt;/p&gt; &lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;/body&gt; &lt;/html&gt;
 
 </pre>
     </div>
@@ -370,10 +268,10 @@ selenium.common.exceptions.WebDriverException: Message: 'drivers\chromedriver.ex
 
         <tr id='total_row'>
             <td>总计</td>
-            <td>3</td>
+            <td>1</td>
+            <td>1</td>
             <td>0</td>
             <td>0</td>
-            <td>3</td>
             <td>&nbsp;</td>
         </tr>
     </table>
@@ -407,9 +305,9 @@ selenium.common.exceptions.WebDriverException: Message: 'drivers\chromedriver.ex
                     radius : '60%',
                     center: ['50%', '60%'],
                     data:[
-                        {value:0, name:'通过'},
+                        {value:1, name:'通过'},
                         {value:0, name:'失败'},
-                        {value:3, name:'错误'}
+                        {value:0, name:'错误'}
                     ],
                     itemStyle: {
                         emphasis: {

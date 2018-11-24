@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>测试框架练习</title>
+    <title>测试框架</title>
     <meta name="generator" content="HTMLTestRunner 0.9.1"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     
@@ -199,13 +199,13 @@
     <div id="div_base">
         
     <div class='page-header'>
-        <h1>测试框架练习</h1>
-    <p class='attribute'><strong>开始时间:</strong> 2018-11-24 09:19:58</p>
-<p class='attribute'><strong>运行时长:</strong> 0:00:00.045714</p>
-<p class='attribute'><strong>状态:</strong> 错误 3</p>
+        <h1>测试框架</h1>
+    <p class='attribute'><strong>开始时间:</strong> 2018-11-24 09:15:37</p>
+<p class='attribute'><strong>运行时长:</strong> 0:00:00.138409</p>
+<p class='attribute'><strong>状态:</strong> 通过 1</p>
 
     </div>
-    <div style="float: left;width:50%;"><p class='description'>生成html报告</p></div>
+    <div style="float: left;width:50%;"><p class='description'>接口html报告</p></div>
     <div id="chart" style="width:50%;height:400px;float:left;"></div>
 
         
@@ -233,134 +233,29 @@
             <td>查看</td>
         </tr>
         
-    <tr class='errorClass'>
-        <td>TestBaiDu</td>
-        <td>3</td>
+    <tr class='passClass'>
+        <td>TestLogin</td>
+        <td>1</td>
+        <td>1</td>
         <td>0</td>
         <td>0</td>
-        <td>3</td>
-        <td><a href="javascript:showClassDetail('c1',3)">详情</a></td>
+        <td><a href="javascript:showClassDetail('c1',1)">详情</a></td>
     </tr>
 
-<tr id='ft1.1' class='none'>
-    <td class='errorCase'><div class='testcase'>test_search</div></td>
+<tr id='pt1.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_login_fail: 使用错误密码登录失败</div></td>
     <td colspan='5' align='center'>
 
     <!--css div popup start-->
-    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft1.1')" >
-        错误</a>
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.1')" >
+        通过</a>
 
-    <div id='div_ft1.1' class="popup_window">
-        <pre>ft1.1: 
-SubTestCase Error:
-test_search (__main__.TestBaiDu) (data={'search': 'selenium'})Traceback (most recent call last):
-  File "/Users/jiukunz/.local/share/virtualenvs/test_framework-5sPFVmNC/lib/python3.7/site-packages/selenium/webdriver/common/service.py", line 76, in start
-    stdin=PIPE)
-  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/subprocess.py", line 769, in __init__
-    restore_signals, start_new_session)
-  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/subprocess.py", line 1516, in _execute_child
-    raise child_exception_type(errno_num, err_msg, err_filename)
-FileNotFoundError: [Errno 2] No such file or directory: '/Users/jiukunz/git/test_framework/drivers\\chromedriver.exe': '/Users/jiukunz/git/test_framework/drivers\\chromedriver.exe'
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/Users/jiukunz/git/test_framework/test/case/test_baidu.py", line 37, in test_search
-    self.sub_setUp()
-  File "/Users/jiukunz/git/test_framework/test/case/test_baidu.py", line 27, in sub_setUp
-    self.page = BaiDuMainPage(browser_type='chrome').get(self.URL, maximize_window=False)
-  File "/Users/jiukunz/git/test_framework/test/common/browser.py", line 30, in get
-    self.driver = self.browser(executable_path=EXECUTABLE_PATH[self._type])
-  File "/Users/jiukunz/.local/share/virtualenvs/test_framework-5sPFVmNC/lib/python3.7/site-packages/selenium/webdriver/chrome/webdriver.py", line 73, in __init__
-    self.service.start()
-  File "/Users/jiukunz/.local/share/virtualenvs/test_framework-5sPFVmNC/lib/python3.7/site-packages/selenium/webdriver/common/service.py", line 83, in start
-    os.path.basename(self.path), self.start_error_message)
-selenium.common.exceptions.WebDriverException: Message: 'drivers\chromedriver.exe' executable needs to be in PATH. Please see https://sites.google.com/a/chromium.org/chromedriver/home
-
-</pre>
-    </div>
-    <!--css div popup end-->
-
-    </td>
-</tr>
-
-<tr id='ft1.2' class='none'>
-    <td class='errorCase'><div class='testcase'>test_search</div></td>
-    <td colspan='5' align='center'>
-
-    <!--css div popup start-->
-    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft1.2')" >
-        错误</a>
-
-    <div id='div_ft1.2' class="popup_window">
-        <pre>ft1.2: 
-SubTestCase Error:
-test_search (__main__.TestBaiDu) (data={'search': 'python'})Traceback (most recent call last):
-  File "/Users/jiukunz/.local/share/virtualenvs/test_framework-5sPFVmNC/lib/python3.7/site-packages/selenium/webdriver/common/service.py", line 76, in start
-    stdin=PIPE)
-  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/subprocess.py", line 769, in __init__
-    restore_signals, start_new_session)
-  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/subprocess.py", line 1516, in _execute_child
-    raise child_exception_type(errno_num, err_msg, err_filename)
-FileNotFoundError: [Errno 2] No such file or directory: '/Users/jiukunz/git/test_framework/drivers\\chromedriver.exe': '/Users/jiukunz/git/test_framework/drivers\\chromedriver.exe'
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/Users/jiukunz/git/test_framework/test/case/test_baidu.py", line 37, in test_search
-    self.sub_setUp()
-  File "/Users/jiukunz/git/test_framework/test/case/test_baidu.py", line 27, in sub_setUp
-    self.page = BaiDuMainPage(browser_type='chrome').get(self.URL, maximize_window=False)
-  File "/Users/jiukunz/git/test_framework/test/common/browser.py", line 30, in get
-    self.driver = self.browser(executable_path=EXECUTABLE_PATH[self._type])
-  File "/Users/jiukunz/.local/share/virtualenvs/test_framework-5sPFVmNC/lib/python3.7/site-packages/selenium/webdriver/chrome/webdriver.py", line 73, in __init__
-    self.service.start()
-  File "/Users/jiukunz/.local/share/virtualenvs/test_framework-5sPFVmNC/lib/python3.7/site-packages/selenium/webdriver/common/service.py", line 83, in start
-    os.path.basename(self.path), self.start_error_message)
-selenium.common.exceptions.WebDriverException: Message: 'drivers\chromedriver.exe' executable needs to be in PATH. Please see https://sites.google.com/a/chromium.org/chromedriver/home
-
-</pre>
-    </div>
-    <!--css div popup end-->
-
-    </td>
-</tr>
-
-<tr id='ft1.3' class='none'>
-    <td class='errorCase'><div class='testcase'>test_search</div></td>
-    <td colspan='5' align='center'>
-
-    <!--css div popup start-->
-    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft1.3')" >
-        错误</a>
-
-    <div id='div_ft1.3' class="popup_window">
-        <pre>ft1.3: 
-SubTestCase Error:
-test_search (__main__.TestBaiDu) (data={'search': '九坤'})Traceback (most recent call last):
-  File "/Users/jiukunz/.local/share/virtualenvs/test_framework-5sPFVmNC/lib/python3.7/site-packages/selenium/webdriver/common/service.py", line 76, in start
-    stdin=PIPE)
-  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/subprocess.py", line 769, in __init__
-    restore_signals, start_new_session)
-  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/subprocess.py", line 1516, in _execute_child
-    raise child_exception_type(errno_num, err_msg, err_filename)
-FileNotFoundError: [Errno 2] No such file or directory: '/Users/jiukunz/git/test_framework/drivers\\chromedriver.exe': '/Users/jiukunz/git/test_framework/drivers\\chromedriver.exe'
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/Users/jiukunz/git/test_framework/test/case/test_baidu.py", line 37, in test_search
-    self.sub_setUp()
-  File "/Users/jiukunz/git/test_framework/test/case/test_baidu.py", line 27, in sub_setUp
-    self.page = BaiDuMainPage(browser_type='chrome').get(self.URL, maximize_window=False)
-  File "/Users/jiukunz/git/test_framework/test/common/browser.py", line 30, in get
-    self.driver = self.browser(executable_path=EXECUTABLE_PATH[self._type])
-  File "/Users/jiukunz/.local/share/virtualenvs/test_framework-5sPFVmNC/lib/python3.7/site-packages/selenium/webdriver/chrome/webdriver.py", line 73, in __init__
-    self.service.start()
-  File "/Users/jiukunz/.local/share/virtualenvs/test_framework-5sPFVmNC/lib/python3.7/site-packages/selenium/webdriver/common/service.py", line 83, in start
-    os.path.basename(self.path), self.start_error_message)
-selenium.common.exceptions.WebDriverException: Message: 'drivers\chromedriver.exe' executable needs to be in PATH. Please see https://sites.google.com/a/chromium.org/chromedriver/home
-
+    <div id='div_pt1.1' class="popup_window">
+        <pre>pt1.1: 2018-11-24 09:15:37,442 - framework - INFO - POST http://172.17.3.34/api/auth
+2018-11-24 09:15:37,448 - framework - INFO - 请求内容: {'username': 'admin', 'password': 'e00cf25ad42683b3df678c61f42c6bda'}
+2018-11-24 09:15:37,449 - framework - INFO - 响应结果: &lt;Response [401]&gt;
+Unauthorized
+2018-11-24 09:15:37,449 - framework - INFO - TCPClient closed.
 </pre>
     </div>
     <!--css div popup end-->
@@ -370,10 +265,10 @@ selenium.common.exceptions.WebDriverException: Message: 'drivers\chromedriver.ex
 
         <tr id='total_row'>
             <td>总计</td>
-            <td>3</td>
+            <td>1</td>
+            <td>1</td>
             <td>0</td>
             <td>0</td>
-            <td>3</td>
             <td>&nbsp;</td>
         </tr>
     </table>
@@ -407,9 +302,9 @@ selenium.common.exceptions.WebDriverException: Message: 'drivers\chromedriver.ex
                     radius : '60%',
                     center: ['50%', '60%'],
                     data:[
-                        {value:0, name:'通过'},
+                        {value:1, name:'通过'},
                         {value:0, name:'失败'},
-                        {value:3, name:'错误'}
+                        {value:0, name:'错误'}
                     ],
                     itemStyle: {
                         emphasis: {
