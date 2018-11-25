@@ -85,7 +85,7 @@ class TCPClient(object):
             try:
                 self._sock.connect((self.domain, self.port))
             except socket.error as e:
-                logger.exception(e)
+                logger.error(e)
             else:
                 self.connected = 1
                 logger.debug('TCPClient connect to {0}:{1} success.'.format(self.domain, self.port))

@@ -1,5 +1,8 @@
+# api base url
 URL: "http://www.baidu.com"
 URL_CROWD: "http://172.17.3.34"
+
+# log config
 log:
   file_name: test.log
   backup: 5
@@ -7,14 +10,16 @@ log:
   file_level: DEBUG
   pattern: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 
+# socket
 ip: 127.0.0.1
 port: 8080
 
+# email config
 email:
   server: 'smtp.exmail.qq.com:465'
   sender: 'zhangjiukun@sensenets.com'
   password: 'A79C8mjxcLk2Ycqj'
-  receiver: 'zhangjiukun@sensenets.com',
+  receiver: 'zhangjiukun@sensenets.com;850871592@qq.com'
   title: '冒烟测试报告'
 
 

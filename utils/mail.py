@@ -1,12 +1,15 @@
 """
 邮件类。给指定用户发邮件。多个发件人和附件
 """
+import os
 import re
+import time
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from socket import gaierror, error
 from utils.log import logger
+from utils.config import Config, REPORT_PATH
 
 
 class Email:
@@ -76,17 +79,24 @@ class Email:
                 smtp_server.quit()  # 断开
 
 
-
 if __name__ == '__main__':
+
+    _email = Config().get('email')
+
+    # REPORT_NAME = '{}-report.html'.format(time.strftime('%Y-%m-%d-%H-%M-%S'))
+    REPORT_NAME = 'report.html'
+    report = os.path.join(REPORT_PATH, REPORT_NAME)
+
     message1 = '这是今天的测试报告'
-    message2 = open('../report/report.html', 'r', encoding='utf-8').read()
-    e = Email(title='搜索功能测试报告',
-              message='{0}\n{1}'.format(message1, message2),
-              receiver='zhangjiukun@sensenets.com',
-              server='smtp.exmail.qq.com:465',
-              sender='zhangjiukun@sensenets.com',
-              password='A79C8mjxcLk2Ycqj',
-              path='../report/report.html'
+    message2 = open(report, 'r', encoding='utf-8').read()
+
+    e = Email(title=_email.get('title'),
+              receiver=_email.get('receiver'),
+              server=_email.get('server'),
+              sender=_email.get('sender'),
+              password=_email.get('password'),
+              path=report,
+              message='{0}\n{1}'.format(message1, message2)
               )
     e.send()
 

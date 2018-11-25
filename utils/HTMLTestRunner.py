@@ -85,7 +85,7 @@ Version 0.8.2
 
 Version in 0.8.1
 * Validated XHTML (Wolfgang Borgert).
-* Added description of test classes and test cases.
+* Added description of test classes and testUI cases.
 
 Version in 0.8.0
 * Define Template_mixin class for customization.
@@ -715,7 +715,7 @@ class HTMLTestRunner(Template_mixin):
         self.startTime = datetime.datetime.now()
 
     def run(self, test):
-        "Run the given test case or test suite."
+        "Run the given test case or testUI suite."
         result = _TestResult(self.verbosity)
         test(result)
         self.stopTime = datetime.datetime.now()
