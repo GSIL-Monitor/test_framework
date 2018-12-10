@@ -18,7 +18,7 @@ port: 8080
 email:
   server: 'smtp.exmail.qq.com:465'
   sender: 'zhangjiukun@sensenets.com'
-  password: 'A79C8mjxcLk2Ycqj'
+  password: 'iPkywPhbdFan7fnh'
   receiver: 'zhangjiukun@sensenets.com;850871592@qq.com'
   title: '冒烟测试报告'
 
