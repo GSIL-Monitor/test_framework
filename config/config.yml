@@ -1,6 +1,6 @@
 # api base url
 URL: "http://www.baidu.com"
-URL_CROWD: "http://172.17.3.34"
+URL_CROWD: "http://172.17.3.40"
 
 # log config
 log:

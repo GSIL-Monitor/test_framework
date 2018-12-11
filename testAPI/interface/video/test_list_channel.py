@@ -27,7 +27,7 @@ class TestListChannel(unittest.TestCase):
     def save_pvg_server(self, httpcode):
         pass
 
-    def init-channel-tree(self, httpcode):
+    def init_channel_tree(self, httpcode):
         pass
 
     def list_channel_tree_new(self, httpcode):
