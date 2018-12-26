@@ -1,6 +1,14 @@
 # api base url
 URL: "http://www.baidu.com"
-URL_CROWD: "http://172.17.3.40"
+URL_CROWD: "http://172.17.3.34"
+
+# api server db
+sql:
+  sql_server: 172.17.3.34
+  sql_port: 3306
+  sql_name: sensenets
+  sql_user: root
+  sql_password: Sensenets123
 
 # log config
 log:
@@ -23,3 +31,23 @@ email:
   title: '冒烟测试报告'
 
 
+pvg_server_67:
+  ip: 10.0.100.12
+  port: 2100
+  user: admin
+  password: admin
+  type: PVG67
+  real_count: 150
+
+pvg_server_10:
+  ip: 10.0.100.36
+  port: 2015
+  user: admin
+  password: 123456
+  type: PVG10
+  real_count: 132372
+
+rtsp_server_1:
+  real_count: 1
+  type: rtsp
+  url: rtsp://10.0.10.200:8557/H264

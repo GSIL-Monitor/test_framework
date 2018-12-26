@@ -25,3 +25,4 @@ if __name__ == '__main__':
     j_2 = j.extract(query='data.ganmao', body=res.text)
     print(j_1, j_2)
 
+

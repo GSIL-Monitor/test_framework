@@ -24,14 +24,14 @@ class TestLogin(unittest.TestCase):
         assertHTTPCode(res, httpcode)
         return res
 
-    @unittest.skip("I don't want to run this case.")
+    @unittest.skipIf(False, "I don't want to run this case.")
     def test_login_success(self):
         """使用正确的用户名密码登录成功"""
         res1 = self.login('admin', 'ADMIN1', [200])
         self.assertIn('token', res1.text)
-        return res1.json()['token']
+        return res1
 
-    @unittest.skipIf(False, "I don't want to run this case.")
+    @unittest.skipIf(True, "I don't want to run this case.")
     def test_login_fail(self):
         """使用错误密码登录失败"""
         res2 = self.login('admin', 'admin1', [401, 405])
@@ -66,3 +66,4 @@ if __name__ == '__main__':
               message='{0}\n{1}'.format(message1, message2)
               )
     e.send()
+
