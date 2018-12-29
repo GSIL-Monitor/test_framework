@@ -17,6 +17,7 @@ class TestAdd(unittest.TestCase):
     def tearDown(self):
         self.client.close()
 
+    @unittest.skip
     def test_add(self):
         data = {
             'action': 'add',

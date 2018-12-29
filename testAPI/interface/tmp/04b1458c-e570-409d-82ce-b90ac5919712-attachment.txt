@@ -1,0 +1,11 @@
+2018-12-28 00:39:30,933 - framework - INFO - POST http://172.17.3.34/api/auth
+2018-12-28 00:39:30,934 - framework - INFO - 请求内容: {'username': 'admin', 'password': '9b76d842786e7c93839927c56f72fcd1'}
+2018-12-28 00:39:30,935 - framework - INFO - 响应结果: <Response [200]>
+{"token":"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX1NVUEVSX0FETUlOIiwiY3JlYXRlZCI6MTU0NTkyODc2NDUwNCwibmFtZSI6IiVFOCVCNiU4NSVFNyVCQSVBNyVFNyVBRSVBMSVFNyU5MCU4NiVFNSU5MSU5OCIsImV4cCI6MzYwMDE1NDU5Mjg3NjR9.Mx-4dqsMvalCO2fONvQqv1Y3RCLXV1zwzzD9RH0FFpp58TfzO2sQ3YVNDFIAlMqJ5vaEuVrKPJSymneF6YfNuw"}
+2018-12-28 00:39:30,967 - framework - INFO - POST http://172.17.3.34/api/crowd-auth/set-auth-key
+2018-12-28 00:39:30,969 - framework - INFO - 请求内容: {'license': <_io.BufferedReader name='E:\\Python\\test_framework\\data\\license\\error.license_key'>}
+2018-12-28 00:39:30,972 - framework - INFO - 响应结果: <Response [200]>
+{"msg":"success","ext":null}
+2018-12-28 00:39:33,991 - framework - INFO - POST http://172.17.3.34/api/crowd-auth/get-auth-info
+2018-12-28 00:39:33,992 - framework - INFO - 响应结果: <Response [200]>
+{"msg":"","ext":"0"}

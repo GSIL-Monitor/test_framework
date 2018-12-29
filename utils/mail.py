@@ -79,9 +79,13 @@ class Email:
                 smtp_server.quit()  # 断开
 
 
-if __name__ == '__main__':
-
+def send_report():
     _email = Config().get('email')
+    title = _email.get('title'),
+    receiver = _email.get('receiver'),
+    server = _email.get('server'),
+    sender = _email.get('sender'),
+    password = _email.get('password')
 
     # REPORT_NAME = '{}-report.html'.format(time.strftime('%Y-%m-%d-%H-%M-%S'))
     REPORT_NAME = 'report.html'
@@ -90,16 +94,14 @@ if __name__ == '__main__':
     message1 = '这是今天的测试报告'
     message2 = open(report, 'r', encoding='utf-8').read()
 
-    e = Email(title=_email.get('title'),
-              receiver=_email.get('receiver'),
-              server=_email.get('server'),
-              sender=_email.get('sender'),
-              password=_email.get('password'),
-              path=report,
+    e = Email(title=title, receiver=receiver, server=server,
+              sender=sender, password=password, path=report,
               message='{0}\n{1}'.format(message1, message2)
               )
     e.send()
 
 
+if __name__ == '__main__':
+    send_report()
 
 

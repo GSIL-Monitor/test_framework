@@ -1,0 +1,8 @@
+2018-12-28 00:43:26,619 - framework - INFO - POST http://172.17.3.34/api/crowd-auth/set-auth-key
+2018-12-28 00:43:26,621 - framework - INFO - 请求内容: {'license': <_io.BufferedReader name='E:\\Python\\test_framework\\data\\license\\172.17.3.34.license_key'>}
+2018-12-28 00:43:26,622 - framework - INFO - 响应结果: <Response [200]>
+{"msg":"success","ext":null}
+2018-12-28 00:43:29,639 - framework - INFO - POST http://172.17.3.34/api/crowd-auth/get-auth-info
+2018-12-28 00:43:29,640 - framework - INFO - 响应结果: <Response [200]>
+{"msg":"2021-08-02 19:30:13","ext":"16"}
+2018-12-28 00:43:29,653 - framework - INFO - TCPClient closed.

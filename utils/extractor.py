@@ -3,7 +3,7 @@
 
 import json
 import jmespath
-
+import json
 
 class JMESPathExtractor(object):
     """
@@ -19,10 +19,10 @@ class JMESPathExtractor(object):
 if __name__ == '__main__':
     from utils.client import HTTPClient
     res = HTTPClient(url='http://wthrcdn.etouch.cn/weather_mini?citykey=101010100').send()
-    print(res.text)
+    print(json.dumps(res.json(), indent=2, ensure_ascii=False))
     j = JMESPathExtractor()
     j_1 = j.extract(query='data.forecast[0].date', body=res.text)
     j_2 = j.extract(query='data.ganmao', body=res.text)
-    print(j_1, j_2)
+    print(j_1, '\n', j_2)
 
 

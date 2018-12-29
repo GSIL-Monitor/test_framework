@@ -83,7 +83,7 @@ class ExcelReader():
 if __name__ == '__main__':
     yml = '../config/config.yml'
     reader = YamlReader(yml)
-    print(reader.data)
+    print(reader.data[1])
 
     xls = '../data/test.xlsx'
     reader = ExcelReader(xls, title_line=True)

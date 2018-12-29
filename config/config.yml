@@ -1,6 +1,6 @@
 # api base url
 URL: "http://www.baidu.com"
-URL_CROWD: "http://172.17.3.34"
+BASE_URL: "http://172.17.3.34"
 
 # api server db
 sql:
@@ -30,7 +30,6 @@ email:
   receiver: 'zhangjiukun@sensenets.com;850871592@qq.com'
   title: '冒烟测试报告'
 
-
 pvg_server_67:
   ip: 10.0.100.12
   port: 2100
@@ -51,3 +50,15 @@ rtsp_server_1:
   real_count: 1
   type: rtsp
   url: rtsp://10.0.10.200:8557/H264
+
+---
+
+pvg_server_67:
+  name: 172.17.2.34
+  ipAddress: 172.17.2.34
+  version: PVG6_7
+  port: 2100
+  description: ""
+  ext: "{\"uid\":\"admin\",\"pwd\":\"admin\"}"
+  real_count: 20
+

@@ -8,62 +8,60 @@ from utils.HTMLTestRunner import HTMLTestRunner
 from utils.assertion import assertHTTPCode
 from utils.support import encrypt
 from utils.mail import Email
+import pytest
+import allure_pytest
+import allure
+from utils.extractor import JMESPathExtractor
+
+URL = Config().get('BASE_URL', index=0)
 
 
-class TestLogin(unittest.TestCase):
-    URL = Config().get('URL_CROWD', index=0)
+@allure.severity('blocker')
+@allure.title('登录成功')
+@pytest.mark.parametrize('username,password,httpcode',
+                         [('admin', 'Crowd@ad123', [200]),
+                          ('user', 'Crowd@us123', [200])])
+def test_login_success(username, password, httpcode):
+    """初始化管理员，获取token"""
+
     API_PATH = "/api/auth"
     METHOD = 'POST'
+    JSON = {"username": username, "password": encrypt(password)}
+    extractor = 'token'
 
-    def setUp(self):
-        self.client = HTTPClient(url=self.URL+self.API_PATH, method=self.METHOD)
+    client = HTTPClient(url=(URL + API_PATH), method=METHOD)
+    res = client.send(json=JSON)
+    client.close()
 
-    def login(self, username, password, httpcode):
-        auth_json = {"username": username, "password": encrypt(password)}
-        res = self.client.send(json=auth_json)
-        assertHTTPCode(res, httpcode)
-        return res
+    assert res.status_code in httpcode
 
-    @unittest.skipIf(False, "I don't want to run this case.")
-    def test_login_success(self):
-        """使用正确的用户名密码登录成功"""
-        res1 = self.login('admin', 'ADMIN1', [200])
-        self.assertIn('token', res1.text)
-        return res1
+    res = JMESPathExtractor().extract(extractor, res.text) if extractor else res
+    return res
 
-    @unittest.skipIf(True, "I don't want to run this case.")
-    def test_login_fail(self):
-        """使用错误密码登录失败"""
-        res2 = self.login('admin', 'admin1', [401, 405])
-        self.assertNotIn('token', res2.text)
 
-    def tearDown(self):
-        self.client.close()
+@allure.severity('blocker')
+@allure.title('登录失败')
+@pytest.mark.parametrize('username', ['admin', 'user'])
+@pytest.mark.parametrize('password', ['123456', ''])
+@pytest.mark.parametrize('httpcode', [[401, 405]])
+def test_login_fail(username, password, httpcode):
+    """使用错误密码登录失败"""
+
+    API_PATH = "/api/auth"
+    METHOD = 'POST'
+    JSON = {"username": username, "password": encrypt(password)}
+
+    client = HTTPClient(url=(URL+API_PATH), method=METHOD)
+    res = client.send(json=JSON)
+    client.close()
+
+    assert res.status_code in httpcode
+    assert 'Unauthorized' in res.text
+
+    return res
 
 
 if __name__ == '__main__':
-    REPORT_NAME = '{}-report.html'.format(time.strftime('%Y-%m-%d-%H-%M-%S'))
-    report = os.path.join(REPORT_PATH, REPORT_NAME)
+    pytest.main(['test_login.py'])
 
-    suite = unittest.TestSuite()
-    tests = [TestLogin('test_login_success'), TestLogin('test_login_fail')]
-    suite.addTests(tests)
-    with open(report, 'wb') as f:
-        runner = HTMLTestRunner(f, verbosity=2, title='测试框架', description='接口html报告')
-        runner.run(suite)
-
-    _email = Config().get('email')
-
-    message1 = '这是今天的测试报告'
-    message2 = open(report, 'r', encoding='utf-8').read()
-
-    e = Email(title=_email.get('title'),
-              receiver=_email.get('receiver'),
-              server=_email.get('server'),
-              sender=_email.get('sender'),
-              password=_email.get('password'),
-              path=report,
-              message='{0}\n{1}'.format(message1, message2)
-              )
-    e.send()
 

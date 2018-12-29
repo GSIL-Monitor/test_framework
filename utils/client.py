@@ -23,7 +23,7 @@ class HTTPClient(object):
     <Response [200]>
     """
     def __init__(self, url, method='GET', headers=None, cookies=None):
-        """headers\cookies均为字典类型。如headers={'Content_Type':'text/html'}"""
+        """headers/cookies均为字典类型。如headers={'Content_Type':'text/html'}"""
         self.url = url
         self.session = requests.session()
         self.method = method.upper()

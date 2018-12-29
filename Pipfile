@@ -22,6 +22,9 @@ yamlreader = ">=3.0.4"
 django = ">=2.1.4"
 injson = ">=0.2.2"
 allure-pytest = ">=2.5.4"
+unittest2pytest = "*"
+pytest-depends = ">=0.8.1"
+deptest = "*"
 
 [requires]
 python_version  = "3.6"

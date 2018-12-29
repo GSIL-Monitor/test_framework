@@ -8,7 +8,7 @@ from utils.support import encrypt
 
 
 class TestUserList(unittest.TestCase):
-    URL = Config().get('URL_CROWD', index=0)
+    URL = Config().get('BASE_URL', index=0)
     API_PATH = "/api/user/list-user-id-name"
     METHOD = 'GET'
 

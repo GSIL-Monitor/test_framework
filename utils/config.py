@@ -3,6 +3,8 @@
 """
 import os
 from utils.file_reader import YamlReader
+import json
+from json import JSONEncoder
 
 BASE_PATH = os.path.split(os.path.dirname(os.path.abspath(__file__)))[0]
 CONFIG_PATH = os.path.join(BASE_PATH, 'config')
@@ -29,6 +31,17 @@ class Config:
         return self.config[index].get(element)
 
 
+
 if __name__ == '__main__':
     c = Config()
     print(c.get('URL'), BASE_PATH)
+
+    dicts_pvg_67 = Config().get('pvg_server_67', index=1)
+    real_count_67 = dicts_pvg_67.pop('real_count')
+    json_pvg_67 = JSONEncoder().encode(dicts_pvg_67)
+
+    print(json_pvg_67)
+
+    print(real_count_67)
+
+
