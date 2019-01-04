@@ -1,3 +1,5 @@
+# coding = utf-8
+#
 """
 socket server 的mock。
 两个接口，add和sub

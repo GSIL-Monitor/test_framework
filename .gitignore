@@ -3,6 +3,9 @@
 __pycache__/
 *.py[cod]
 .pytest_cache
+utils/__pycache__/
+*.lock
+*.swp
 
 # C extensions
 *.so

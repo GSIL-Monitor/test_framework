@@ -1,3 +1,4 @@
+# coding = utf-8
 from utils.client import TCPClient
 import unittest
 from utils.config import Config

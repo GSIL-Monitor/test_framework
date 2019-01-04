@@ -25,6 +25,7 @@ allure-pytest = ">=2.5.4"
 unittest2pytest = "*"
 pytest-depends = ">=0.8.1"
 deptest = "*"
+pytest = "*"
 
 [requires]
 python_version  = "3.6"
