@@ -1,0 +1,42 @@
+2019-01-24 19:45:06,973 - framework - INFO - POST http://172.17.3.40/api/video/save-pvg-server
+2019-01-24 19:45:06,974 - framework - INFO - 请求内容: {'name': '10.0.100.12', 'ipAddress': '10.0.100.12', 'version': 'PVG6_7', 'port': 2100, 'description': '', 'ext': '{"uid":"admin","pwd":"admin"}'}
+2019-01-24 19:45:06,975 - framework - INFO - 响应结果: <Response [200]>
+{"msg":"success","ext":null}
+2019-01-24 19:45:06,977 - framework - INFO - TCPClient closed.
+2019-01-24 19:45:06,978 - framework - INFO - 已添加video: 10.0.100.12 .
+2019-01-24 19:45:06,988 - framework - INFO - POST http://172.17.3.40/api/video/list-channel-tree-new
+2019-01-24 19:45:06,989 - framework - INFO - 请求内容: {'type': 'Crowd', 'rows': 30}
+2019-01-24 19:45:06,990 - framework - INFO - 响应结果: <Response [200]>
+[{"isParent":"true","port":2100,"videoType":"pvg","isSyncData":true,"name":"10.0.100.12","ipAddress":"10.0.100.12","remark":"","id":"0D61DAD00ACF45728EBF889F2EFEEC06"}]
+2019-01-24 19:45:06,991 - framework - INFO - TCPClient closed.
+2019-01-24 19:45:06,992 - framework - INFO - 获取设备列表<Response [200]> .
+2019-01-24 19:45:06,993 - framework - INFO - 获取10.0.100.12的ID为0D61DAD00ACF45728EBF889F2EFEEC06
+2019-01-24 19:45:07,004 - framework - INFO - POST http://172.17.3.40/api/video/refresh-pvg-server
+2019-01-24 19:45:07,005 - framework - INFO - 请求内容: {'serverId': '0D61DAD00ACF45728EBF889F2EFEEC06'}
+2019-01-24 19:45:07,006 - framework - INFO - 响应结果: <Response [200]>
+{"msg":"hasSyncTask","ext":"有同步任务，请稍后再试"}
+2019-01-24 19:45:07,007 - framework - INFO - TCPClient closed.
+2019-01-24 19:45:07,009 - framework - INFO - SELECT COUNT(*) FROM t_video_channel WHERE F_Video_Server_ID = '0D61DAD00ACF45728EBF889F2EFEEC06' AND F_Enabled = 1;
+2019-01-24 19:45:07,016 - framework - INFO - 连接到mysql服务器172.17.3.40
+2019-01-24 19:45:07,034 - framework - INFO - 查询结果为：[(0,)]
+2019-01-24 19:45:07,035 - framework - INFO - 查询中，已耗时0:00:00.025068，已同步0条
+2019-01-24 19:45:12,041 - framework - INFO - 连接到mysql服务器172.17.3.40
+2019-01-24 19:45:12,066 - framework - INFO - 查询结果为：[(150,)]
+2019-01-24 19:45:12,068 - framework - INFO - 查询完毕，数量匹配
+2019-01-24 19:45:12,069 - framework - INFO - 总耗时:0:00:05.057740
+2019-01-24 19:45:12,084 - framework - INFO - POST http://172.17.3.40/api/video/list-channel-tree-new
+2019-01-24 19:45:12,086 - framework - INFO - 请求内容: {'type': 'Crowd', 'rows': 30}
+2019-01-24 19:45:12,087 - framework - INFO - 响应结果: <Response [200]>
+[{"isParent":"true","port":2100,"videoType":"pvg","isSyncData":false,"name":"10.0.100.12","ipAddress":"10.0.100.12","remark":"","id":"0D61DAD00ACF45728EBF889F2EFEEC06"}]
+2019-01-24 19:45:12,089 - framework - INFO - TCPClient closed.
+2019-01-24 19:45:12,090 - framework - INFO - 获取设备列表<Response [200]> .
+2019-01-24 19:45:12,093 - framework - INFO - 获取10.0.100.12的ID为0D61DAD00ACF45728EBF889F2EFEEC06
+2019-01-24 19:45:12,161 - framework - INFO - POST http://172.17.3.40/api/video/del-video-server
+2019-01-24 19:45:12,162 - framework - INFO - 请求内容: {'videoServerId': '0D61DAD00ACF45728EBF889F2EFEEC06', 'flag': 'true'}
+2019-01-24 19:45:12,163 - framework - INFO - 响应结果: <Response [200]>
+{"msg":"success","ext":null}
+2019-01-24 19:45:12,165 - framework - INFO - TCPClient closed.
+2019-01-24 19:45:12,178 - framework - INFO - POST http://172.17.3.40/api/log/log-out
+2019-01-24 19:45:12,179 - framework - INFO - 响应结果: <Response [200]>
+{"msg":"success","ext":null}
+2019-01-24 19:45:12,180 - framework - INFO - TCPClient closed.

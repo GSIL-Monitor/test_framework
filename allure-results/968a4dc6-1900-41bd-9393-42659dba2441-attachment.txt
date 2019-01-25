@@ -1,0 +1,25 @@
+2019-01-24 19:45:05,830 - framework - INFO - POST http://172.17.3.40/api/video/save-rtsp
+2019-01-24 19:45:05,831 - framework - INFO - 请求内容: {'rtspUrl': 'rtsp://10.0.10.200:8557/H264', 'rtspName': 'rtsp200'}
+2019-01-24 19:45:05,832 - framework - INFO - 响应结果: <Response [200]>
+{"msg":"success","ext":null}
+2019-01-24 19:45:05,833 - framework - INFO - TCPClient closed.
+2019-01-24 19:45:05,834 - framework - INFO - 已添加video: rtsp200 .
+2019-01-24 19:45:05,845 - framework - INFO - POST http://172.17.3.40/api/video/list-channel-tree-new
+2019-01-24 19:45:05,846 - framework - INFO - 请求内容: {'type': 'Crowd', 'rows': 30}
+2019-01-24 19:45:05,847 - framework - INFO - 响应结果: <Response [200]>
+[{"isParent":"true","port":0,"videoType":"rtsp","isSyncData":false,"name":"rtsp视频","remark":"rtsp","id":"3F910D5EBCC34F4C94A274855EABB43C"}]
+2019-01-24 19:45:05,848 - framework - INFO - TCPClient closed.
+2019-01-24 19:45:05,850 - framework - INFO - 获取设备列表<Response [200]> .
+2019-01-24 19:45:05,851 - framework - INFO - 获取rtsp视频的ID为3F910D5EBCC34F4C94A274855EABB43C
+2019-01-24 19:45:05,868 - framework - INFO - POST http://172.17.3.40/api/video/list-channel-tree-new
+2019-01-24 19:45:05,869 - framework - INFO - 请求内容: {'type': 'Crowd', 'rows': 30}
+2019-01-24 19:45:05,870 - framework - INFO - 响应结果: <Response [200]>
+[{"isParent":"true","port":0,"videoType":"rtsp","isSyncData":false,"name":"rtsp视频","remark":"rtsp","id":"3F910D5EBCC34F4C94A274855EABB43C"}]
+2019-01-24 19:45:05,871 - framework - INFO - TCPClient closed.
+2019-01-24 19:45:05,872 - framework - INFO - 获取设备列表<Response [200]> .
+2019-01-24 19:45:05,874 - framework - INFO - 获取rtsp视频的ID为3F910D5EBCC34F4C94A274855EABB43C
+2019-01-24 19:45:05,925 - framework - INFO - POST http://172.17.3.40/api/video/del-video-server
+2019-01-24 19:45:05,926 - framework - INFO - 请求内容: {'videoServerId': '3F910D5EBCC34F4C94A274855EABB43C', 'flag': 'true'}
+2019-01-24 19:45:05,927 - framework - INFO - 响应结果: <Response [200]>
+{"msg":"success","ext":null}
+2019-01-24 19:45:05,928 - framework - INFO - TCPClient closed.

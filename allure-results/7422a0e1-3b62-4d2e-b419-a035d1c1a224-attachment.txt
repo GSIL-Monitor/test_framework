@@ -1,0 +1,35 @@
+2019-01-24 19:45:06,640 - framework - INFO - POST http://172.17.3.40/api/video/save-rtsp
+2019-01-24 19:45:06,643 - framework - INFO - 请求内容: {'rtspUrl': 'rtsp://admin:admin@10.0.10.220/cam/realmonitor?channel=1&subtype=0', 'rtspName': 'rtsp220'}
+2019-01-24 19:45:06,646 - framework - INFO - 响应结果: <Response [200]>
+{"msg":"success","ext":null}
+2019-01-24 19:45:06,647 - framework - INFO - TCPClient closed.
+2019-01-24 19:45:06,648 - framework - INFO - 已添加video: rtsp220 .
+2019-01-24 19:45:06,659 - framework - INFO - POST http://172.17.3.40/api/video/list-channel-tree-new
+2019-01-24 19:45:06,661 - framework - INFO - 请求内容: {'type': 'Crowd', 'rows': 30}
+2019-01-24 19:45:06,662 - framework - INFO - 响应结果: <Response [200]>
+[{"isParent":"true","port":0,"videoType":"rtsp","isSyncData":false,"name":"rtsp视频","remark":"rtsp","id":"4DEDDDC2FD3B4EE4ABFC7BFB2291CD48"}]
+2019-01-24 19:45:06,663 - framework - INFO - TCPClient closed.
+2019-01-24 19:45:06,664 - framework - INFO - 获取设备列表<Response [200]> .
+2019-01-24 19:45:06,665 - framework - INFO - 获取rtsp视频的ID为4DEDDDC2FD3B4EE4ABFC7BFB2291CD48
+2019-01-24 19:45:06,678 - framework - INFO - POST http://172.17.3.40/api/video/update-server-name
+2019-01-24 19:45:06,679 - framework - INFO - 请求内容: {'serverId': '4DEDDDC2FD3B4EE4ABFC7BFB2291CD48', 'serverName': 'test_rename', 'description': '123`!@#$%^&*()', 'version': ''}
+2019-01-24 19:45:06,680 - framework - INFO - 响应结果: <Response [200]>
+{"msg":"success","ext":null}
+2019-01-24 19:45:06,681 - framework - INFO - TCPClient closed.
+2019-01-24 19:45:06,693 - framework - INFO - POST http://172.17.3.40/api/video/update-server-name
+2019-01-24 19:45:06,694 - framework - INFO - 请求内容: {'serverId': '4DEDDDC2FD3B4EE4ABFC7BFB2291CD48', 'serverName': 'rtsp视频', 'description': '', 'version': ''}
+2019-01-24 19:45:06,695 - framework - INFO - 响应结果: <Response [200]>
+{"msg":"success","ext":null}
+2019-01-24 19:45:06,696 - framework - INFO - TCPClient closed.
+2019-01-24 19:45:06,712 - framework - INFO - POST http://172.17.3.40/api/video/list-channel-tree-new
+2019-01-24 19:45:06,713 - framework - INFO - 请求内容: {'type': 'Crowd', 'rows': 30}
+2019-01-24 19:45:06,714 - framework - INFO - 响应结果: <Response [200]>
+[{"isParent":"true","port":0,"videoType":"rtsp","isSyncData":false,"name":"rtsp视频","remark":"","id":"4DEDDDC2FD3B4EE4ABFC7BFB2291CD48"}]
+2019-01-24 19:45:06,715 - framework - INFO - TCPClient closed.
+2019-01-24 19:45:06,717 - framework - INFO - 获取设备列表<Response [200]> .
+2019-01-24 19:45:06,718 - framework - INFO - 获取rtsp视频的ID为4DEDDDC2FD3B4EE4ABFC7BFB2291CD48
+2019-01-24 19:45:06,795 - framework - INFO - POST http://172.17.3.40/api/video/del-video-server
+2019-01-24 19:45:06,797 - framework - INFO - 请求内容: {'videoServerId': '4DEDDDC2FD3B4EE4ABFC7BFB2291CD48', 'flag': 'true'}
+2019-01-24 19:45:06,798 - framework - INFO - 响应结果: <Response [200]>
+{"msg":"success","ext":null}
+2019-01-24 19:45:06,799 - framework - INFO - TCPClient closed.

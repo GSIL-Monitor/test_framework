@@ -26,6 +26,7 @@ unittest2pytest = "*"
 pytest-depends = ">=0.8.1"
 deptest = "*"
 pytest = "*"
+pyhocon = "*"
 
 [requires]
 python_version  = "3.6"

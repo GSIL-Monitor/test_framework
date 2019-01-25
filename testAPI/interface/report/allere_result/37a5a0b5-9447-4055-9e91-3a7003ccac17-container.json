@@ -1,1 +1,0 @@
-{"uuid": "fb7a3d07-32f8-4c30-8892-2cfdcc5e96e5", "children": ["66f7fa01-6fca-4c0c-8dcc-e2ae4021ab24"], "befores": [{"name": "login_admin", "status": "passed", "start": 1546051797439, "stop": 1546051797538}], "afters": [{"name": "login_admin::teardown", "status": "passed", "start": 1546051808942, "stop": 1546051808942}], "start": 1546051797439, "stop": 1546051808945}

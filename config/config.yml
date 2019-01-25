@@ -1,10 +1,10 @@
 # api base url
 URL: "http://www.baidu.com"
-BASE_URL: "http://172.17.3.34"
+BASE_URL: "http://172.17.3.40"
 
 # api server db
 sql:
-  sql_server: 172.17.3.34
+  sql_server: 172.17.3.40
   sql_port: 3306
   sql_name: sensenets
   sql_user: root
@@ -24,41 +24,22 @@ port: 8080
 
 # email config
 email:
-  server: 'smtp.exmail.qq.com:465'
+  server: 'smtp.exmail.qq.com'
+  port: 465
+  ssl: True
   sender: 'zhangjiukun@sensenets.com'
   password: 'iPkywPhbdFan7fnh'
   receiver: 'zhangjiukun@sensenets.com;850871592@qq.com'
   title: '冒烟测试报告'
 
-pvg_server_67:
-  ip: 10.0.100.12
-  port: 2100
-  user: admin
-  password: admin
-  type: PVG67
-  real_count: 150
-
-pvg_server_10:
-  ip: 10.0.100.36
-  port: 2015
-  user: admin
-  password: 123456
-  type: PVG10
-  real_count: 132372
-
-rtsp_server_1:
-  real_count: 1
-  type: rtsp
-  url: rtsp://10.0.10.200:8557/H264
-
 ---
 
-pvg_server_67:
-  name: 172.17.2.34
-  ipAddress: 172.17.2.34
-  version: PVG6_7
-  port: 2100
-  description: ""
-  ext: "{\"uid\":\"admin\",\"pwd\":\"admin\"}"
-  real_count: 20
-
+# email config
+email:
+  server: 'mail.sensenets.cn'
+  port: 25
+  ssl: False
+  sender: 'zhangjiukun@sensenets.cn'
+  password: 'sensenets'
+  receiver: 'zhangjiukun@sensenets.com;850871592@qq.com'
+  title: 'Product build success, please test.'

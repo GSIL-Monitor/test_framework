@@ -1,0 +1,85 @@
+connectionpool.py          205 DEBUG    Starting new HTTP connection (1): 172.17.3.40:80
+connectionpool.py          393 DEBUG    http://172.17.3.40:80 "POST /api/video/save-pvg-server HTTP/1.1" 200 None
+log.py                      42 INFO     POST http://172.17.3.40/api/video/save-pvg-server
+log.py                      42 INFO     请求内容: {'name': '10.0.100.12', 'ipAddress': '10.0.100.12', 'version': 'PVG6_7', 'port': 2100, 'description': '', 'ext': '{"uid":"admin","pwd":"admin"}'}
+log.py                      42 INFO     响应结果: <Response [200]>
+{"msg":"success","ext":null}
+log.py                      42 INFO     TCPClient closed.
+log.py                      42 INFO     已添加video: 10.0.100.12 .
+connectionpool.py          205 DEBUG    Starting new HTTP connection (1): 172.17.3.40:80
+connectionpool.py          393 DEBUG    http://172.17.3.40:80 "POST /api/video/list-channel-tree-new HTTP/1.1" 200 None
+log.py                      42 INFO     POST http://172.17.3.40/api/video/list-channel-tree-new
+log.py                      42 INFO     请求内容: {'type': 'Crowd', 'rows': 30}
+log.py                      42 INFO     响应结果: <Response [200]>
+[{"isParent":"true","port":2100,"videoType":"pvg","isSyncData":true,"name":"10.0.100.12","ipAddress":"10.0.100.12","remark":"","id":"395069FBFA074394885A0644A1AECE23"}]
+log.py                      42 INFO     TCPClient closed.
+log.py                      42 INFO     获取设备列表<Response [200]> .
+log.py                      42 INFO     获取10.0.100.12的ID为395069FBFA074394885A0644A1AECE23
+log.py                      42 INFO     SELECT COUNT(*) FROM t_video_channel WHERE F_Video_Server_ID = '395069FBFA074394885A0644A1AECE23' AND F_Enabled = 1;
+log.py                      42 INFO     连接到mysql服务器172.17.3.40
+log.py                      42 INFO     查询结果为：[(0,)]
+log.py                      42 INFO     查询中，已耗时0:00:00.021056，已同步0条
+log.py                      42 INFO     连接到mysql服务器172.17.3.40
+log.py                      42 INFO     查询结果为：[(150,)]
+log.py                      42 INFO     查询完毕，数量匹配
+log.py                      42 INFO     总耗时:0:00:05.048985
+log.py                      42 INFO     连接到mysql服务器172.17.3.40
+log.py                      42 INFO     查询结果为：[('761D3B55245D45908C0621E44583EAD8',)]
+log.py                      42 INFO     查询结果为：[('78651E5ADA7B4619884D2F9FFD397C08',)]
+log.py                      42 INFO     查询结果为：[('35D16BF1D4334D9D953E13C6052F7F2F',)]
+log.py                      42 INFO     查询结果为：[('ED15606B99D14DE788EBB2C65C37C598',)]
+log.py                      42 INFO     查询结果为：[('44D13A3B26BC47C0B0581B735839ACDF',)]
+log.py                      42 INFO     查询结果为：[('175457269A294660B5D49C993337C1B7',)]
+connectionpool.py          205 DEBUG    Starting new HTTP connection (1): 172.17.3.40:80
+connectionpool.py          393 DEBUG    http://172.17.3.40:80 "POST /api/user/add-user HTTP/1.1" 200 None
+log.py                      42 INFO     POST http://172.17.3.40/api/user/add-user
+log.py                      42 INFO     请求内容: {'userName': '张三大爷', 'userId': 'zhangsan', 'roleType': 'ROLE_ADMIN', 'password': '69577def61141634df6991071bb74350', 'cameraIds': '["761D3B55245D45908C0621E44583EAD8", "78651E5ADA7B4619884D2F9FFD397C08", "35D16BF1D4334D9D953E13C6052F7F2F", "ED15606B99D14DE788EBB2C65C37C598", "44D13A3B26BC47C0B0581B735839ACDF", "175457269A294660B5D49C993337C1B7"]', 'cameraNames': ['19、上海外滩白天', '20、上海外滩夜晚', 'mbf_47', 'mbf_26', '24、人群通道效果', '10.0.10.200']}
+log.py                      42 INFO     响应结果: <Response [200]>
+{"msg":"success","ext":null}
+log.py                      42 INFO     TCPClient closed.
+connectionpool.py          205 DEBUG    Starting new HTTP connection (1): 172.17.3.40:80
+connectionpool.py          393 DEBUG    http://172.17.3.40:80 "POST /api/user/list-user HTTP/1.1" 200 None
+log.py                      42 INFO     POST http://172.17.3.40/api/user/list-user
+log.py                      42 INFO     请求内容: {'page': 1, 'rows': 20, 'sidx': 'uid', 'sord': 'asc', 'searchString': '{"roleType":"","name":""}'}
+log.py                      42 INFO     响应结果: <Response [200]>
+{"page":1,"total":1,"records":3,"rows":[{"id":"0BE0EBA1904048A2816611D0AC591BAC","uid":"admin","uname":"超级管理员","pwd":null,"roleType":"ROLE_SUPER_ADMIN","pyCode":null,"ext":"","loginTime":1548330210000,"loginCount":0,"todayCount":0,"loginHost":"127.0.0.1","createTime":1546572645000,"cameraRole":null,"roleTypeName":"超级管理员","enabled":true},{"id":"85528E0DE2604801826690EA4129F24B","uid":"zhangsan","uname":"张三大爷","pwd":null,"roleType":"ROLE_ADMIN","pyCode":null,"ext":null,"loginTime":null,"loginCount":0,"todayCount":0,"loginHost":null,"createTime":1548330267000,"cameraRole":null,"roleTypeName":"管理员","enabled":true},{"id":"5FB02B133ABC4A2A8F235CD207F576AE","uid":"user","uname":"普通用户","pwd":null,"roleType":"ROLE_USER","pyCode":null,"ext":"","loginTime":1548330210000,"loginCount":0,"todayCount":0,"loginHost":"127.0.0.1","createTime":1546572645000,"cameraRole":null,"roleTypeName":"普通用户","enabled":true}],"additional":null}
+log.py                      42 INFO     TCPClient closed.
+log.py                      42 INFO     用户zhangsan存在, 断言成功
+connectionpool.py          205 DEBUG    Starting new HTTP connection (1): 172.17.3.40:80
+connectionpool.py          393 DEBUG    http://172.17.3.40:80 "POST /api/user/update-user HTTP/1.1" 200 None
+log.py                      42 INFO     POST http://172.17.3.40/api/user/update-user
+log.py                      42 INFO     请求内容: {'id': '85528E0DE2604801826690EA4129F24B', 'userName': '张三大爷', 'roleType': 'ROLE_ADMIN', 'password': '69577def61141634df6991071bb74350', 'cameraIds': '["761D3B55245D45908C0621E44583EAD8", "78651E5ADA7B4619884D2F9FFD397C08", "35D16BF1D4334D9D953E13C6052F7F2F", "ED15606B99D14DE788EBB2C65C37C598", "44D13A3B26BC47C0B0581B735839ACDF", "175457269A294660B5D49C993337C1B7"]', 'cameraNames': ['19、上海外滩白天', '20、上海外滩夜晚', 'mbf_47', 'mbf_26', '24、人群通道效果', '10.0.10.200']}
+log.py                      42 INFO     响应结果: <Response [200]>
+{"msg":"success","ext":null}
+log.py                      42 INFO     TCPClient closed.
+connectionpool.py          205 DEBUG    Starting new HTTP connection (1): 172.17.3.40:80
+connectionpool.py          393 DEBUG    http://172.17.3.40:80 "POST /api/user/delete-user HTTP/1.1" 200 None
+log.py                      42 INFO     POST http://172.17.3.40/api/user/delete-user
+log.py                      42 INFO     请求内容: {'id': '85528E0DE2604801826690EA4129F24B'}
+log.py                      42 INFO     响应结果: <Response [200]>
+{"msg":"success","ext":null}
+log.py                      42 INFO     TCPClient closed.
+connectionpool.py          205 DEBUG    Starting new HTTP connection (1): 172.17.3.40:80
+connectionpool.py          393 DEBUG    http://172.17.3.40:80 "POST /api/user/list-user HTTP/1.1" 200 None
+log.py                      42 INFO     POST http://172.17.3.40/api/user/list-user
+log.py                      42 INFO     请求内容: {'page': 1, 'rows': 20, 'sidx': 'uid', 'sord': 'asc', 'searchString': '{"roleType":"","name":""}'}
+log.py                      42 INFO     响应结果: <Response [200]>
+{"page":1,"total":1,"records":2,"rows":[{"id":"0BE0EBA1904048A2816611D0AC591BAC","uid":"admin","uname":"超级管理员","pwd":null,"roleType":"ROLE_SUPER_ADMIN","pyCode":null,"ext":"","loginTime":1548330210000,"loginCount":0,"todayCount":0,"loginHost":"127.0.0.1","createTime":1546572645000,"cameraRole":null,"roleTypeName":"超级管理员","enabled":true},{"id":"5FB02B133ABC4A2A8F235CD207F576AE","uid":"user","uname":"普通用户","pwd":null,"roleType":"ROLE_USER","pyCode":null,"ext":"","loginTime":1548330210000,"loginCount":0,"todayCount":0,"loginHost":"127.0.0.1","createTime":1546572645000,"cameraRole":null,"roleTypeName":"普通用户","enabled":true}],"additional":null}
+log.py                      42 INFO     TCPClient closed.
+log.py                      42 INFO     用户zhangsan不存在,断言成功
+connectionpool.py          205 DEBUG    Starting new HTTP connection (1): 172.17.3.40:80
+connectionpool.py          393 DEBUG    http://172.17.3.40:80 "POST /api/video/list-channel-tree-new HTTP/1.1" 200 None
+log.py                      42 INFO     POST http://172.17.3.40/api/video/list-channel-tree-new
+log.py                      42 INFO     请求内容: {'type': 'Crowd', 'rows': 30}
+log.py                      42 INFO     响应结果: <Response [200]>
+[{"isParent":"true","port":2100,"videoType":"pvg","isSyncData":false,"name":"10.0.100.12","ipAddress":"10.0.100.12","remark":"","id":"395069FBFA074394885A0644A1AECE23"}]
+log.py                      42 INFO     TCPClient closed.
+log.py                      42 INFO     获取设备列表<Response [200]> .
+log.py                      42 INFO     获取10.0.100.12的ID为395069FBFA074394885A0644A1AECE23
+connectionpool.py          205 DEBUG    Starting new HTTP connection (1): 172.17.3.40:80
+connectionpool.py          393 DEBUG    http://172.17.3.40:80 "POST /api/video/del-video-server HTTP/1.1" 200 None
+log.py                      42 INFO     POST http://172.17.3.40/api/video/del-video-server
+log.py                      42 INFO     请求内容: {'videoServerId': '395069FBFA074394885A0644A1AECE23', 'flag': 'true'}
+log.py                      42 INFO     响应结果: <Response [200]>
+{"msg":"success","ext":null}
+log.py                      42 INFO     TCPClient closed.

@@ -1,0 +1,67 @@
+2019-01-24 19:44:38,526 - framework - INFO - POST http://172.17.3.40/api/video/save-pvg-server
+2019-01-24 19:44:38,527 - framework - INFO - 请求内容: {'name': '10.0.100.12', 'ipAddress': '10.0.100.12', 'version': 'PVG6_7', 'port': 2100, 'description': '', 'ext': '{"uid":"admin","pwd":"admin"}'}
+2019-01-24 19:44:38,528 - framework - INFO - 响应结果: <Response [200]>
+{"msg":"success","ext":null}
+2019-01-24 19:44:38,530 - framework - INFO - TCPClient closed.
+2019-01-24 19:44:38,531 - framework - INFO - 已添加video: 10.0.100.12 .
+2019-01-24 19:44:38,542 - framework - INFO - POST http://172.17.3.40/api/video/list-channel-tree-new
+2019-01-24 19:44:38,543 - framework - INFO - 请求内容: {'type': 'Crowd', 'rows': 30}
+2019-01-24 19:44:38,544 - framework - INFO - 响应结果: <Response [200]>
+[{"isParent":"true","port":2100,"videoType":"pvg","isSyncData":true,"name":"10.0.100.12","ipAddress":"10.0.100.12","remark":"","id":"395069FBFA074394885A0644A1AECE23"}]
+2019-01-24 19:44:38,546 - framework - INFO - TCPClient closed.
+2019-01-24 19:44:38,547 - framework - INFO - 获取设备列表<Response [200]> .
+2019-01-24 19:44:38,548 - framework - INFO - 获取10.0.100.12的ID为395069FBFA074394885A0644A1AECE23
+2019-01-24 19:44:38,549 - framework - INFO - SELECT COUNT(*) FROM t_video_channel WHERE F_Video_Server_ID = '395069FBFA074394885A0644A1AECE23' AND F_Enabled = 1;
+2019-01-24 19:44:38,554 - framework - INFO - 连接到mysql服务器172.17.3.40
+2019-01-24 19:44:38,569 - framework - INFO - 查询结果为：[(0,)]
+2019-01-24 19:44:38,571 - framework - INFO - 查询中，已耗时0:00:00.021056，已同步0条
+2019-01-24 19:44:43,578 - framework - INFO - 连接到mysql服务器172.17.3.40
+2019-01-24 19:44:43,596 - framework - INFO - 查询结果为：[(150,)]
+2019-01-24 19:44:43,597 - framework - INFO - 查询完毕，数量匹配
+2019-01-24 19:44:43,598 - framework - INFO - 总耗时:0:00:05.048985
+2019-01-24 19:44:43,604 - framework - INFO - 连接到mysql服务器172.17.3.40
+2019-01-24 19:44:43,625 - framework - INFO - 查询结果为：[('761D3B55245D45908C0621E44583EAD8',)]
+2019-01-24 19:44:43,640 - framework - INFO - 查询结果为：[('78651E5ADA7B4619884D2F9FFD397C08',)]
+2019-01-24 19:44:43,652 - framework - INFO - 查询结果为：[('35D16BF1D4334D9D953E13C6052F7F2F',)]
+2019-01-24 19:44:43,664 - framework - INFO - 查询结果为：[('ED15606B99D14DE788EBB2C65C37C598',)]
+2019-01-24 19:44:43,677 - framework - INFO - 查询结果为：[('44D13A3B26BC47C0B0581B735839ACDF',)]
+2019-01-24 19:44:43,689 - framework - INFO - 查询结果为：[('175457269A294660B5D49C993337C1B7',)]
+2019-01-24 19:44:43,706 - framework - INFO - POST http://172.17.3.40/api/user/add-user
+2019-01-24 19:44:43,707 - framework - INFO - 请求内容: {'userName': '张三大爷', 'userId': 'zhangsan', 'roleType': 'ROLE_ADMIN', 'password': '69577def61141634df6991071bb74350', 'cameraIds': '["761D3B55245D45908C0621E44583EAD8", "78651E5ADA7B4619884D2F9FFD397C08", "35D16BF1D4334D9D953E13C6052F7F2F", "ED15606B99D14DE788EBB2C65C37C598", "44D13A3B26BC47C0B0581B735839ACDF", "175457269A294660B5D49C993337C1B7"]', 'cameraNames': ['19、上海外滩白天', '20、上海外滩夜晚', 'mbf_47', 'mbf_26', '24、人群通道效果', '10.0.10.200']}
+2019-01-24 19:44:43,708 - framework - INFO - 响应结果: <Response [200]>
+{"msg":"success","ext":null}
+2019-01-24 19:44:43,710 - framework - INFO - TCPClient closed.
+2019-01-24 19:44:43,723 - framework - INFO - POST http://172.17.3.40/api/user/list-user
+2019-01-24 19:44:43,725 - framework - INFO - 请求内容: {'page': 1, 'rows': 20, 'sidx': 'uid', 'sord': 'asc', 'searchString': '{"roleType":"","name":""}'}
+2019-01-24 19:44:43,727 - framework - INFO - 响应结果: <Response [200]>
+{"page":1,"total":1,"records":3,"rows":[{"id":"0BE0EBA1904048A2816611D0AC591BAC","uid":"admin","uname":"超级管理员","pwd":null,"roleType":"ROLE_SUPER_ADMIN","pyCode":null,"ext":"","loginTime":1548330210000,"loginCount":0,"todayCount":0,"loginHost":"127.0.0.1","createTime":1546572645000,"cameraRole":null,"roleTypeName":"超级管理员","enabled":true},{"id":"85528E0DE2604801826690EA4129F24B","uid":"zhangsan","uname":"张三大爷","pwd":null,"roleType":"ROLE_ADMIN","pyCode":null,"ext":null,"loginTime":null,"loginCount":0,"todayCount":0,"loginHost":null,"createTime":1548330267000,"cameraRole":null,"roleTypeName":"管理员","enabled":true},{"id":"5FB02B133ABC4A2A8F235CD207F576AE","uid":"user","uname":"普通用户","pwd":null,"roleType":"ROLE_USER","pyCode":null,"ext":"","loginTime":1548330210000,"loginCount":0,"todayCount":0,"loginHost":"127.0.0.1","createTime":1546572645000,"cameraRole":null,"roleTypeName":"普通用户","enabled":true}],"additional":null}
+2019-01-24 19:44:43,729 - framework - INFO - TCPClient closed.
+2019-01-24 19:44:43,730 - framework - INFO - 用户zhangsan存在, 断言成功
+2019-01-24 19:44:43,747 - framework - INFO - POST http://172.17.3.40/api/user/update-user
+2019-01-24 19:44:43,749 - framework - INFO - 请求内容: {'id': '85528E0DE2604801826690EA4129F24B', 'userName': '张三大爷', 'roleType': 'ROLE_ADMIN', 'password': '69577def61141634df6991071bb74350', 'cameraIds': '["761D3B55245D45908C0621E44583EAD8", "78651E5ADA7B4619884D2F9FFD397C08", "35D16BF1D4334D9D953E13C6052F7F2F", "ED15606B99D14DE788EBB2C65C37C598", "44D13A3B26BC47C0B0581B735839ACDF", "175457269A294660B5D49C993337C1B7"]', 'cameraNames': ['19、上海外滩白天', '20、上海外滩夜晚', 'mbf_47', 'mbf_26', '24、人群通道效果', '10.0.10.200']}
+2019-01-24 19:44:43,750 - framework - INFO - 响应结果: <Response [200]>
+{"msg":"success","ext":null}
+2019-01-24 19:44:43,751 - framework - INFO - TCPClient closed.
+2019-01-24 19:44:43,769 - framework - INFO - POST http://172.17.3.40/api/user/delete-user
+2019-01-24 19:44:43,770 - framework - INFO - 请求内容: {'id': '85528E0DE2604801826690EA4129F24B'}
+2019-01-24 19:44:43,771 - framework - INFO - 响应结果: <Response [200]>
+{"msg":"success","ext":null}
+2019-01-24 19:44:43,772 - framework - INFO - TCPClient closed.
+2019-01-24 19:44:43,783 - framework - INFO - POST http://172.17.3.40/api/user/list-user
+2019-01-24 19:44:43,784 - framework - INFO - 请求内容: {'page': 1, 'rows': 20, 'sidx': 'uid', 'sord': 'asc', 'searchString': '{"roleType":"","name":""}'}
+2019-01-24 19:44:43,785 - framework - INFO - 响应结果: <Response [200]>
+{"page":1,"total":1,"records":2,"rows":[{"id":"0BE0EBA1904048A2816611D0AC591BAC","uid":"admin","uname":"超级管理员","pwd":null,"roleType":"ROLE_SUPER_ADMIN","pyCode":null,"ext":"","loginTime":1548330210000,"loginCount":0,"todayCount":0,"loginHost":"127.0.0.1","createTime":1546572645000,"cameraRole":null,"roleTypeName":"超级管理员","enabled":true},{"id":"5FB02B133ABC4A2A8F235CD207F576AE","uid":"user","uname":"普通用户","pwd":null,"roleType":"ROLE_USER","pyCode":null,"ext":"","loginTime":1548330210000,"loginCount":0,"todayCount":0,"loginHost":"127.0.0.1","createTime":1546572645000,"cameraRole":null,"roleTypeName":"普通用户","enabled":true}],"additional":null}
+2019-01-24 19:44:43,786 - framework - INFO - TCPClient closed.
+2019-01-24 19:44:43,787 - framework - INFO - 用户zhangsan不存在,断言成功
+2019-01-24 19:44:43,802 - framework - INFO - POST http://172.17.3.40/api/video/list-channel-tree-new
+2019-01-24 19:44:43,803 - framework - INFO - 请求内容: {'type': 'Crowd', 'rows': 30}
+2019-01-24 19:44:43,805 - framework - INFO - 响应结果: <Response [200]>
+[{"isParent":"true","port":2100,"videoType":"pvg","isSyncData":false,"name":"10.0.100.12","ipAddress":"10.0.100.12","remark":"","id":"395069FBFA074394885A0644A1AECE23"}]
+2019-01-24 19:44:43,806 - framework - INFO - TCPClient closed.
+2019-01-24 19:44:43,807 - framework - INFO - 获取设备列表<Response [200]> .
+2019-01-24 19:44:43,809 - framework - INFO - 获取10.0.100.12的ID为395069FBFA074394885A0644A1AECE23
+2019-01-24 19:44:43,889 - framework - INFO - POST http://172.17.3.40/api/video/del-video-server
+2019-01-24 19:44:43,891 - framework - INFO - 请求内容: {'videoServerId': '395069FBFA074394885A0644A1AECE23', 'flag': 'true'}
+2019-01-24 19:44:43,892 - framework - INFO - 响应结果: <Response [200]>
+{"msg":"success","ext":null}
+2019-01-24 19:44:43,893 - framework - INFO - TCPClient closed.

@@ -1,0 +1,16 @@
+2019-01-24 19:43:40,592 - framework - INFO - POST http://172.17.3.40/api/auth
+2019-01-24 19:43:40,594 - framework - INFO - 请求内容: {'username': 'admin', 'password': '9b76d842786e7c93839927c56f72fcd1'}
+2019-01-24 19:43:40,595 - framework - INFO - 响应结果: <Response [200]>
+{"token":"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX1NVUEVSX0FETUlOIiwiY3JlYXRlZCI6MTU0ODMzMDIwNDM1MywibmFtZSI6IiVFOCVCNiU4NSVFNyVCQSVBNyVFNyVBRSVBMSVFNyU5MCU4NiVFNSU5MSU5OCIsImV4cCI6MzYwMDE1NDgzMzAyMDR9.yV2kCnSaANZIL4lpm5fKBwGjmBmj-zoa23oMx-9FktBOtMA-J-MY9PhuitLlVUazcw-6UrxUYLhELHtkCvWKiA"}
+2019-01-24 19:43:40,596 - framework - INFO - 数据处理: 提取token的值为eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX1NVUEVSX0FETUlOIiwiY3JlYXRlZCI6MTU0ODMzMDIwNDM1MywibmFtZSI6IiVFOCVCNiU4NSVFNyVCQSVBNyVFNyVBRSVBMSVFNyU5MCU4NiVFNSU5MSU5OCIsImV4cCI6MzYwMDE1NDgzMzAyMDR9.yV2kCnSaANZIL4lpm5fKBwGjmBmj-zoa23oMx-9FktBOtMA-J-MY9PhuitLlVUazcw-6UrxUYLhELHtkCvWKiA 
+2019-01-24 19:43:40,598 - framework - INFO - TCPClient closed.
+2019-01-24 19:43:40,631 - framework - INFO - POST http://172.17.3.40/api/crowd-auth/set-auth-key
+2019-01-24 19:43:40,633 - framework - INFO - 请求内容: {'license': <_io.BufferedReader name='E:\\Python\\test_framework\\data\\license\\error.license_key'>}
+2019-01-24 19:43:40,634 - framework - INFO - 响应结果: <Response [200]>
+{"msg":"success","ext":null}
+2019-01-24 19:43:40,635 - framework - INFO - TCPClient closed.
+2019-01-24 19:43:43,651 - framework - INFO - POST http://172.17.3.40/api/crowd-auth/get-auth-info
+2019-01-24 19:43:43,652 - framework - INFO - 响应结果: <Response [200]>
+{"msg":"","ext":"0"}
+2019-01-24 19:43:43,653 - framework - INFO - 数据处理: 提取ext的值为0 
+2019-01-24 19:43:43,655 - framework - INFO - TCPClient closed.

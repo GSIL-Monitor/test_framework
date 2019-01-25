@@ -1,0 +1,6 @@
+2019-01-24 19:43:46,829 - framework - INFO - POST http://172.17.3.40/api/auth
+2019-01-24 19:43:46,830 - framework - INFO - 请求内容: {'username': 'user', 'password': '24d0a7e8de6ac931e44e30e3819ac680'}
+2019-01-24 19:43:46,831 - framework - INFO - 响应结果: <Response [200]>
+{"token":"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZSI6IlJPTEVfVVNFUiIsImNyZWF0ZWQiOjE1NDgzMzAyMTAwOTgsIm5hbWUiOiIlRTYlOTklQUUlRTklODAlOUElRTclOTQlQTglRTYlODglQjciLCJleHAiOjM2MDAxNTQ4MzMwMjEwfQ.y4sbBIyLvhILPb8bUC0BOAcyd-1g954qSmxczbyzx_yZp7AE-vfCIRhQE723gjH4I9CEHnr-dqjOJNown0fGsA"}
+2019-01-24 19:43:46,832 - framework - INFO - 数据处理: 提取token的值为eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZSI6IlJPTEVfVVNFUiIsImNyZWF0ZWQiOjE1NDgzMzAyMTAwOTgsIm5hbWUiOiIlRTYlOTklQUUlRTklODAlOUElRTclOTQlQTglRTYlODglQjciLCJleHAiOjM2MDAxNTQ4MzMwMjEwfQ.y4sbBIyLvhILPb8bUC0BOAcyd-1g954qSmxczbyzx_yZp7AE-vfCIRhQE723gjH4I9CEHnr-dqjOJNown0fGsA 
+2019-01-24 19:43:46,833 - framework - INFO - TCPClient closed.

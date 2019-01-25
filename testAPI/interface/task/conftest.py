@@ -3,189 +3,208 @@
 
 import os
 import time
-import unittest
-from utils.config import Config, REPORT_PATH
+from utils.config import Config, DATA_PATH
 from utils.client import HTTPClient
 from utils.log import logger
-from utils.HTMLTestRunner import HTMLTestRunner
-from utils.assertion import assertHTTPCode
-from utils.support import encrypt
-from utils.mail import Email
-import pytest
-import allure_pytest
 from utils.extractor import JMESPathExtractor
+from utils.sql import Sql
 import allure
 import datetime
-from utils.sql import Sql
-from injson import check
-
+from ..video.conftest import *
+import json
+import base64
+import pytest
+from testAPI.common.pre_request import PRequest
 
 __all__ = ('base_url',
-           'json_pvg',
-           'save_pvg_server',
-           'list_channel_tree_new',
-           'assert_server_count',
-           'refresh_pvg_server',
-           'video_server_detail',
-           'get_enable_task_count_by_videoserver',
-           'del_video_server',
-           'update_server_name'
+           'APITask',
+           'crowd_task_one',
+           'crowd_task_two',
+           'crowd_task_one_jpg',
+           'crowd_task_two_jpg',
+           'channelName'
            )
 
 base_url = Config().get('BASE_URL', index=0)
 
+config_video = Config('apitask.yml')
+crowd_task_one = config_video.get("crowd_task_one")
+crowd_task_two = config_video.get("crowd_task_two")
+
+crowd_task_one_jpg = os.path.join(DATA_PATH, 'covers', 'crowd_task_one.jpg')
+crowd_task_two_jpg = os.path.join(DATA_PATH, 'covers', 'crowd_task_two.jpg')
+
+channelName = ["19、上海外滩白天", "20、上海外滩夜晚", "mbf_47", "mbf_26",
+               "24、人群通道效果", "10.0.10.200"]
 
 
-json_pvg_67 = Config().get('pvg_server_67', index=1)
-real_count_67 = json_pvg_67.pop('real_count')
+@pytest.fixture()
+def task_api(video_api):
+    my_task = APITask(video_api.login)
 
-json_pvg_10 = Config().get('pvg_server_10', index=0)
-real_count_10 = json_pvg_10.pop('real_count')
+    def _task_api_setup(video_server, tasks_conf, channel_name, real_count=0, task_name=None):
+        video_api.save_video(video_server)
+        if real_count:
+            video_api.assert_server_count(real_count)
+        logger.debug(channel_name)
+        logger.debug(tasks_conf)
+        query_camera_count = "SELECT F_ID FROM t_video_channel " \
+                             "WHERE F_Name = '{}' " \
+                             "AND F_Video_Server_ID = '{}';".format(channel_name, video_api.server_id)
+        tasks_conf["channelId"] = Sql().query(query_camera_count)[0][0]
+        tasks_conf["channelName"] = channel_name
+        tasks_conf["taskName"] = task_name if task_name else channel_name
+        logger.info('获取相机"{}"的ID为{}'.format(channel_name, tasks_conf["channelId"]))
+        my_task.tasks_conf = tasks_conf
+        my_task.channelId = tasks_conf["channelId"]
+        return my_task
 
-json_pvg = [(json_pvg_67, real_count_67, [200])]
-# json_pvg = [(json_pvg_67, real_count_67, [200]), (json_pvg_10, real_count_10, [200])]
-
-
-@pytest.fixture(scope='module', params=json_pvg)
-def init_pvg_server(login_admin, request):
-    json, real_count, httpcode = request.param
-
-    save_pvg_server(login_admin, json, httpcode)
-    server_id = list_channel_tree_new(json['name'], httpcode)
-    assert_server_count(server_id, real_count)
-    res = video_server_detail(login_admin, server_id, httpcode)
-    check(json, res.json())
-    yield res.json()
-    del_video_server('login_admin', server_id, 'httpcode')
-
-
-@allure.step('api - 查询任务列表')
-def list_task(login_admin, json, httpcode):
-
-    api_url = "/api/task/list-task"
-    method = 'POST'
-
-    headers = {'Authorization': login_admin}
-    client = HTTPClient(url=(base_url+api_url), method=method, headers=headers)
-    res = client.send(json=json)
-    assert res.status_code in httpcode
-
-    return res
+    yield _task_api_setup
+    if my_task.tasks_id:
+        my_task.del_task()
+    my_task.get_task_attr()
+    assert my_task.tasks_id is None
 
 
-@allure.step('api - 添加任务')
-def list_channel_tree_new(video_name, httpcode):
-    api_url = "/api/task/save-task-config"
-    method = 'POST'
-    data = {'type': 'Crowd', 'rows': 30}
+class APITask(PRequest):
+    """
+    任务接口类
+    """
 
-    client = HTTPClient(url=(base_url+api_url), method=method)
-    res = client.send(data=data)
-    assert res.status_code in httpcode
+    def __init__(self, login):
+        # 初始化入参
+        super(APITask, self).__init__(login)
+        # 初始化类属性
+        self.tasks_conf = None
+        self.channelId = None
+        self.tasks_type = 'Crowd'
+        self.tasks_id = None
+        self.tasks_key = 0
+        self.tasks_status = None
+        self.total_tasks = 0
 
-    server_id = {}
-    for kw in res.json():
-        name = kw['name']
-        server_id[name] = kw['id']
-    return server_id[video_name]
+    @allure.step('api - 1. 上传封面')
+    def save_task_covers(self, cover_image, status='PASS'):
+        api_url = "/api/task/save-task-covers"
+        method = 'POST'
 
+        data = {'channelId': self.channelId, 'base64': base64.b64encode(open(cover_image, 'rb').read())}
+        res = self.send_request(api_url, method, status, data=data)
+        logger.info("{}".format(res.json()))
 
-@allure.step('api - 同步PvgServer')
-def refresh_pvg_server(login_admin, server_id, httpcode):
-    api_url = "/api/video/refresh-pvg-server"
-    method = 'POST'
-    data = {'serverId': server_id}
+    @allure.step('api - 2. 添加任务')
+    def save_task_config(self, tasks_type='Crowd', status='PASS'):
+        api_url = "/api/task/save-task-config"
+        method = 'POST'
+        data = {'taskType': tasks_type, 'jsonParam': json.JSONEncoder().encode(self.tasks_conf)}
+        self.send_request(api_url, method, status, data=data)
+        self.tasks_type = tasks_type
 
-    headers = {'Authorization': login_admin}
-    client = HTTPClient(url=(base_url+api_url), method=method, headers=headers)
-    res = client.send(data=data)
+    @allure.step('api - 3.1 查询任务列表')
+    def list_task(self, status='PASS'):
+        api_url = "/api/task/list-task"
+        method = 'POST'
+        data = {'searchString': '{}'.format({"taskType": self.tasks_type}),
+                '_search': 'false',
+                'nd': 1547123232576,
+                'rows': 10,
+                'page': 1,
+                'sord': 'asc',
+                'sidx': None
+                }
+        res = self.send_request(api_url, method, status, data=data, extractor='rows')
+        logger.info('tasks_lists: {}'.format(res))
+        return res
 
-    assert res.status_code in httpcode
-    return res
+    @allure.step('ext - 3.2 获取任务ID/KEY/STATUS/TOTOAL_NUM')
+    def get_task_attr(self):
+        """
+        每次任务更新都要执行这句话：增加、修改、启停、删除
+        可以获得任务的最新状态、最新ID、最新KEY、最新任务总数
+        """
+        tasks_list_json = self.list_task()
+        num = 0
+        for row in tasks_list_json:
+            for col in row.values():
+                if col.get("channelId") == self.channelId:
+                    self.tasks_id, self.tasks_key, self.tasks_status = col.get("taskId"), col.get("taskKey"), col.get("status")
+                    break
+                else:
+                    self.tasks_id = self.tasks_key = self.tasks_status = None
+            if row.get("column2"):
+                num += 2
+            elif row.get("column1"):
+                num += 1
+                break
+            else:
+                break
+        self.total_tasks = num
+        logger.info('task_id: {}'.format(self.tasks_id))
+        logger.info('tasks_key: {}'.format(self.tasks_key))
+        logger.info('tasks_status: {}'.format(self.tasks_status))
+        logger.info('total_tasks_num: {}'.format(self.total_tasks))
 
+    @allure.step('ast - 3. 断言任务状态')
+    def assert_task_status(self, tasks_status='run'):
+        assert self.tasks_status == tasks_status
 
-@allure.step('ast - 断言VideoServer资源数量')
-def assert_server_count(server_id, real_count):
-    query_camera_count = "SELECT COUNT(*) FROM t_video_channel " \
-                         "WHERE F_Video_Server_ID = '{}' " \
-                         "AND F_Enabled = 1;".format(server_id)
-    logger.info(query_camera_count)
-    init = -1
-    start = datetime.datetime.now()
+    @allure.step('api - 4. 获取任务配置详细信息')
+    def get_task_config(self, status='PASS'):
+        api_url = "/api/task/task-config"
+        method = 'POST'
+        data = {'channelId': self.channelId, 'taskType': self.tasks_type,
+                'videoSize': '{"videoType": 1, "width": 1920, "height": 1080, "duration": 0}'
+                }
+        res = self.send_request(api_url, method, status, data=data)
+        logger.info("{}".format(res.json()))
 
-    while True:
-        count = Sql().query(query_camera_count)[0][0]
-        now = datetime.datetime.now()
-        interval = (now - start).seconds
-        if count == real_count:
-            logger.info('同步成功，数量匹配')
-            break
-        elif count == init and interval > 30:
-            logger.error('同步失败，数量不匹配')
-            break
-        else:
-            init = count
-            logger.info('同步中，进行时间{}，已同步{}条'.format((now - start), count))
-            time.sleep(5)
+    @allure.step('api - 4. 取流')
+    def get_video_param(self, status='PASS'):
+        api_url = "/api/video/get-video-param?" \
+                  "type=noFourScreen&channelId={}&taskType=Crowd".format(self.channelId)
+        method = 'POST'
+        res = self.send_request(api_url, method, status, extractor='ext')
+        channel_info = base64.b64decode(res)
+        logger.info("video param: {}".format(channel_info))
 
-    end = datetime.datetime.now()
-    logger.info('总耗时:{}'.format(end - start))
+    @allure.step('api - 4. 获取任务状态？什么都没有')
+    def is_enable_task(self, status='PASS'):
+        api_url = "/api/task/is-enable-task"
+        method = 'POST'
+        data = {'taskType': 'Crowd'}
+        res = self.send_request(api_url, method, status, data=data)
+        logger.info("{}".format(res.json()))
 
+    @allure.step('api - 4. 获取任务相机分组？有任务和相机的ID，任务和分组的名称，所属的视频服务')
+    def getTaskCustomCameraGroup(self, status='PASS'):
+        api_url = "/api/video/getTaskCustomCameraGroup"
+        method = 'GET'
+        params = {'type': 'Crowd'}
+        res = self.send_request(api_url, method, status, params=params)
+        logger.info("{}".format(res.json()))
 
-@allure.step('api - 查询VideoServer详情')
-def video_server_detail(login_admin, server_id, httpcode):
-    api_url = "/api/video/video-server-detail"
-    method = 'POST'
-    data = {'serverId': server_id}
+    @allure.step('api - 4. 启停任务')
+    def update_task_status(self, ignition='Y', status='PASS'):
+        api_url = "/api/task/update-task-status"
+        method = 'POST'
+        data = {'taskId': self.tasks_id, 'status': ignition}
+        res = self.send_request(api_url, method, status, data=data)
+        logger.info("{}".format(res.json()))
 
-    headers = {'Authorization': login_admin}
-    client = HTTPClient(url=(base_url+api_url), method=method, headers=headers)
-    res = client.send(data=data)
+    @allure.step('api - 4. 恢复上次配置')
+    def use_last_config(self, tasks_type='Crowd', last_conf=None, status='PASS'):
+        api_url = "/api/task/use-last-config"
+        method = 'POST'
+        data = {'channelId': self.channelId, 'taskType': tasks_type}
+        res = self.send_request(api_url, method, status, data=data, extractor='task')
+        logger.info("{}".format(res.json()))
 
-    assert res.status_code in httpcode
-    return res
+    @allure.step('api - 5. 删除任务')
+    def del_task(self, status='PASS'):
+        api_url = "/api/task/del-task"
+        method = 'POST'
+        data = {'taskId': self.tasks_id}
+        res = self.send_request(api_url, method, status, data=data)
+        logger.info("{}".format(res.json()))
 
-
-@allure.step('api - 查询VideoServer中任务开启数')
-def get_enable_task_count_by_videoserver(login_admin, server_id, httpcode):
-    api_url = "/api/task/get-enable-task-count-by-videoserver"
-    method = 'POST'
-    data = {'serverId': server_id}
-    extractor = 'count'
-
-    headers = {'Authorization': login_admin}
-    client = HTTPClient(url=(base_url+api_url), method=method, headers=headers)
-    res = client.send(data=data)
-
-    assert res.status_code in httpcode
-    res = JMESPathExtractor().extract(extractor, res.text) if extractor else res
-    return res
-
-
-@allure.step('api - 删除VideoServer')
-def del_video_server(login_admin, server_id, httpcode):
-    api_url = "/api/video/del-video-server"
-    method = 'POST'
-    data = {'serverId': server_id, 'flag': 'true'}
-
-    headers = {'Authorization': login_admin}
-    client = HTTPClient(url=(base_url+api_url), method=method, headers=headers)
-    res = client.send(data=data)
-
-    assert res.status_code in httpcode
-    return res
-
-
-@allure.step('api - 重命名VideoServer')
-def update_server_name(login_admin, server_id, server_name, description, version, httpcode):
-    api_url = "/api/video/update-server-name"
-    method = 'POST'
-    data = {'serverId': server_id, 'serverName': server_name, 'description': description, 'version': version}
-
-    headers = {'Authorization': login_admin}
-    client = HTTPClient(url=(base_url+api_url), method=method, headers=headers)
-    res = client.send(data=data)
-
-    assert res.status_code in httpcode
-    return res
 

@@ -1,0 +1,33 @@
+connectionpool.py          205 DEBUG    Starting new HTTP connection (1): 172.17.3.40:80
+connectionpool.py          393 DEBUG    http://172.17.3.40:80 "POST /api/video/save-rtsp HTTP/1.1" 200 None
+log.py                      42 INFO     POST http://172.17.3.40/api/video/save-rtsp
+log.py                      42 INFO     请求内容: {'rtspUrl': 'rtsp://admin:admin@10.0.10.220/cam/realmonitor?channel=1&subtype=0', 'rtspName': 'rtsp220'}
+log.py                      42 INFO     响应结果: <Response [200]>
+{"msg":"success","ext":null}
+log.py                      42 INFO     TCPClient closed.
+log.py                      42 INFO     已添加video: rtsp220 .
+connectionpool.py          205 DEBUG    Starting new HTTP connection (1): 172.17.3.40:80
+connectionpool.py          393 DEBUG    http://172.17.3.40:80 "POST /api/video/list-channel-tree-new HTTP/1.1" 200 None
+log.py                      42 INFO     POST http://172.17.3.40/api/video/list-channel-tree-new
+log.py                      42 INFO     请求内容: {'type': 'Crowd', 'rows': 30}
+log.py                      42 INFO     响应结果: <Response [200]>
+[{"isParent":"true","port":0,"videoType":"rtsp","isSyncData":false,"name":"rtsp视频","remark":"rtsp","id":"C7A7A15D7C9C47C0BC74404C014C76FD"}]
+log.py                      42 INFO     TCPClient closed.
+log.py                      42 INFO     获取设备列表<Response [200]> .
+log.py                      42 INFO     获取rtsp视频的ID为C7A7A15D7C9C47C0BC74404C014C76FD
+connectionpool.py          205 DEBUG    Starting new HTTP connection (1): 172.17.3.40:80
+connectionpool.py          393 DEBUG    http://172.17.3.40:80 "POST /api/video/list-channel-tree-new HTTP/1.1" 200 None
+log.py                      42 INFO     POST http://172.17.3.40/api/video/list-channel-tree-new
+log.py                      42 INFO     请求内容: {'type': 'Crowd', 'rows': 30}
+log.py                      42 INFO     响应结果: <Response [200]>
+[{"isParent":"true","port":0,"videoType":"rtsp","isSyncData":false,"name":"rtsp视频","remark":"rtsp","id":"C7A7A15D7C9C47C0BC74404C014C76FD"}]
+log.py                      42 INFO     TCPClient closed.
+log.py                      42 INFO     获取设备列表<Response [200]> .
+log.py                      42 INFO     获取rtsp视频的ID为C7A7A15D7C9C47C0BC74404C014C76FD
+connectionpool.py          205 DEBUG    Starting new HTTP connection (1): 172.17.3.40:80
+connectionpool.py          393 DEBUG    http://172.17.3.40:80 "POST /api/video/del-video-server HTTP/1.1" 200 None
+log.py                      42 INFO     POST http://172.17.3.40/api/video/del-video-server
+log.py                      42 INFO     请求内容: {'videoServerId': 'C7A7A15D7C9C47C0BC74404C014C76FD', 'flag': 'true'}
+log.py                      42 INFO     响应结果: <Response [200]>
+{"msg":"success","ext":null}
+log.py                      42 INFO     TCPClient closed.

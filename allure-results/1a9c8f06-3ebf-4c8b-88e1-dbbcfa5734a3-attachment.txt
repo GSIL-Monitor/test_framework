@@ -1,0 +1,6 @@
+connectionpool.py          205 DEBUG    Starting new HTTP connection (1): 172.17.3.40:80
+connectionpool.py          393 DEBUG    http://172.17.3.40:80 "POST /api/crowd-auth/get-hard-ware-info HTTP/1.1" 200 None
+log.py                      42 INFO     POST http://172.17.3.40/api/crowd-auth/get-hard-ware-info
+log.py                      42 INFO     响应结果: <Response [200]>
+{"msg":"success","ext":null}
+log.py                      42 INFO     TCPClient closed.

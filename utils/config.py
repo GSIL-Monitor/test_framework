@@ -14,12 +14,27 @@ LOG_PATH = os.path.join(BASE_PATH, 'log')
 REPORT_PATH = os.path.join(BASE_PATH, 'reports')
 # TEST_PATH = os.path.join(BASE_PATH, 'test')
 # UTILS_PATH = os.path.join(BASE_PATH,'utils')
-CONFIG_FILE = os.path.join(BASE_PATH, 'config', 'config.yml')
+CONFIG_FILE = os.path.join(CONFIG_PATH, 'config.yml')
 
 
 class Config:
-    def __init__(self, config=CONFIG_FILE):
-        self.config = YamlReader(config).data
+    """
+    读取yaml配置文件的元素
+    Config(): 默认读取config/config.yml
+    Config('apivideo.yml'): 读取config/apivideo.yml
+    Config('testAPI/interface/video/test.yml'): 读取testAPI/interface/video/test.yml
+    """
+
+    def __init__(self, config='config.yml'):
+        self.file = BASE_PATH
+
+        if '/' in config:
+            for var in config.split('/'):
+                self.file = os.path.join(self.file, var)
+        else:
+            self.file = os.path.join(self.file, 'config', config)
+
+        self.config = YamlReader(self.file).data
 
     def get(self, element, index=0):
         """
@@ -31,12 +46,13 @@ class Config:
         return self.config[index].get(element)
 
 
-
 if __name__ == '__main__':
     c = Config()
     print(c.get('URL'), BASE_PATH)
 
-    dicts_pvg_67 = Config().get('pvg_server_67', index=1)
+    VIDEO_FILE = os.path.join(BASE_PATH, 'config', 'apivideo.yml')
+
+    dicts_pvg_67 = Config(VIDEO_FILE).get('pvg_server_67', index=1)
     real_count_67 = dicts_pvg_67.pop('real_count')
     json_pvg_67 = JSONEncoder().encode(dicts_pvg_67)
 
@@ -44,4 +60,9 @@ if __name__ == '__main__':
 
     print(real_count_67)
 
+    config_video = Config('apitask.yml')
 
+    task1 = config_video.get("task_one")
+    camera_name = task1["channelName"]
+    print(json.JSONEncoder().encode(task1))
+    print(camera_name)

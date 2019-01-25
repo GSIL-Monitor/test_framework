@@ -1,0 +1,8 @@
+connectionpool.py          205 DEBUG    Starting new HTTP connection (1): 172.17.3.40:80
+connectionpool.py          393 DEBUG    http://172.17.3.40:80 "POST /api/auth HTTP/1.1" 200 None
+log.py                      42 INFO     POST http://172.17.3.40/api/auth
+log.py                      42 INFO     请求内容: {'username': 'admin', 'password': '9b76d842786e7c93839927c56f72fcd1'}
+log.py                      42 INFO     响应结果: <Response [200]>
+{"token":"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX1NVUEVSX0FETUlOIiwiY3JlYXRlZCI6MTU0ODMzMDIxMDA1NCwibmFtZSI6IiVFOCVCNiU4NSVFNyVCQSVBNyVFNyVBRSVBMSVFNyU5MCU4NiVFNSU5MSU5OCIsImV4cCI6MzYwMDE1NDgzMzAyMTB9.A_Lul9oKasTk8-w7HFEAkEb_8Y8lnM3ZrL-PaFhLFbIJM4rLf8Y_EuvUfOv_uYT8M3n5cf485PqNofW_RRpiyg"}
+log.py                      42 INFO     数据处理: 提取token的值为eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX1NVUEVSX0FETUlOIiwiY3JlYXRlZCI6MTU0ODMzMDIxMDA1NCwibmFtZSI6IiVFOCVCNiU4NSVFNyVCQSVBNyVFNyVBRSVBMSVFNyU5MCU4NiVFNSU5MSU5OCIsImV4cCI6MzYwMDE1NDgzMzAyMTB9.A_Lul9oKasTk8-w7HFEAkEb_8Y8lnM3ZrL-PaFhLFbIJM4rLf8Y_EuvUfOv_uYT8M3n5cf485PqNofW_RRpiyg 
+log.py                      42 INFO     TCPClient closed.

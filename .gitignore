@@ -11,6 +11,8 @@ utils/__pycache__/
 *.so
 
 # Distribution / packaging
+config/
+data/
 bin/
 build/
 develop-eggs/

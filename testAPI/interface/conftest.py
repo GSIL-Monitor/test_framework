@@ -1,60 +1,60 @@
-import os
-import time
+# coding = utf-8
+
 import unittest
-from utils.config import Config, REPORT_PATH
+from utils.config import Config
 from utils.client import HTTPClient
 from utils.log import logger
-from utils.HTMLTestRunner import HTMLTestRunner
-from utils.assertion import assertHTTPCode
 from utils.support import encrypt
-from utils.mail import Email
 import pytest
 import allure_pytest
 from utils.extractor import JMESPathExtractor
+import allure
+from testAPI.common.pre_request import PRequest
 
-URL = Config().get('BASE_URL', index=0)
+__all__ = (
+    'base_url',
+    'config_user',
+    'admin',
+    'user',
+    'auth_login',
+    'auth_logout'
+)
+
+base_url = Config().get('BASE_URL', index=0)
+config_user = Config('apiuser.yml')
+admin = config_user.get('admin')
+user = config_user.get('user')
+
+
+@allure.step('api - 登入')
+def auth_login(username, password, status='PASS'):
+    """登录并获取token"""
+    api_url = "/api/auth"
+    method = 'POST'
+    JSON = {"username": username, "password": encrypt(password)}
+    extractor = 'token'
+    token = PRequest().send_request(api_url, method, status, json=JSON, extractor=extractor)
+    return token
+
+
+@allure.step('api - 登出')
+def auth_logout(token, status='PASS'):
+    """登录并获取token"""
+    api_url = "/api/log/log-out"
+    method = 'POST'
+    token = PRequest(token).send_request(api_url, method, status)
+    return token
 
 
 @pytest.fixture(scope='session')
-def login_admin(request):
-    """初始化管理员，获取token"""
-
-    API_PATH = "/api/auth"
-    METHOD = 'POST'
-    JSON = {"username": 'admin', "password": encrypt('Crowd@ad123')}
-    httpcode = [200]
-    extractor = 'token'
-
-    client = HTTPClient(url=(URL+API_PATH), method=METHOD)
-    res = client.send(json=JSON)
-
-    assert res.status_code in httpcode
-
-    res = JMESPathExtractor().extract(extractor, res.text) if extractor else res
-    yield res
-
-    request.addfinalizer(client.close)  # close()不加括弧
+def login_admin():
+    token = auth_login(**admin)
+    yield token
+    auth_logout(token)
 
 
-# class DB(object):
-#     def __init__(self):
-#         self.intransaction = {}
-#
-#     def set(self, api, value):
-#         self.intransaction[api] = value
-#
-# @pytest.fixture
-# def db():
-#     return DB()
-#
-#
-# @pytest.fixture
-# def transact(request, db):
-#     yield
-#     api = request.function.__name__
-#     value = getattr(request.module, 'res')
-#     db.set(api, value)
-
-
-
-
+@pytest.fixture(scope='session')
+def login_user():
+    token = auth_login(**user)
+    yield token
+    auth_logout(token)
