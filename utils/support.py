@@ -1,7 +1,7 @@
 """一些支持方法，比如加密"""
 import hashlib
 from utils.log import logger
-
+from zipfile import ZipFile
 
 class EncryptError(Exception):
     pass
@@ -38,6 +38,13 @@ def encrypt(string, salt='', encrypt_way='MD5'):
 
     hash_string.update(string.encode())
     return hash_string.hexdigest()
+
+
+def unzip(abs_file, ext_path):
+    zip_file = ZipFile(abs_file)
+    for name in zip_file.namelist():
+        zip_file.extract(name, ext_path)
+    zip_file.close()
 
 
 if __name__ == '__main__':

@@ -43,7 +43,7 @@ import pytest
 # def test_clear(clear):
 #     xx = 'dsdssd'
 
-#
+
 # @pytest.fixture
 # def make_customer_record():
 #
@@ -123,33 +123,39 @@ import pytest
 # print(students)
 # # [Student(id=1, ans=['C', 'B', 'A', ...
 
-from utils.client import HTTPClient
-from utils.config import Config
-from utils.support import encrypt
-from utils.extractor import JMESPathExtractor
 
-base_url = Config().get('BASE_URL', index=0)
+#################################################################################
 
 
-@pytest.fixture(scope='session')
-def login_admin():
-    """初始化管理员，获取token"""
+# from utils.client import HTTPClient
+# from utils.config import Config
+# from utils.support import encrypt
+# from utils.extractor import JMESPathExtractor
+#
+# base_url = Config().get('BASE_URL', index=0)
+#
+#
+# @pytest.fixture(scope='session')
+# def login_admin():
+#     """初始化管理员，获取token"""
+#
+#     api_url = "/api/auth"
+#     method = 'POST'
+#     JSON = {"username": 'admin', "password": encrypt('Crowd@ad123')}
+#     httpcode = [200]
+#     extractor = 'token'
+#
+#     client = HTTPClient(url=(base_url+api_url), method=method)
+#     res = client.send(json=JSON)
+#
+#     assert res.status_code in httpcode
+#
+#     res = JMESPathExtractor().extract(extractor, res.text) if extractor else res
+#     yield res
+#
+#     client.close()
+#
+#
+# print(login_admin())
 
-    api_url = "/api/auth"
-    method = 'POST'
-    JSON = {"username": 'admin', "password": encrypt('Crowd@ad123')}
-    httpcode = [200]
-    extractor = 'token'
-
-    client = HTTPClient(url=(base_url+api_url), method=method)
-    res = client.send(json=JSON)
-
-    assert res.status_code in httpcode
-
-    res = JMESPathExtractor().extract(extractor, res.text) if extractor else res
-    yield res
-
-    client.close()
-
-
-print(login_admin())
+#################################################################################

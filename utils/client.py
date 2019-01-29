@@ -54,19 +54,19 @@ class HTTPClient(object):
         response = self.session.request(method=self.method, url=self.url,
                                         params=params, data=data, json=json,
                                         files=files,  **kwargs)
-        response.encoding = 'utf-8'
-        logger.info('{0} {1}'.format(self.method, response.url))
+
+        logger.info('请求开始 {0} {1}'.format(self.method, response.url))
 
         for body in (data, json, files):
-            logger.info('请求内容: {}'.format(body)) if body else ''
+            logger.debug('请求内容: {}'.format(body)) if body else ''
 
-        logger.info('响应结果: {0}\n{1}'.format(response, response.text))
+        logger.debug('响应结果: {0}\n响应文本: {1}'.format(response, u'{}'.format(response.text)))
         return response
 
     def close(self):
         """关闭连接"""
         self.session.close()
-        logger.info('TCPClient closed.')
+        logger.info('请求结束\n')
 
 
 class TCPClient(object):

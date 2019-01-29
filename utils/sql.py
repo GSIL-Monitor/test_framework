@@ -6,6 +6,8 @@ from utils.log import logger
 from utils.config import Config
 import datetime
 import time
+import os
+from utils.error import Sqlerror
 
 
 class Sql(object):
@@ -31,19 +33,47 @@ class Sql(object):
         try:
             self.cursor.execute(sql)
             self.db.commit()
-            logger.info('执行成功')
+            logger.info('sql执行成功')
         except:
-            logger.error('执行失败，回滚数据库')
+            err = 'sql执行失败，回滚数据库'
+            logger.error(err)
             self.db.rollback()
+            raise Sqlerror(err)
 
     def query(self, sql):
         try:
             self.cursor.execute(sql)
-            results = self.cursor.fetchall()
-            logger.info('查询结果为：{}'.format(results))
+
+            results = []
+            row = self.cursor.fetchone()
+            while row is not None:
+                # logger.debug(row)
+                results.append(row)
+                row = self.cursor.fetchone()
+
+            # results = self.cursor.fetchall()
+            # logger.debug('查询结果为：{}'.format(results))
             return results
         except:
-            logger.error("Error: unable to fecth data")
+            err = "Error: unable to fecth data"
+            logger.error(err)
+            raise Sqlerror(err)
+
+    def load_sql(self, abs_sql_file):
+        """
+        Load sql file to mysql server.
+        Sql file must only contains sql cmd (not support comment), every cmd should end with ';' and a line break.
+        注意：这里埋了一个坑，sql文件如果结尾处没有空行，执行不成功且不会报错
+        """
+        logger.debug("load {} ".format(abs_sql_file))
+        with open(abs_sql_file, 'r', encoding='utf-8') as file_sql:
+            file_sql_video = file_sql.read().split(';\n')[:-1]
+            # logger.debug(sql_video)
+            sql_list = [x.replace('\n', '') if '\n' in x else x for x in file_sql_video]
+            # logger.debug(sql_list)
+
+        for sql_item in sql_list:
+            self.exec(sql_item)
 
     # def assert_query(self, sql, exp):
     #
@@ -76,18 +106,19 @@ class Sql(object):
     #     assert res == 'SUCCESS'
 
     def close(self):
+        self.cursor.close()
         self.db.close()
 
 
 if __name__ == '__main__':
     query_camera_count = "SELECT COUNT(*) FROM t_video_channel " \
-                         "WHERE F_Video_Server_ID = '2C1DCDF3E6B44B4F9A42568041B27594' " \
+                         "WHERE F_Video_Server_ID = '48F992E659E24627BCE3E90BCF3D2A23' " \
                          "AND F_Enabled = 1;"
     mysql = Sql()
     count = mysql.query(query_camera_count)[0][0]
     logger.info(count)
-
-
+    # mysql.load_sql(Config('data/sql/t_video_channel.sql').file)
+    mysql.close()
 
     # query_camera_count1 = "SELECT F_ID FROM t_video_channel " \
     #                       "WHERE F_Name = '19、上海外滩白天' " \

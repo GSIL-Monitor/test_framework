@@ -1,4 +1,0 @@
-2019-01-24 19:43:46,747 - framework - INFO - POST http://172.17.3.40/api/crowd-auth/get-hard-ware-info
-2019-01-24 19:43:46,748 - framework - INFO - 响应结果: <Response [200]>
-{"msg":"success","ext":null}
-2019-01-24 19:43:46,749 - framework - INFO - TCPClient closed.

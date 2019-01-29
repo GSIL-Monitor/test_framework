@@ -1,5 +1,0 @@
-2019-01-24 19:43:46,980 - framework - INFO - POST http://172.17.3.40/api/auth
-2019-01-24 19:43:46,981 - framework - INFO - 请求内容: {'username': 'user', 'password': 'd41d8cd98f00b204e9800998ecf8427e'}
-2019-01-24 19:43:46,983 - framework - INFO - 响应结果: <Response [401]>
-Unauthorized
-2019-01-24 19:43:46,984 - framework - INFO - TCPClient closed.

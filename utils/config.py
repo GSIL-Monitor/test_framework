@@ -22,7 +22,7 @@ class Config:
     读取yaml配置文件的元素
     Config(): 默认读取config/config.yml
     Config('apivideo.yml'): 读取config/apivideo.yml
-    Config('testAPI/interface/video/test.yml'): 读取testAPI/interface/video/test.yml
+    Config('testAPI/interface/mod_2_video/test.yml'): 读取testAPI/interface/mod_2_video/test.yml
     """
 
     def __init__(self, config='config.yml'):
@@ -34,7 +34,7 @@ class Config:
         else:
             self.file = os.path.join(self.file, 'config', config)
 
-        self.config = YamlReader(self.file).data
+        self.config = None
 
     def get(self, element, index=0):
         """
@@ -43,7 +43,9 @@ class Config:
         :param index: yaml is separated to lists by '---'
         :return:
         """
-        return self.config[index].get(element)
+        self.config = YamlReader(self.file).data
+        elem = self.config[index].get(element)
+        return elem
 
 
 if __name__ == '__main__':
@@ -52,9 +54,9 @@ if __name__ == '__main__':
 
     VIDEO_FILE = os.path.join(BASE_PATH, 'config', 'apivideo.yml')
 
-    dicts_pvg_67 = Config(VIDEO_FILE).get('pvg_server_67', index=1)
-    real_count_67 = dicts_pvg_67.pop('real_count')
-    json_pvg_67 = JSONEncoder().encode(dicts_pvg_67)
+    pvg_67_conf = Config(VIDEO_FILE).get('pvg_server_67', index=1)
+    real_count_67 = pvg_67_conf.pop('real_count')
+    json_pvg_67 = JSONEncoder().encode(pvg_67_conf)
 
     print(json_pvg_67)
 
