@@ -26,8 +26,7 @@ from ..mod_2_video.conftest import *
 @pytest.mark.parametrize('channel_name', channelName)
 def test_3101_add_del_task(task_api, channel_name):
     my_task = task_api(video_server=pvg_67_conf, channel_name=channel_name, tasks_conf=crowd_task_one)
-    my_task.save_task_covers(crowd_task_two_jpg)
-    my_task.save_task_config()
+    my_task.save_task(crowd_task_two_jpg)
     time.sleep(2)
     my_task.assert_task_status('run')
 

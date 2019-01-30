@@ -6,7 +6,7 @@ from utils.log import logger
 
 __all__ = (
     'load_video_data',
-    'get_video_id',
+    'query_video_id',
     'load_task_data',
     'load_group_data',
     'load_user_data',
@@ -38,13 +38,13 @@ def load_video_data():
     sql.close()
 
 
-def get_video_id(video_name):
+def query_video_id(video_name):
     sql = Sql()
-    query_video_id = "SELECT F_ID FROM t_video_server " \
-                     "WHERE F_NAME = '{}' " \
-                     "AND F_Enabled = 1;".format(video_name)
+    sql_video_id = "SELECT F_ID FROM t_video_server " \
+                   "WHERE F_NAME = '{}' " \
+                   "AND F_Enabled = 1;".format(video_name)
 
-    server_id = sql.query(query_video_id)[0][0]
+    server_id = sql.query(sql_video_id)[0][0] if sql.query(sql_video_id)[0] else None
     sql.close()
     return server_id
 

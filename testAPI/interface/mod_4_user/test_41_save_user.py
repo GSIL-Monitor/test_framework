@@ -1,22 +1,8 @@
 # coding = utf-8
-import os
-import time
-import unittest
-from utils.config import Config, REPORT_PATH
-from utils.client import HTTPClient
-from utils.log import logger
-from utils.HTMLTestRunner import HTMLTestRunner
-from utils.assertion import assertHTTPCode
-from utils.support import encrypt
-from utils.mail import Email
-import time
-import json
-from utils.sql import Sql
-import datetime
+
 import pytest
 import allure
 from .conftest import *
-from injson import check
 from ..mod_2_video.conftest import *
 from ..conftest import *
 

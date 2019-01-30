@@ -44,16 +44,16 @@ channelName = ["19、上海外滩白天", "20、上海外滩夜晚", "mbf_47", "
 def task_api(video_env):
     my_task = APITask()
 
-    def parse_api_task(video_server, channel_name, tasks_conf, task_name=None):
+    def parse_api_task(video_server, channel_name, tasks_conf, tasks_type='Crowd', task_name=None):
         my_video = video_env(video_server)
         my_task.login = my_video.login
-        my_task.parse_conf_task(my_video.server_id, channel_name, tasks_conf, task_name)
+        my_task.parse_conf_task(my_video.server_id, channel_name, tasks_conf, tasks_type, task_name)
         return my_task
 
     yield parse_api_task
     if my_task.tasks_id:
         my_task.del_task()
-    assert my_task.get_task_attr("taskId") is None
+        assert my_task.get_task_attr("taskId") is None
 
 
 @pytest.fixture(scope='module')
@@ -61,10 +61,10 @@ def task_env(video_env):
     my_task = APITask()
     load_task_data()
 
-    def parse_env_task(video_server, channel_name, tasks_conf, task_name=None, tasks_type='Crowd'):
+    def parse_env_task(video_server, channel_name, tasks_conf, tasks_type='Crowd', task_name=None):
         my_video = video_env(video_server)
         my_task.login = my_video.login
-        my_task.parse_conf_task(my_video.server_id, channel_name, tasks_conf, task_name)
+        my_task.parse_conf_task(my_video.server_id, channel_name, tasks_conf, tasks_type, task_name)
         my_task.tasks_type = tasks_type
         my_task.tasks_id = my_task.get_task_attr("taskId")
         return my_task
@@ -88,9 +88,10 @@ class APITask(PRequest):
         self.tasks_status = None
         self.total_tasks = 0
 
-    @allure.step('ext - 0. 预处理数据，获取待添加任务的设备ID')
-    def parse_conf_task(self, server_id, channel_name, tasks_conf, task_name=None):
+    @allure.step('ext - 0. 预处理数据，获取任务基本信息<设备ID/名称,任务名称>')
+    def parse_conf_task(self, server_id, channel_name, tasks_conf, tasks_type='Crowd', task_name=None):
         self.tasks_conf = tasks_conf
+        self.tasks_type = tasks_type
         self.tasks_conf["channelName"] = channel_name
         self.tasks_conf["taskName"] = task_name if task_name else channel_name
 
@@ -105,6 +106,16 @@ class APITask(PRequest):
         logger.debug('获取相机"{}"的ID为{}'.format(channel_name, self.channelId))
         return
 
+    @allure.step('ext - 1. 添加任务获取ID <上传封面--添加任务--任务ID> ')
+    def save_task(self, cover_image, status='PASS'):
+        self.save_task_covers(cover_image, status)
+        self.save_task_config(status)
+        self.tasks_id = self.get_task_attr("taskId")
+        if status == 'PASS':
+            assert self.tasks_id is not None
+        else:
+            assert self.tasks_id is None
+
     @allure.step('api - 1. 上传封面')
     def save_task_covers(self, cover_image, status='PASS'):
         api_url = "/api/task/save-task-covers"
@@ -112,16 +123,14 @@ class APITask(PRequest):
 
         data = {'channelId': self.channelId, 'base64': base64.b64encode(open(cover_image, 'rb').read())}
         res = self.send_request(api_url, method, status, data=data)
-        logger.info("{}".format(res.json()))
+        logger.debug("{}".format(res.json()))
 
     @allure.step('api - 2. 添加任务')
-    def save_task_config(self, tasks_type='Crowd', status='PASS'):
+    def save_task_config(self, status='PASS'):
         api_url = "/api/task/save-task-config"
         method = 'POST'
-        data = {'taskType': tasks_type, 'jsonParam': json.JSONEncoder().encode(self.tasks_conf)}
+        data = {'taskType': self.tasks_type, 'jsonParam': json.JSONEncoder().encode(self.tasks_conf)}
         self.send_request(api_url, method, status, data=data)
-        self.tasks_type = tasks_type
-        self.tasks_id = self.get_task_attr("taskId")
 
     @allure.step('api - 3.1 查询任务列表')
     def list_task(self, status='PASS'):

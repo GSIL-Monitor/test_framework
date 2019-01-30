@@ -46,9 +46,9 @@ def video_api(login_admin):
     """
     av = APIVideo(login_admin)
     yield av
-    av.get_serverid()
     if av.server_id:
         av.del_video_server()
+        assert av.get_serverid() is None
 
 
 @pytest.fixture(scope='module')
@@ -61,10 +61,10 @@ def video_env(login_admin):
     load_video_data()
 
     def parse_env_video(video_server_conf):
+        env_video.video_conf = video_server_conf
         env_video.server_name = 'rtsp视频' if video_server_conf['version'].startswith('rtsp') else video_server_conf.get('name')
-        env_video.server_id = get_video_id(env_video.server_name)
+        env_video.server_id = query_video_id(env_video.server_name)
         return env_video
-
     yield parse_env_video
     clear_all()
 
@@ -80,39 +80,39 @@ class APIVideo(PRequest):
         2. 初始化类属性（名称、ID、子设备数）
         """
         super(APIVideo, self).__init__(login)
+        self.video_conf = None
         self.server_name = None
         self.server_id = None
         self.real_count = 0
         self.channel_tree = None
 
-    @allure.step('ext - 合并添加视频服务器的两个接口为一个方法：添加视频')
+    @allure.step('ext - 合并添加pvg和添加rtsp为·添加视频· ')
     def save_video(self, video_server):
-        # 初始化视频服务器，获取视频服务器ID、相机ID
+        """
+        初始化视频服务器，获取视频服务器配置、名称、ID
+        """
+        self.video_conf = video_server
         if video_server.get('version') == 'rtsp':
+            self.server_name = 'rtsp视频'
             self.save_rtsp(video_server)
         else:
+            self.server_name = video_server['name']
             self.save_pvg_server(video_server)
-        self.get_serverid()
+        logger.debug("已添加video: {} .".format(self.server_name))
+        assert self.get_serverid() is not None
 
     @allure.step('api - 1. 添加rtsp视频')
     def save_rtsp(self, rtsp_json, status='PASS'):
         api_url = "/api/video/save-rtsp"
         method = 'POST'
         data = {'rtspUrl': rtsp_json['url'], 'rtspName': rtsp_json['name']}
-        res = self.send_request(api_url, method, status, data=data)
-
-        self.server_name = 'rtsp视频'
-        logger.info("已添加video: {} .".format(rtsp_json['name']))
-        return res
+        self.send_request(api_url, method, status, data=data)
 
     @allure.step('api - 1. 添加PvgServer')
     def save_pvg_server(self, pvg_json, status='PASS'):
         api_url = "/api/video/save-pvg-server"
         method = 'POST'
         self.send_request(api_url, method, status, json=pvg_json)
-
-        self.server_name = pvg_json['name']
-        logger.info("已添加video: {} .".format(self.server_name))
 
     @allure.step('api - 2.1 查询VideoServer列表')
     def list_channel_tree_new(self, server_id=None, lv=0, page=1, status='PASS'):
@@ -124,10 +124,8 @@ class APIVideo(PRequest):
             data['id'] = self.server_id
             data['lv'] = lv
             data['page'] = page
-
         res = self.send_request(api_url, method, status, data=data)
-
-        logger.info("获取设备列表{} .".format(res))
+        logger.debug("获取设备列表{} .".format(res))
         return res
 
     @allure.step('ext - 2. 获取ID')
@@ -139,7 +137,8 @@ class APIVideo(PRequest):
             name = kw['name']
             ids[name] = kw['id']
         self.server_id = ids.get(self.server_name, None)
-        logger.info("获取{}的ID为{}".format(self.server_name, self.server_id))
+        logger.debug("获取{}的ID为{}".format(self.server_name, self.server_id))
+        return self.server_id
 
     @allure.step('ast - 3. 断言VideoServer资源数量')
     def assert_server_count(self, real_count):
@@ -147,8 +146,7 @@ class APIVideo(PRequest):
         query_camera_count = "SELECT COUNT(*) FROM t_video_channel " \
                              "WHERE F_Video_Server_ID = '{}' " \
                              "AND F_Enabled = 1;".format(self.server_id)
-        # Sql().assert_query(query_camera_count, real_count)
-        logger.info(query_camera_count)
+        logger.debug(query_camera_count)
 
         # 循环检查并断言camera数量
         init = -1
@@ -196,8 +194,7 @@ class APIVideo(PRequest):
         data = {'videoServerId': self.server_id}
         extractor = 'count'
         res = self.send_request(api_url, method, status, data=data, extractor=extractor)
-
-        logger.info("该视频服务器下有{}个运行中的任务".format(res))
+        logger.debug("该视频服务器下有{}个运行中的任务".format(res))
         return res
 
     @allure.step('api - 4. 重命名VideoServer')

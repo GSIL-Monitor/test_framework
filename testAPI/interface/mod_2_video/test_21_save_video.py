@@ -27,8 +27,7 @@ from .conftest import APIVideo
 @pytest.mark.parametrize('pvg_server, real_count',
                          [(pvg_67_conf, real_count_67), (pvg_10_conf, real_count_10)], ids=['pvg67', 'pvg10'])
 def test_2101_add_pvg(video_api, pvg_server, real_count):
-    video_api.save_pvg_server(pvg_server)
-    video_api.get_serverid()
+    video_api.save_video(pvg_server)
     video_api.assert_server_count(real_count)
 
 
@@ -38,8 +37,7 @@ def test_2101_add_pvg(video_api, pvg_server, real_count):
 @allure.title('添加rtsp视频')
 @pytest.mark.parametrize('rtsp_server', [rtsp_server_1, rtsp_server_2])
 def test_2102_add_rtsp(video_api, rtsp_server):
-    video_api.save_rtsp(rtsp_server)
-    video_api.get_serverid()
+    video_api.save_video(rtsp_server)
 
 
 #
