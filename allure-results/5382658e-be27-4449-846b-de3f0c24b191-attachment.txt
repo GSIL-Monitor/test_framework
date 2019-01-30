@@ -1,0 +1,16 @@
+2019-01-30 19:08:38,353 - framework - INFO - 请求开始 POST http://172.17.3.40/api/video/save-rtsp
+2019-01-30 19:08:38,357 - framework - DEBUG - 请求内容: {'rtspUrl': 'rtsp://10.0.10.200:8557/H264', 'rtspName': 'rtsp200'}
+2019-01-30 19:08:38,361 - framework - DEBUG - 响应结果: <Response [200]>
+响应文本: {"msg":"success","ext":null}
+2019-01-30 19:08:38,365 - framework - INFO - 请求结束
+
+2019-01-30 19:08:38,375 - framework - INFO - 连接到mysql服务器172.17.3.40
+2019-01-30 19:08:38,388 - framework - DEBUG - 获取 rtsp200 ID: C607410A74504446BBCE954F66880CB7
+2019-01-30 19:08:38,407 - framework - INFO - 请求开始 POST http://172.17.3.40/api/video/del-rtsp-video
+2019-01-30 19:08:38,408 - framework - DEBUG - 请求内容: {'channelId': 'C607410A74504446BBCE954F66880CB7', 'taskType': 'Crowd', 'flag': 'false'}
+2019-01-30 19:08:38,409 - framework - DEBUG - 响应结果: <Response [200]>
+响应文本: {"msg":"success","ext":null}
+2019-01-30 19:08:38,410 - framework - INFO - 请求结束
+
+2019-01-30 19:08:38,417 - framework - INFO - 连接到mysql服务器172.17.3.40
+2019-01-30 19:08:38,429 - framework - DEBUG - 获取 rtsp200 ID: None

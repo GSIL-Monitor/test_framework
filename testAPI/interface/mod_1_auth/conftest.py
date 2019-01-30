@@ -1,37 +1,21 @@
 # coding = utf-8
-
 """
 api-接口请求， ext-结果提取处理， ast-自定义断言
 """
-
 import os
-import time
-import unittest
-from utils.config import Config, REPORT_PATH, DATA_PATH
-from utils.client import HTTPClient
-from utils.log import logger
-from utils.HTMLTestRunner import HTMLTestRunner
-from utils.assertion import assertHTTPCode
-from utils.support import encrypt
-from utils.mail import Email
-import time
-import json
-from utils.sql import Sql
-import datetime
 import pytest
-import allure_pytest
 import allure
-from utils.extractor import JMESPathExtractor
-import time
+from utils.config import Config, DATA_PATH
 from testAPI.common.pre_request import PRequest
 
 
-__all__ = ('base_url',
-           'license_right',
-           'license_wrong',
-           'hard_info',
-           'APIAuth'
-           )
+__all__ = (
+    'base_url',
+    'license_right',
+    'license_wrong',
+    'hard_info',
+    'APIAuth'
+)
 
 base_url = Config().get('BASE_URL', index=0)
 hard_info = '{}.hardinfo'.format(base_url.partition("://")[-1])

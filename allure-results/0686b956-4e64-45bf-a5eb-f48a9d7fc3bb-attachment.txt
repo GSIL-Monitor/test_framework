@@ -1,0 +1,38 @@
+2019-01-30 19:09:49,946 - framework - INFO - 连接到mysql服务器172.17.3.40
+2019-01-30 19:09:49,957 - framework - DEBUG - 获取 10.0.100.119 ID: 48F992E659E24627BCE3E90BCF3D2A23
+2019-01-30 19:09:50,195 - framework - INFO - 请求开始 POST http://172.17.3.40/api/video/refresh-pvg-server
+2019-01-30 19:09:50,197 - framework - DEBUG - 请求内容: {'serverId': '48F992E659E24627BCE3E90BCF3D2A23'}
+2019-01-30 19:09:50,198 - framework - DEBUG - 响应结果: <Response [200]>
+响应文本: {"msg":"success","ext":null}
+2019-01-30 19:09:50,199 - framework - INFO - 请求结束
+
+2019-01-30 19:09:50,205 - framework - INFO - 连接到mysql服务器172.17.3.40
+2019-01-30 19:09:50,224 - framework - INFO - 查询中，已耗时0:00:00.024041，已同步0条
+2019-01-30 19:09:55,230 - framework - INFO - 连接到mysql服务器172.17.3.40
+2019-01-30 19:09:55,247 - framework - INFO - 查询中，已耗时0:00:05.046386，已同步5911条
+2019-01-30 19:10:00,255 - framework - INFO - 连接到mysql服务器172.17.3.40
+2019-01-30 19:10:00,277 - framework - INFO - 查询完毕，结果10278匹配
+2019-01-30 19:10:00,279 - framework - INFO - 总耗时:0:00:10.077769
+2019-01-30 19:10:00,291 - framework - INFO - 连接到mysql服务器172.17.3.40
+2019-01-30 19:10:00,301 - framework - DEBUG - load E:\Python\test_framework\data\sql\init.sql 
+2019-01-30 19:10:00,327 - framework - INFO - sql执行成功
+2019-01-30 19:10:00,336 - framework - INFO - sql执行成功
+2019-01-30 19:10:00,342 - framework - INFO - sql执行成功
+2019-01-30 19:10:00,350 - framework - INFO - sql执行成功
+2019-01-30 19:10:00,362 - framework - INFO - sql执行成功
+2019-01-30 19:10:00,370 - framework - INFO - sql执行成功
+2019-01-30 19:10:00,376 - framework - INFO - sql执行成功
+2019-01-30 19:10:00,384 - framework - INFO - sql执行成功
+2019-01-30 19:10:00,388 - framework - INFO - sql执行成功
+2019-01-30 19:10:00,391 - framework - INFO - sql执行成功
+2019-01-30 19:10:00,395 - framework - INFO - sql执行成功
+2019-01-30 19:10:00,401 - framework - INFO - sql执行成功
+2019-01-30 19:10:00,411 - framework - INFO - sql执行成功
+2019-01-30 19:10:00,414 - framework - INFO - sql执行成功
+2019-01-30 19:10:00,418 - framework - INFO - sql执行成功
+2019-01-30 19:10:00,424 - framework - INFO - sql执行成功
+2019-01-30 19:10:00,433 - framework - INFO - sql执行成功
+2019-01-30 19:10:00,440 - framework - INFO - sql执行成功
+2019-01-30 19:10:00,450 - framework - INFO - sql执行成功
+2019-01-30 19:10:00,458 - framework - INFO - sql执行成功
+2019-01-30 19:10:00,469 - framework - INFO - sql执行成功

@@ -1,18 +1,6 @@
 # coding = utf-8
-import os
-import time
-import unittest
-from utils.config import Config, REPORT_PATH
-from utils.client import HTTPClient
-from utils.log import logger
-from utils.HTMLTestRunner import HTMLTestRunner
-from utils.assertion import assertHTTPCode
-from utils.support import encrypt
-from utils.mail import Email
 import pytest
-import allure_pytest
 import allure
-from utils.extractor import JMESPathExtractor
 from testAPI.interface.conftest import *
 
 

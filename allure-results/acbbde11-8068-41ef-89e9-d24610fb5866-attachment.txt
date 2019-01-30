@@ -1,0 +1,7 @@
+connectionpool.py          205 DEBUG    Starting new HTTP connection (1): 172.17.3.40:80
+connectionpool.py          393 DEBUG    http://172.17.3.40:80 "POST /api/auth HTTP/1.1" 401 12
+log.py                      42 INFO     请求开始 POST http://172.17.3.40/api/auth
+log.py                      44 DEBUG    请求内容: {'username': 'Admin', 'password': 'bb93915f55f6927b81779f3ad55b7a58'}
+log.py                      44 DEBUG    响应结果: <Response [401]>
+响应文本: Unauthorized
+log.py                      42 INFO     请求结束

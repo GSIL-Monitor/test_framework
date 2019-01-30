@@ -1,0 +1,40 @@
+log.py                      42 INFO     连接到mysql服务器172.17.3.40
+log.py                      44 DEBUG    获取 10.0.100.119 ID: 48F992E659E24627BCE3E90BCF3D2A23
+connectionpool.py          205 DEBUG    Starting new HTTP connection (1): 172.17.3.40:80
+connectionpool.py          393 DEBUG    http://172.17.3.40:80 "POST /api/video/refresh-pvg-server HTTP/1.1" 200 None
+log.py                      42 INFO     请求开始 POST http://172.17.3.40/api/video/refresh-pvg-server
+log.py                      44 DEBUG    请求内容: {'serverId': '48F992E659E24627BCE3E90BCF3D2A23'}
+log.py                      44 DEBUG    响应结果: <Response [200]>
+响应文本: {"msg":"success","ext":null}
+log.py                      42 INFO     请求结束
+
+log.py                      42 INFO     连接到mysql服务器172.17.3.40
+log.py                      42 INFO     查询中，已耗时0:00:00.024041，已同步0条
+log.py                      42 INFO     连接到mysql服务器172.17.3.40
+log.py                      42 INFO     查询中，已耗时0:00:05.046386，已同步5911条
+log.py                      42 INFO     连接到mysql服务器172.17.3.40
+log.py                      42 INFO     查询完毕，结果10278匹配
+log.py                      42 INFO     总耗时:0:00:10.077769
+log.py                      42 INFO     连接到mysql服务器172.17.3.40
+log.py                      44 DEBUG    load E:\Python\test_framework\data\sql\init.sql 
+log.py                      42 INFO     sql执行成功
+log.py                      42 INFO     sql执行成功
+log.py                      42 INFO     sql执行成功
+log.py                      42 INFO     sql执行成功
+log.py                      42 INFO     sql执行成功
+log.py                      42 INFO     sql执行成功
+log.py                      42 INFO     sql执行成功
+log.py                      42 INFO     sql执行成功
+log.py                      42 INFO     sql执行成功
+log.py                      42 INFO     sql执行成功
+log.py                      42 INFO     sql执行成功
+log.py                      42 INFO     sql执行成功
+log.py                      42 INFO     sql执行成功
+log.py                      42 INFO     sql执行成功
+log.py                      42 INFO     sql执行成功
+log.py                      42 INFO     sql执行成功
+log.py                      42 INFO     sql执行成功
+log.py                      42 INFO     sql执行成功
+log.py                      42 INFO     sql执行成功
+log.py                      42 INFO     sql执行成功
+log.py                      42 INFO     sql执行成功

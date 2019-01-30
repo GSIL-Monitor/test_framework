@@ -1,0 +1,8 @@
+2019-01-30 19:08:39,131 - framework - INFO - 请求开始 POST http://172.17.3.40/api/video/save-pvg-server
+2019-01-30 19:08:39,132 - framework - DEBUG - 请求内容: {'name': '10.0.100.12', 'ipAddress': '10.0.100.12', 'version': 'PVG6_7', 'port': 2100, 'description': '', 'ext': '{"uid":"error","pwd":"admin"}', 'real_count': 150}
+2019-01-30 19:08:39,133 - framework - DEBUG - 响应结果: <Response [200]>
+响应文本: {"msg":"namePwdErr","ext":null}
+2019-01-30 19:08:39,136 - framework - INFO - 请求结束
+
+2019-01-30 19:08:39,143 - framework - INFO - 连接到mysql服务器172.17.3.40
+2019-01-30 19:08:39,154 - framework - DEBUG - 获取 10.0.100.12 ID: None

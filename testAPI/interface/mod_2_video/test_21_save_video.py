@@ -1,43 +1,48 @@
 # coding = utf-8
-import os
-import time
-import unittest
-from utils.config import Config, REPORT_PATH
-from utils.client import HTTPClient
-from utils.log import logger
-from utils.HTMLTestRunner import HTMLTestRunner
-from utils.assertion import assertHTTPCode
-from utils.support import encrypt
-from utils.mail import Email
-import time
-import json
-from utils.sql import Sql
-import datetime
 import pytest
 import allure
-from .conftest import *
-from injson import check
-from .conftest import APIVideo
 
 
 @allure.severity('blocker')
 @allure.feature('视频管理')
 @allure.story('添加视频')
-@allure.title('添加PVG视频服务器')
-@pytest.mark.parametrize('pvg_server, real_count',
-                         [(pvg_67_conf, real_count_67), (pvg_10_conf, real_count_10)], ids=['pvg67', 'pvg10'])
-def test_2101_add_pvg(video_api, pvg_server, real_count):
+@allure.title('添加PVG视频服务器成功')
+@pytest.mark.parametrize('pvg_server', ['pvg_server_67', 'pvg_server_10'], ids=['1-pvg67', '2-pvg10'])
+def test_2101_add_pvg(video_api, pvg_server):
+    # 添加
     video_api.save_video(pvg_server)
-    video_api.assert_server_count(real_count)
+    video_api.assert_server_count()
+    # 删除
+    video_api.del_video_server()
+    assert video_api.query_video_id() is None
 
 
 @allure.severity('blocker')
 @allure.feature('视频管理')
 @allure.story('添加视频')
-@allure.title('添加rtsp视频')
-@pytest.mark.parametrize('rtsp_server', [rtsp_server_1, rtsp_server_2])
+@allure.title('添加rtsp视频成功')
+@pytest.mark.parametrize('rtsp_server', ['rtsp_server_1', 'rtsp_server_2'])
 def test_2102_add_rtsp(video_api, rtsp_server):
+    # 添加
     video_api.save_video(rtsp_server)
+    # 删除
+    video_api.del_rtsp_video()
+    assert video_api.query_video_id() is None
+
+
+@allure.severity('blocker')
+@allure.feature('视频管理')
+@allure.story('添加视频')
+@allure.title('添加PVG视频服务器失败')
+@pytest.mark.parametrize('pvg_server',
+                         ['pvg_server_67_1', 'pvg_server_67_2', 'pvg_server_67_3','pvg_server_67_4', 'pvg_server_67_5',
+                          'pvg_server_10_1', 'pvg_server_10_2', 'pvg_server_10_3', 'pvg_server_10_4', 'pvg_server_10_5'])
+def test_2101_add_pvg_name_fail(video_api, pvg_server):
+    video_api.save_video(pvg_server, index=1)
+
+
+
+
 
 
 #

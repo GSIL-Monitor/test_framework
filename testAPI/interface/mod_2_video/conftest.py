@@ -1,54 +1,33 @@
 # coding = utf-8
 # api-接口请求， ext-结果提取处理， ast-自定义断言
-
+import pytest
+import allure
 import time
+import datetime
 from utils.config import Config
 from utils.log import logger
 from utils.sql import Sql
-import allure
-import datetime
 from testAPI.common.pre_request import PRequest
-import pytest
 from testAPI.common.pre_sql_data import *
 
 
-__all__ = ('base_url',
-           'pvg_67_conf',
-           'pvg_10_conf',
-           'real_count_67',
-           'real_count_10',
-           'rtsp_server_1',
-           'rtsp_server_2',
-           'APIVideo',
-           'video_api',
-           'video_env'
-           )
+__all__ = (
+    'APIVideo',
+    'video_env'
+)
 
-base_url = Config().get('BASE_URL', index=0)
 
 config_video = Config('apivideo.yml')
-
-pvg_67_conf = config_video.get('pvg_server_67', index=0)
-real_count_67 = pvg_67_conf.pop('real_count')
-pvg_10_conf = config_video.get('pvg_server_10', index=0)
-real_count_10 = pvg_10_conf.pop('real_count')
-
-rtsp_server_1 = config_video.get('rtsp_server_1', index=0)
-rtsp_server_2 = config_video.get('rtsp_server_2', index=0)
 
 
 @pytest.fixture()
 def video_api(login_admin):
     """
-    增删改查中的‘增’，需要干净的环境
-    增删改查中的‘删改查’, 针对异常情况测试时，也需要准备干净的环境
+    1)增删改查中的‘增’，需要干净的环境; 2)增删改查中的‘删改查’, 针对异常情况测试时，也需要准备干净的环境
     固件执行范围为function级别
     """
     av = APIVideo(login_admin)
     yield av
-    if av.server_id:
-        av.del_video_server()
-        assert av.get_serverid() is None
 
 
 @pytest.fixture(scope='module')
@@ -60,10 +39,9 @@ def video_env(login_admin):
     env_video = APIVideo(login_admin)
     load_video_data()
 
-    def parse_env_video(video_server_conf):
-        env_video.video_conf = video_server_conf
-        env_video.server_name = 'rtsp视频' if video_server_conf['version'].startswith('rtsp') else video_server_conf.get('name')
-        env_video.server_id = query_video_id(env_video.server_name)
+    def parse_env_video(video_server_conf, index=0):
+        env_video.video_conf = config_video.get(video_server_conf, index)
+        env_video.query_video_id()
         return env_video
     yield parse_env_video
     clear_all()
@@ -81,25 +59,18 @@ class APIVideo(PRequest):
         """
         super(APIVideo, self).__init__(login)
         self.video_conf = None
-        self.server_name = None
         self.server_id = None
-        self.real_count = 0
-        self.channel_tree = None
 
-    @allure.step('ext - 合并添加pvg和添加rtsp为·添加视频· ')
-    def save_video(self, video_server):
-        """
-        初始化视频服务器，获取视频服务器配置、名称、ID
-        """
-        self.video_conf = video_server
-        if video_server.get('version') == 'rtsp':
-            self.server_name = 'rtsp视频'
-            self.save_rtsp(video_server)
+    @allure.step('ext - 0. 添加视频 <添加pvg/rtsp视频> ')
+    def save_video(self, video_server, index=0, status='PASS'):
+        # 初始化视频服务配置 self.video_conf, 断言并获取全局唯一ID self.server_id，
+        self.video_conf = config_video.get(video_server, index)
+        if self.video_conf.get('version') == 'rtsp':
+            self.save_rtsp(self.video_conf, status)
         else:
-            self.server_name = video_server['name']
-            self.save_pvg_server(video_server)
-        logger.debug("已添加video: {} .".format(self.server_name))
-        assert self.get_serverid() is not None
+            self.save_pvg_server(self.video_conf, status)
+        # yml文件以'---'分割，第一章节(index==0)为有效用例(断言成功），后续章节(index!=0)为无效用例（断言失败）
+        assert self.query_video_id() is None if index else self.query_video_id() is not None
 
     @allure.step('api - 1. 添加rtsp视频')
     def save_rtsp(self, rtsp_json, status='PASS'):
@@ -114,7 +85,62 @@ class APIVideo(PRequest):
         method = 'POST'
         self.send_request(api_url, method, status, json=pvg_json)
 
-    @allure.step('api - 2.1 查询VideoServer列表')
+    @allure.step('ext - 1. 获取视频服务ID ')
+    def query_video_id(self):
+        mysql = Sql()
+        if self.video_conf['version'] == 'rtsp':
+            sql_video_id = "SELECT F_ID FROM t_video_channel WHERE F_Name = '{}' AND " \
+                           "F_Video_Type = 'rtsp' AND  F_Enabled = 1;".format(self.video_conf['name'])
+        else:
+            sql_video_id = "SELECT F_ID FROM t_video_server WHERE F_NAME = '{}' AND " \
+                           "F_Video_Type = 'pvg' AND F_Enabled = 1;".format(self.video_conf['name'])
+        req = mysql.query(sql_video_id)
+        mysql.close()
+
+        self.server_id = req[0][0] if req else None
+        logger.debug('获取 {} ID: {}'.format(self.video_conf['name'], self.server_id))
+        return self.server_id
+
+    @allure.step('ast - 1. 断言VideoServer资源数量')
+    def assert_server_count(self):
+        # 通过数据库确认camera数量
+        query_camera_count = "SELECT COUNT(*) FROM t_video_channel " \
+                             "WHERE F_Video_Server_ID = '{}' " \
+                             "AND F_Enabled = 1;".format(self.server_id)
+        # logger.debug(query_camera_count)
+
+        # 循环检查并断言camera数量
+        init = -1
+        start = datetime.datetime.now()
+        while True:
+            count = Sql().query(query_camera_count)[0][0]
+            now = datetime.datetime.now()
+            interval = (now - start).seconds
+            if count == self.video_conf['real_count']:
+                logger.info('查询完毕，结果{}匹配'.format(count))
+                res = 'SUCCESS'
+                break
+            elif count == init and interval > 30:
+                logger.error('查询完毕，结果不匹配')
+                res = 'FAIL'
+                break
+            else:
+                init = count
+                logger.info('查询中，已耗时{}，已同步{}条'.format((now - start), count))
+                time.sleep(5)
+        end = datetime.datetime.now()
+        logger.info('总耗时:{}'.format(end - start))
+        assert res == 'SUCCESS'
+
+    @allure.step('api - 2. 同步PvgServer')
+    def refresh_pvg_server(self, status='PASS'):
+        api_url = "/api/video/refresh-pvg-server"
+        method = 'POST'
+        data = {'serverId': self.server_id}
+        res = self.send_request(api_url, method, status, data=data)
+        return res
+
+    @allure.step('api - 3 查询VideoServer列表')
     def list_channel_tree_new(self, server_id=None, lv=0, page=1, status='PASS'):
         api_url = "/api/video/list-channel-tree-new"
         method = 'POST'
@@ -126,57 +152,6 @@ class APIVideo(PRequest):
             data['page'] = page
         res = self.send_request(api_url, method, status, data=data)
         logger.debug("获取设备列表{} .".format(res))
-        return res
-
-    @allure.step('ext - 2. 获取ID')
-    def get_serverid(self):
-        channel_tree = self.list_channel_tree_new()
-        # 获取指定video_name的设备ID
-        ids = {}
-        for kw in channel_tree.json():
-            name = kw['name']
-            ids[name] = kw['id']
-        self.server_id = ids.get(self.server_name, None)
-        logger.debug("获取{}的ID为{}".format(self.server_name, self.server_id))
-        return self.server_id
-
-    @allure.step('ast - 3. 断言VideoServer资源数量')
-    def assert_server_count(self, real_count):
-        # 通过数据库确认camera数量
-        query_camera_count = "SELECT COUNT(*) FROM t_video_channel " \
-                             "WHERE F_Video_Server_ID = '{}' " \
-                             "AND F_Enabled = 1;".format(self.server_id)
-        logger.debug(query_camera_count)
-
-        # 循环检查并断言camera数量
-        init = -1
-        start = datetime.datetime.now()
-        while True:
-            count = Sql().query(query_camera_count)[0][0]
-            now = datetime.datetime.now()
-            interval = (now - start).seconds
-            if count == real_count:
-                logger.info('查询完毕，数量匹配')
-                res = 'SUCCESS'
-                break
-            elif count == init and interval > 30:
-                logger.error('查询完毕，数量不匹配')
-                res = 'FAIL'
-                break
-            else:
-                init = count
-                logger.info('查询中，已耗时{}，已同步{}条'.format((now - start), count))
-                time.sleep(5)
-        end = datetime.datetime.now()
-        logger.info('总耗时:{}'.format(end - start))
-        assert res == 'SUCCESS'
-
-    @allure.step('api - 4. 同步PvgServer')
-    def refresh_pvg_server(self, status='PASS'):
-        api_url = "/api/video/refresh-pvg-server"
-        method = 'POST'
-        data = {'serverId': self.server_id}
-        res = self.send_request(api_url, method, status, data=data)
         return res
 
     @allure.step('api - 4. 查询VideoServer详情')
@@ -197,7 +172,7 @@ class APIVideo(PRequest):
         logger.debug("该视频服务器下有{}个运行中的任务".format(res))
         return res
 
-    @allure.step('api - 4. 重命名VideoServer')
+    @allure.step('api - 5. 重命名VideoServer')
     def update_server_name(self, rename, redescrip, version=None, status='PASS'):
         api_url = "/api/video/update-server-name"
         method = 'POST'
@@ -205,7 +180,7 @@ class APIVideo(PRequest):
         res = self.send_request(api_url, method, status, data=data)
         return res
 
-    @allure.step('api - 5. 删除VideoServer')
+    @allure.step('api - 6. 删除VideoServer')
     def del_video_server(self, status='PASS'):
         api_url = "/api/video/del-video-server"
         method = 'POST'
@@ -213,6 +188,12 @@ class APIVideo(PRequest):
         res = self.send_request(api_url, method, status, data=data)
         return res
 
-
+    @allure.step('api - 6. 删除RtspVideo')
+    def del_rtsp_video(self, status='PASS'):
+        api_url = "/api/video/del-rtsp-video"
+        method = 'POST'
+        data = {'channelId': self.server_id, 'taskType': 'Crowd', 'flag': 'false'}
+        res = self.send_request(api_url, method, status, data=data)
+        return res
 
 

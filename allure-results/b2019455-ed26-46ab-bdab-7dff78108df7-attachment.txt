@@ -1,0 +1,73 @@
+2019-01-30 19:10:18,311 - framework - INFO - 连接到mysql服务器172.17.3.40
+2019-01-30 19:10:18,319 - framework - INFO - 载入SQL数据中……
+2019-01-30 19:10:18,320 - framework - DEBUG - load E:\Python\test_framework\data\sql\t_video_server.sql 
+2019-01-30 19:10:18,326 - framework - INFO - sql执行成功
+2019-01-30 19:10:18,334 - framework - INFO - sql执行成功
+2019-01-30 19:10:18,339 - framework - INFO - sql执行成功
+2019-01-30 19:10:18,340 - framework - DEBUG - load E:\Python\test_framework\data\sql\t_video_group.sql 
+2019-01-30 19:10:18,346 - framework - INFO - sql执行成功
+2019-01-30 19:10:18,355 - framework - INFO - sql执行成功
+2019-01-30 19:10:18,360 - framework - INFO - sql执行成功
+2019-01-30 19:10:18,361 - framework - DEBUG - load E:\Python\test_framework\data\sql\t_video_channel.sql 
+2019-01-30 19:10:18,406 - framework - INFO - sql执行成功
+2019-01-30 19:10:18,417 - framework - INFO - sql执行成功
+2019-01-30 19:10:18,925 - framework - INFO - sql执行成功
+2019-01-30 19:10:18,930 - framework - INFO - 载入完成
+2019-01-30 19:10:18,952 - framework - INFO - 连接到mysql服务器172.17.3.40
+2019-01-30 19:10:18,964 - framework - DEBUG - 获取 10.0.100.12 ID: 4AEA19D4952A4C91B0D13F03F84B3262
+2019-01-30 19:10:18,974 - framework - INFO - 连接到mysql服务器172.17.3.40
+2019-01-30 19:10:19,046 - framework - DEBUG - 获取用户 "zhangsan" 待添加设备IDs: ["0E9F2ECC58994022820E565952E90FAE", "63F3FF653A4C46649AE9E8B9F4290128", "3AE98EC37B5246AF99728CA5583A0EF7", "4163A1F3CDF84915AAB77BC06DB75F84", "12B39AF3F75E4D95B233C5EFAEFE09FF", "A95BA1799109432F9BE7FEE1662A2189"] 
+2019-01-30 19:10:19,068 - framework - INFO - 请求开始 POST http://172.17.3.40/api/user/add-user
+2019-01-30 19:10:19,069 - framework - DEBUG - 请求内容: {'userName': '张三', 'userId': 'zhangsan', 'roleType': 'ROLE_ADMIN', 'password': 'f7e871f95098d792b46c3ecc8bd2deb4', 'cameraIds': '["0E9F2ECC58994022820E565952E90FAE", "63F3FF653A4C46649AE9E8B9F4290128", "3AE98EC37B5246AF99728CA5583A0EF7", "4163A1F3CDF84915AAB77BC06DB75F84", "12B39AF3F75E4D95B233C5EFAEFE09FF", "A95BA1799109432F9BE7FEE1662A2189"]', 'cameraNames': ['19、上海外滩白天', '20、上海外滩夜晚', 'mbf_47', 'mbf_26', '24、人群通道效果', '10.0.10.200']}
+2019-01-30 19:10:19,070 - framework - DEBUG - 响应结果: <Response [200]>
+响应文本: {"msg":"success","ext":null}
+2019-01-30 19:10:19,072 - framework - INFO - 请求结束
+
+2019-01-30 19:10:19,083 - framework - INFO - 请求开始 POST http://172.17.3.40/api/user/list-user
+2019-01-30 19:10:19,084 - framework - DEBUG - 请求内容: {'page': 1, 'rows': 20, 'sidx': 'uid', 'sord': 'asc', 'searchString': '{"roleType":"","name":""}'}
+2019-01-30 19:10:19,085 - framework - DEBUG - 响应结果: <Response [200]>
+响应文本: {"page":1,"total":1,"records":3,"rows":[{"id":"0BE0EBA1904048A2816611D0AC591BAC","uid":"admin","uname":"超级管理员","pwd":null,"roleType":"ROLE_SUPER_ADMIN","pyCode":null,"ext":"","loginTime":1548409576000,"loginCount":0,"todayCount":0,"loginHost":"127.0.0.1","createTime":1546572645000,"cameraRole":null,"roleTypeName":"超级管理员","enabled":true},{"id":"7916C0534F064D41891A1FE172B62B8D","uid":"zhangsan","uname":"张三","pwd":null,"roleType":"ROLE_ADMIN","pyCode":null,"ext":null,"loginTime":null,"loginCount":0,"todayCount":0,"loginHost":null,"createTime":1548846598000,"cameraRole":null,"roleTypeName":"管理员","enabled":true},{"id":"5FB02B133ABC4A2A8F235CD207F576AE","uid":"user","uname":"普通用户","pwd":null,"roleType":"ROLE_USER","pyCode":null,"ext":"","loginTime":1548402547000,"loginCount":0,"todayCount":0,"loginHost":"127.0.0.1","createTime":1546572645000,"cameraRole":null,"roleTypeName":"普通用户","enabled":true}],"additional":null}
+2019-01-30 19:10:19,087 - framework - INFO - 请求结束
+
+2019-01-30 19:10:19,088 - framework - DEBUG - 获取用户zhangsan属性: ('id',) = ['7916C0534F064D41891A1FE172B62B8D'] 
+2019-01-30 19:10:19,100 - framework - INFO - 请求开始 POST http://172.17.3.40/api/user/list-user
+2019-01-30 19:10:19,102 - framework - DEBUG - 请求内容: {'page': 1, 'rows': 20, 'sidx': 'uid', 'sord': 'asc', 'searchString': '{"roleType":"","name":""}'}
+2019-01-30 19:10:19,103 - framework - DEBUG - 响应结果: <Response [200]>
+响应文本: {"page":1,"total":1,"records":3,"rows":[{"id":"0BE0EBA1904048A2816611D0AC591BAC","uid":"admin","uname":"超级管理员","pwd":null,"roleType":"ROLE_SUPER_ADMIN","pyCode":null,"ext":"","loginTime":1548409576000,"loginCount":0,"todayCount":0,"loginHost":"127.0.0.1","createTime":1546572645000,"cameraRole":null,"roleTypeName":"超级管理员","enabled":true},{"id":"7916C0534F064D41891A1FE172B62B8D","uid":"zhangsan","uname":"张三","pwd":null,"roleType":"ROLE_ADMIN","pyCode":null,"ext":null,"loginTime":null,"loginCount":0,"todayCount":0,"loginHost":null,"createTime":1548846598000,"cameraRole":null,"roleTypeName":"管理员","enabled":true},{"id":"5FB02B133ABC4A2A8F235CD207F576AE","uid":"user","uname":"普通用户","pwd":null,"roleType":"ROLE_USER","pyCode":null,"ext":"","loginTime":1548402547000,"loginCount":0,"todayCount":0,"loginHost":"127.0.0.1","createTime":1546572645000,"cameraRole":null,"roleTypeName":"普通用户","enabled":true}],"additional":null}
+2019-01-30 19:10:19,105 - framework - INFO - 请求结束
+
+2019-01-30 19:10:19,106 - framework - DEBUG - 获取用户zhangsan属性: ('id', 'uname', 'roleType') = ['7916C0534F064D41891A1FE172B62B8D', '张三', 'ROLE_ADMIN'] 
+2019-01-30 19:10:19,107 - framework - INFO - 用户zhangsan存在, 且信息匹配，断言成功
+2019-01-30 19:10:19,118 - framework - INFO - 请求开始 POST http://172.17.3.40/api/user/user-detail
+2019-01-30 19:10:19,120 - framework - DEBUG - 请求内容: {'id': '7916C0534F064D41891A1FE172B62B8D'}
+2019-01-30 19:10:19,121 - framework - DEBUG - 响应结果: <Response [200]>
+响应文本: {"id":"7916C0534F064D41891A1FE172B62B8D","uid":"zhangsan","uname":"张三","pwd":"","roleType":"ROLE_ADMIN","pyCode":"ZHANGSAN","ext":null,"loginTime":null,"loginCount":0,"todayCount":0,"loginHost":null,"createTime":null,"cameraRole":[{"id":"36245FEBFA1948CABC35E729AEA263A6","channelId":"12B39AF3F75E4D95B233C5EFAEFE09FF","userId":"7916C0534F064D41891A1FE172B62B8D","createTime":1548846598000,"ext":null,"channelName":"24、人群通道效果"},{"id":"4BF04170CA42497B9A92AAC0F0C52124","channelId":"4163A1F3CDF84915AAB77BC06DB75F84","userId":"7916C0534F064D41891A1FE172B62B8D","createTime":1548846598000,"ext":null,"channelName":"mbf_26"},{"id":"6453C03FF25D4877BB374E00281681D3","channelId":"3AE98EC37B5246AF99728CA5583A0EF7","userId":"7916C0534F064D41891A1FE172B62B8D","createTime":1548846598000,"ext":null,"channelName":"mbf_47"},{"id":"6C86CD52F58C43C6B1C0622F6BD1F2DF","channelId":"0E9F2ECC58994022820E565952E90FAE","userId":"7916C0534F064D41891A1FE172B62B8D","createTime":1548846598000,"ext":null,"channelName":"19、上海外滩白天"},{"id":"DE9B8943FDD74A0BA2B74BA827B61661","channelId":"A95BA1799109432F9BE7FEE1662A2189","userId":"7916C0534F064D41891A1FE172B62B8D","createTime":1548846598000,"ext":null,"channelName":"10.0.10.200"},{"id":"FA9FE4B6612B45ED9228F4AA74E5492C","channelId":"63F3FF653A4C46649AE9E8B9F4290128","userId":"7916C0534F064D41891A1FE172B62B8D","createTime":1548846598000,"ext":null,"channelName":"20、上海外滩夜晚"}],"roleTypeName":null,"enabled":true}
+2019-01-30 19:10:19,123 - framework - INFO - 数据处理: 提取cameraRole的值为[{'id': '36245FEBFA1948CABC35E729AEA263A6', 'channelId': '12B39AF3F75E4D95B233C5EFAEFE09FF', 'userId': '7916C0534F064D41891A1FE172B62B8D', 'createTime': 1548846598000, 'ext': None, 'channelName': '24、人群通道效果'}, {'id': '4BF04170CA42497B9A92AAC0F0C52124', 'channelId': '4163A1F3CDF84915AAB77BC06DB75F84', 'userId': '7916C0534F064D41891A1FE172B62B8D', 'createTime': 1548846598000, 'ext': None, 'channelName': 'mbf_26'}, {'id': '6453C03FF25D4877BB374E00281681D3', 'channelId': '3AE98EC37B5246AF99728CA5583A0EF7', 'userId': '7916C0534F064D41891A1FE172B62B8D', 'createTime': 1548846598000, 'ext': None, 'channelName': 'mbf_47'}, {'id': '6C86CD52F58C43C6B1C0622F6BD1F2DF', 'channelId': '0E9F2ECC58994022820E565952E90FAE', 'userId': '7916C0534F064D41891A1FE172B62B8D', 'createTime': 1548846598000, 'ext': None, 'channelName': '19、上海外滩白天'}, {'id': 'DE9B8943FDD74A0BA2B74BA827B61661', 'channelId': 'A95BA1799109432F9BE7FEE1662A2189', 'userId': '7916C0534F064D41891A1FE172B62B8D', 'createTime': 1548846598000, 'ext': None, 'channelName': '10.0.10.200'}, {'id': 'FA9FE4B6612B45ED9228F4AA74E5492C', 'channelId': '63F3FF653A4C46649AE9E8B9F4290128', 'userId': '7916C0534F064D41891A1FE172B62B8D', 'createTime': 1548846598000, 'ext': None, 'channelName': '20、上海外滩夜晚'}] 
+2019-01-30 19:10:19,124 - framework - INFO - 请求结束
+
+2019-01-30 19:10:19,125 - framework - INFO - 用户相机列表分配，断言成功
+2019-01-30 19:10:19,137 - framework - INFO - 请求开始 POST http://172.17.3.40/api/auth
+2019-01-30 19:10:19,138 - framework - DEBUG - 请求内容: {'username': 'zhangsan', 'password': 'f7e871f95098d792b46c3ecc8bd2deb4'}
+2019-01-30 19:10:19,139 - framework - DEBUG - 响应结果: <Response [200]>
+响应文本: {"token":"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ6aGFuZ3NhbiIsInJvbGUiOiJST0xFX0FETUlOIiwiY3JlYXRlZCI6MTU0ODg0NjU5Nzc4MywibmFtZSI6IiVFNSVCQyVBMCVFNCVCOCU4OSIsImV4cCI6MzYwMDE1NDg4NDY1OTd9.YzocLoI2tpS2HTZilOhDnakvE1p81QnNsevXMUTdfNzkFJ_snbjE-Pr4ZGV6mQyWSITKoQAwtgCm7o6Blbe5fw"}
+2019-01-30 19:10:19,141 - framework - INFO - 数据处理: 提取token的值为eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ6aGFuZ3NhbiIsInJvbGUiOiJST0xFX0FETUlOIiwiY3JlYXRlZCI6MTU0ODg0NjU5Nzc4MywibmFtZSI6IiVFNSVCQyVBMCVFNCVCOCU4OSIsImV4cCI6MzYwMDE1NDg4NDY1OTd9.YzocLoI2tpS2HTZilOhDnakvE1p81QnNsevXMUTdfNzkFJ_snbjE-Pr4ZGV6mQyWSITKoQAwtgCm7o6Blbe5fw 
+2019-01-30 19:10:19,142 - framework - INFO - 请求结束
+
+2019-01-30 19:10:19,154 - framework - INFO - 请求开始 POST http://172.17.3.40/api/log/log-out
+2019-01-30 19:10:19,155 - framework - DEBUG - 响应结果: <Response [200]>
+响应文本: {"msg":"success","ext":null}
+2019-01-30 19:10:19,157 - framework - INFO - 请求结束
+
+2019-01-30 19:10:19,179 - framework - INFO - 请求开始 POST http://172.17.3.40/api/user/delete-user
+2019-01-30 19:10:19,180 - framework - DEBUG - 请求内容: {'id': '7916C0534F064D41891A1FE172B62B8D'}
+2019-01-30 19:10:19,181 - framework - DEBUG - 响应结果: <Response [200]>
+响应文本: {"msg":"success","ext":null}
+2019-01-30 19:10:19,182 - framework - INFO - 请求结束
+
+2019-01-30 19:10:19,194 - framework - INFO - 请求开始 POST http://172.17.3.40/api/user/list-user
+2019-01-30 19:10:19,196 - framework - DEBUG - 请求内容: {'page': 1, 'rows': 20, 'sidx': 'uid', 'sord': 'asc', 'searchString': '{"roleType":"","name":""}'}
+2019-01-30 19:10:19,197 - framework - DEBUG - 响应结果: <Response [200]>
+响应文本: {"page":1,"total":1,"records":2,"rows":[{"id":"0BE0EBA1904048A2816611D0AC591BAC","uid":"admin","uname":"超级管理员","pwd":null,"roleType":"ROLE_SUPER_ADMIN","pyCode":null,"ext":"","loginTime":1548409576000,"loginCount":0,"todayCount":0,"loginHost":"127.0.0.1","createTime":1546572645000,"cameraRole":null,"roleTypeName":"超级管理员","enabled":true},{"id":"5FB02B133ABC4A2A8F235CD207F576AE","uid":"user","uname":"普通用户","pwd":null,"roleType":"ROLE_USER","pyCode":null,"ext":"","loginTime":1548402547000,"loginCount":0,"todayCount":0,"loginHost":"127.0.0.1","createTime":1546572645000,"cameraRole":null,"roleTypeName":"普通用户","enabled":true}],"additional":null}
+2019-01-30 19:10:19,199 - framework - INFO - 请求结束
+
+2019-01-30 19:10:19,200 - framework - INFO - 用户zhangsan不存在, 断言成功

@@ -1,23 +1,16 @@
 # coding = utf-8
-
-import unittest
-from utils.config import Config
-from utils.client import HTTPClient
-from utils.log import logger
-from utils.support import encrypt
 import pytest
-import allure_pytest
-from utils.extractor import JMESPathExtractor
 import allure
+from utils.config import Config
+from utils.support import encrypt
 from testAPI.common.pre_request import PRequest
 
 __all__ = (
     'base_url',
-    'config_user',
-    'admin',
-    'user',
     'auth_login',
-    'auth_logout'
+    'auth_logout',
+    'admin',
+    'user'
 )
 
 base_url = Config().get('BASE_URL', index=0)

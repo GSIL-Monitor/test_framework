@@ -1,23 +1,13 @@
 # coding = utf-8
 import os
 import time
-import unittest
-from utils.config import Config, REPORT_PATH
-from utils.client import HTTPClient
-from utils.log import logger
-from utils.HTMLTestRunner import HTMLTestRunner
-from utils.assertion import assertHTTPCode
-from utils.support import encrypt
-from utils.mail import Email
-import time
-import json
-from utils.sql import Sql
-import datetime
 import pytest
 import allure
-from .conftest import *
-from injson import check
-from ..mod_2_video.conftest import *
+from utils.config import DATA_PATH
+
+
+channelName = ["19、上海外滩白天", "20、上海外滩夜晚", "mbf_47", "mbf_26", "24、人群通道效果", "10.0.10.200"]
+cover_default = os.path.join(DATA_PATH, 'covers', 'crowd_task_one.jpg')
 
 
 @allure.severity('critical')
@@ -25,8 +15,8 @@ from ..mod_2_video.conftest import *
 @allure.story('添加删除任务')
 @pytest.mark.parametrize('channel_name', channelName)
 def test_3101_add_del_task(task_api, channel_name):
-    my_task = task_api(video_server=pvg_67_conf, channel_name=channel_name, tasks_conf=crowd_task_one)
-    my_task.save_task(crowd_task_two_jpg)
+    my_task = task_api(video_server='pvg_server_67', channel_name=channel_name, tasks_conf='crowd_template_one')
+    my_task.save_task(cover_default)
     time.sleep(2)
     my_task.assert_task_status('run')
 

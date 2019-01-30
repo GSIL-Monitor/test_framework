@@ -1,0 +1,51 @@
+2019-01-30 19:10:19,625 - framework - INFO - 连接到mysql服务器172.17.3.40
+2019-01-30 19:10:19,638 - framework - INFO - 载入SQL数据中……
+2019-01-30 19:10:19,642 - framework - DEBUG - load E:\Python\test_framework\data\sql\t_video_server.sql 
+2019-01-30 19:10:19,649 - framework - INFO - sql执行成功
+2019-01-30 19:10:19,658 - framework - INFO - sql执行成功
+2019-01-30 19:10:19,663 - framework - INFO - sql执行成功
+2019-01-30 19:10:19,665 - framework - DEBUG - load E:\Python\test_framework\data\sql\t_video_group.sql 
+2019-01-30 19:10:19,671 - framework - INFO - sql执行成功
+2019-01-30 19:10:19,680 - framework - INFO - sql执行成功
+2019-01-30 19:10:19,684 - framework - INFO - sql执行成功
+2019-01-30 19:10:19,686 - framework - DEBUG - load E:\Python\test_framework\data\sql\t_video_channel.sql 
+2019-01-30 19:10:19,730 - framework - INFO - sql执行成功
+2019-01-30 19:10:19,741 - framework - INFO - sql执行成功
+2019-01-30 19:10:20,298 - framework - INFO - sql执行成功
+2019-01-30 19:10:20,301 - framework - INFO - 载入完成
+2019-01-30 19:10:20,308 - framework - INFO - 连接到mysql服务器172.17.3.40
+2019-01-30 19:10:20,318 - framework - INFO - 载入SQL数据中……
+2019-01-30 19:10:20,320 - framework - DEBUG - load E:\Python\test_framework\data\sql\t_role_model.sql 
+2019-01-30 19:10:20,327 - framework - INFO - sql执行成功
+2019-01-30 19:10:20,336 - framework - INFO - sql执行成功
+2019-01-30 19:10:20,340 - framework - INFO - sql执行成功
+2019-01-30 19:10:20,342 - framework - DEBUG - load E:\Python\test_framework\data\sql\t_user.sql 
+2019-01-30 19:10:20,367 - framework - INFO - sql执行成功
+2019-01-30 19:10:20,377 - framework - INFO - sql执行成功
+2019-01-30 19:10:20,381 - framework - INFO - sql执行成功
+2019-01-30 19:10:20,382 - framework - INFO - 载入完成
+2019-01-30 19:10:20,403 - framework - INFO - 连接到mysql服务器172.17.3.40
+2019-01-30 19:10:20,414 - framework - DEBUG - 获取 10.0.100.12 ID: 4AEA19D4952A4C91B0D13F03F84B3262
+2019-01-30 19:10:20,423 - framework - INFO - 连接到mysql服务器172.17.3.40
+2019-01-30 19:10:20,469 - framework - DEBUG - 获取用户 "zhangsan" 待添加设备IDs: ["0E9F2ECC58994022820E565952E90FAE", "63F3FF653A4C46649AE9E8B9F4290128", "3AE98EC37B5246AF99728CA5583A0EF7", "4163A1F3CDF84915AAB77BC06DB75F84", "12B39AF3F75E4D95B233C5EFAEFE09FF", "A95BA1799109432F9BE7FEE1662A2189"] 
+2019-01-30 19:10:20,493 - framework - INFO - 请求开始 POST http://172.17.3.40/api/user/list-user
+2019-01-30 19:10:20,494 - framework - DEBUG - 请求内容: {'page': 1, 'rows': 20, 'sidx': 'uid', 'sord': 'asc', 'searchString': '{"roleType":"","name":""}'}
+2019-01-30 19:10:20,495 - framework - DEBUG - 响应结果: <Response [200]>
+响应文本: {"page":1,"total":1,"records":4,"rows":[{"id":"0BE0EBA1904048A2816611D0AC591BAC","uid":"admin","uname":"超级管理员","pwd":null,"roleType":"ROLE_SUPER_ADMIN","pyCode":null,"ext":"","loginTime":1548409576000,"loginCount":0,"todayCount":0,"loginHost":"127.0.0.1","createTime":1546572645000,"cameraRole":null,"roleTypeName":"超级管理员","enabled":true},{"id":"FA17EC6DF6674F62AC35446DF3AA1879","uid":"zhangsan","uname":"张三","pwd":null,"roleType":"ROLE_ADMIN","pyCode":null,"ext":null,"loginTime":1548762336000,"loginCount":0,"todayCount":0,"loginHost":"127.0.0.1","createTime":1548762336000,"cameraRole":null,"roleTypeName":"管理员","enabled":true},{"id":"5FB02B133ABC4A2A8F235CD207F576AE","uid":"user","uname":"普通用户","pwd":null,"roleType":"ROLE_USER","pyCode":null,"ext":"","loginTime":1548402547000,"loginCount":0,"todayCount":0,"loginHost":"127.0.0.1","createTime":1546572645000,"cameraRole":null,"roleTypeName":"普通用户","enabled":true},{"id":"A15CF479A22E4C2CB3FEC73B4186E73A","uid":"lisi","uname":"李四","pwd":null,"roleType":"ROLE_USER","pyCode":null,"ext":null,"loginTime":1548762336000,"loginCount":0,"todayCount":0,"loginHost":"127.0.0.1","createTime":1548762336000,"cameraRole":null,"roleTypeName":"普通用户","enabled":true}],"additional":null}
+2019-01-30 19:10:20,497 - framework - INFO - 请求结束
+
+2019-01-30 19:10:20,498 - framework - DEBUG - 获取用户zhangsan属性: ('id',) = ['FA17EC6DF6674F62AC35446DF3AA1879'] 
+2019-01-30 19:10:20,516 - framework - INFO - 请求开始 POST http://172.17.3.40/api/user/update-user
+2019-01-30 19:10:20,518 - framework - DEBUG - 请求内容: {'id': 'FA17EC6DF6674F62AC35446DF3AA1879', 'userName': '张三大爷', 'roleType': 'ROLE_ADMIN', 'password': 'f7e871f95098d792b46c3ecc8bd2deb4', 'cameraIds': '["0E9F2ECC58994022820E565952E90FAE", "63F3FF653A4C46649AE9E8B9F4290128", "3AE98EC37B5246AF99728CA5583A0EF7", "4163A1F3CDF84915AAB77BC06DB75F84", "12B39AF3F75E4D95B233C5EFAEFE09FF", "A95BA1799109432F9BE7FEE1662A2189"]', 'cameraNames': ['19、上海外滩白天', '20、上海外滩夜晚', 'mbf_47', 'mbf_26', '24、人群通道效果', '10.0.10.200']}
+2019-01-30 19:10:20,519 - framework - DEBUG - 响应结果: <Response [200]>
+响应文本: {"msg":"success","ext":null}
+2019-01-30 19:10:20,520 - framework - INFO - 请求结束
+
+2019-01-30 19:10:20,535 - framework - INFO - 请求开始 POST http://172.17.3.40/api/user/list-user
+2019-01-30 19:10:20,536 - framework - DEBUG - 请求内容: {'page': 1, 'rows': 20, 'sidx': 'uid', 'sord': 'asc', 'searchString': '{"roleType":"","name":""}'}
+2019-01-30 19:10:20,538 - framework - DEBUG - 响应结果: <Response [200]>
+响应文本: {"page":1,"total":1,"records":4,"rows":[{"id":"0BE0EBA1904048A2816611D0AC591BAC","uid":"admin","uname":"超级管理员","pwd":null,"roleType":"ROLE_SUPER_ADMIN","pyCode":null,"ext":"","loginTime":1548409576000,"loginCount":0,"todayCount":0,"loginHost":"127.0.0.1","createTime":1546572645000,"cameraRole":null,"roleTypeName":"超级管理员","enabled":true},{"id":"FA17EC6DF6674F62AC35446DF3AA1879","uid":"zhangsan","uname":"张三大爷","pwd":null,"roleType":"ROLE_ADMIN","pyCode":null,"ext":null,"loginTime":1548762336000,"loginCount":0,"todayCount":0,"loginHost":"127.0.0.1","createTime":1548762336000,"cameraRole":null,"roleTypeName":"管理员","enabled":true},{"id":"5FB02B133ABC4A2A8F235CD207F576AE","uid":"user","uname":"普通用户","pwd":null,"roleType":"ROLE_USER","pyCode":null,"ext":"","loginTime":1548402547000,"loginCount":0,"todayCount":0,"loginHost":"127.0.0.1","createTime":1546572645000,"cameraRole":null,"roleTypeName":"普通用户","enabled":true},{"id":"A15CF479A22E4C2CB3FEC73B4186E73A","uid":"lisi","uname":"李四","pwd":null,"roleType":"ROLE_USER","pyCode":null,"ext":null,"loginTime":1548762336000,"loginCount":0,"todayCount":0,"loginHost":"127.0.0.1","createTime":1548762336000,"cameraRole":null,"roleTypeName":"普通用户","enabled":true}],"additional":null}
+2019-01-30 19:10:20,539 - framework - INFO - 请求结束
+
+2019-01-30 19:10:20,540 - framework - DEBUG - 获取用户zhangsan属性: ('id', 'uname', 'roleType') = ['FA17EC6DF6674F62AC35446DF3AA1879', '张三大爷', 'ROLE_ADMIN'] 
+2019-01-30 19:10:20,541 - framework - INFO - 用户zhangsan存在, 且信息匹配，断言成功

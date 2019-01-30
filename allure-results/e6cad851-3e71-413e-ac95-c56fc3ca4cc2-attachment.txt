@@ -1,0 +1,8 @@
+2019-01-30 19:09:14,343 - framework - INFO - 连接到mysql服务器172.17.3.40
+2019-01-30 19:09:14,363 - framework - DEBUG - 获取 rtsp200 ID: 54BDA9807CA9417189E5AA5E7F3C63E1
+2019-01-30 19:09:14,378 - framework - INFO - 请求开始 POST http://172.17.3.40/api/video/update-server-name
+2019-01-30 19:09:14,379 - framework - DEBUG - 请求内容: {'serverId': '54BDA9807CA9417189E5AA5E7F3C63E1', 'serverName': 'test_rename', 'description': '123`!@#$%^&*()', 'version': ''}
+2019-01-30 19:09:14,381 - framework - DEBUG - 响应结果: <Response [200]>
+响应文本: {"msg":"repeat","ext":null}
+2019-01-30 19:09:14,382 - framework - INFO - 请求结束
+
