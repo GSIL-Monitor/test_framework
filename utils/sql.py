@@ -52,7 +52,7 @@ class Sql(object):
                 row = self.cursor.fetchone()
 
             # results = self.cursor.fetchall()
-            # logger.debug('查询结果为：{}'.format(results))
+            logger.debug('查询结果为：{}'.format(results))
             return results
         except:
             err = "Error: unable to fecth data"

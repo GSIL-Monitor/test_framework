@@ -1,0 +1,15 @@
+2019-01-31 18:23:48,548 - framework - INFO - 请求开始 POST http://172.17.3.40/api/video/save-rtsp
+2019-01-31 18:23:48,550 - framework - DEBUG - 请求内容: {'rtspUrl': 'rtsp://admin:admin@10.0.10.220/cam/realmonitor?channel=1&subtype=0', 'rtspName': 'rtsp220'}
+2019-01-31 18:23:48,551 - framework - DEBUG - 响应结果: <Response [200]>
+响应文本: {"msg":"repeat","ext":null}
+2019-01-31 18:23:48,553 - framework - INFO - 请求结束
+
+2019-01-31 18:23:48,560 - framework - INFO - 连接到mysql服务器172.17.3.40
+2019-01-31 18:23:48,579 - framework - DEBUG - 查询结果为：[('869F597EE4504491A5DBE4702CFCF28B',)]
+2019-01-31 18:23:48,581 - framework - DEBUG - 获取 rtsp220 ID: 869F597EE4504491A5DBE4702CFCF28B
+2019-01-31 18:23:48,597 - framework - INFO - 请求开始 POST http://172.17.3.40/api/video/del-rtsp-video
+2019-01-31 18:23:48,599 - framework - DEBUG - 请求内容: {'channelId': '869F597EE4504491A5DBE4702CFCF28B', 'taskType': 'Crowd', 'flag': 'false'}
+2019-01-31 18:23:48,600 - framework - DEBUG - 响应结果: <Response [200]>
+响应文本: {"msg":"success","ext":null}
+2019-01-31 18:23:48,601 - framework - INFO - 请求结束
+

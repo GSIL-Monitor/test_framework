@@ -23,8 +23,7 @@ config_video = Config('apivideo.yml')
 @pytest.fixture()
 def video_api(login_admin):
     """
-    1)增删改查中的‘增’，需要干净的环境; 2)增删改查中的‘删改查’, 针对异常情况测试时，也需要准备干净的环境
-    固件执行范围为function级别
+    1)增删改查中的‘增删’，需要干净的环境; 2)固件执行范围为function级别
     """
     av = APIVideo(login_admin)
     yield av
@@ -33,15 +32,14 @@ def video_api(login_admin):
 @pytest.fixture(scope='module')
 def video_env(login_admin):
     """
-    增删改查中的‘改、查、删’ , 预先准备所需‘数据环境’
-    固件执行范围为module级别
+    1)增删改查中的‘改查’ , 预先准备所需‘数据环境’; 2)固件执行范围为module级别
     """
     env_video = APIVideo(login_admin)
     load_video_data()
 
     def parse_env_video(video_server_conf, index=0):
         env_video.video_conf = config_video.get(video_server_conf, index)
-        env_video.query_video_id()
+        env_video.server_id = env_video.query_video_id(env_video.video_conf)
         return env_video
     yield parse_env_video
     clear_all()
@@ -52,7 +50,7 @@ class APIVideo(PRequest):
     视频接口类
     """
 
-    def __init__(self, login):
+    def __init__(self, login=None):
         """
         1. 继承父类构造函数，获取登录token，传递给自定义接口请求函数self.send_request
         2. 初始化类属性（名称、ID、子设备数）
@@ -70,7 +68,8 @@ class APIVideo(PRequest):
         else:
             self.save_pvg_server(self.video_conf, status)
         # yml文件以'---'分割，第一章节(index==0)为有效用例(断言成功），后续章节(index!=0)为无效用例（断言失败）
-        assert self.query_video_id() is None if index else self.query_video_id() is not None
+        self.server_id = self.query_video_id(self.video_conf)
+        assert self.server_id is None if index else self.server_id is not None
 
     @allure.step('api - 1. 添加rtsp视频')
     def save_rtsp(self, rtsp_json, status='PASS'):
@@ -85,21 +84,21 @@ class APIVideo(PRequest):
         method = 'POST'
         self.send_request(api_url, method, status, json=pvg_json)
 
+    @staticmethod
     @allure.step('ext - 1. 获取视频服务ID ')
-    def query_video_id(self):
+    def query_video_id(video_conf):
         mysql = Sql()
-        if self.video_conf['version'] == 'rtsp':
+        if video_conf['version'] == 'rtsp':
             sql_video_id = "SELECT F_ID FROM t_video_channel WHERE F_Name = '{}' AND " \
-                           "F_Video_Type = 'rtsp' AND  F_Enabled = 1;".format(self.video_conf['name'])
+                           "F_Video_Type = 'rtsp' AND  F_Enabled = 1;".format(video_conf['name'])
         else:
             sql_video_id = "SELECT F_ID FROM t_video_server WHERE F_NAME = '{}' AND " \
-                           "F_Video_Type = 'pvg' AND F_Enabled = 1;".format(self.video_conf['name'])
+                           "F_Video_Type = 'pvg' AND F_Enabled = 1;".format(video_conf['name'])
         req = mysql.query(sql_video_id)
         mysql.close()
-
-        self.server_id = req[0][0] if req else None
-        logger.debug('获取 {} ID: {}'.format(self.video_conf['name'], self.server_id))
-        return self.server_id
+        server_id = req[0][0] if req else None
+        logger.debug('获取 {} ID: {}'.format(video_conf['name'], server_id))
+        return server_id
 
     @allure.step('ast - 1. 断言VideoServer资源数量')
     def assert_server_count(self):

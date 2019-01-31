@@ -1,0 +1,12 @@
+2019-01-31 18:23:08,636 - framework - INFO - 请求开始 POST http://172.17.3.40/api/crowd-auth/set-auth-key
+2019-01-31 18:23:08,637 - framework - DEBUG - 请求内容: {'license': <_io.BufferedReader name='E:\\Python\\test_framework\\data\\license\\172.17.3.40.license_key'>}
+2019-01-31 18:23:08,638 - framework - DEBUG - 响应结果: <Response [200]>
+响应文本: {"msg":"success","ext":null}
+2019-01-31 18:23:08,641 - framework - INFO - 请求结束
+
+2019-01-31 18:23:11,657 - framework - INFO - 请求开始 POST http://172.17.3.40/api/crowd-auth/get-auth-info
+2019-01-31 18:23:11,658 - framework - DEBUG - 响应结果: <Response [200]>
+响应文本: {"msg":"2021-08-03 17:39:56","ext":"16"}
+2019-01-31 18:23:11,660 - framework - INFO - 数据处理: 提取ext的值为16 
+2019-01-31 18:23:11,661 - framework - INFO - 请求结束
+

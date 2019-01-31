@@ -1,6 +1,0 @@
-2019-01-30 19:08:19,622 - framework - INFO - 请求开始 POST http://172.17.3.40/api/auth
-2019-01-30 19:08:19,625 - framework - DEBUG - 请求内容: {'username': 'admin', 'password': 'a127fd1f86e4ab650f2216f09992afa4'}
-2019-01-30 19:08:19,627 - framework - DEBUG - 响应结果: <Response [401]>
-响应文本: Unauthorized
-2019-01-30 19:08:19,629 - framework - INFO - 请求结束
-

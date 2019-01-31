@@ -9,7 +9,9 @@ from utils.sql import Sql
 from utils.support import encrypt
 from testAPI.common.pre_request import PRequest
 from testAPI.common.pre_sql_data import *
-from testAPI.interface.mod_2_video.conftest import video_env
+# from testAPI.interface.mod_2_video.conftest import video_env
+# from testAPI.interface.mod_3_task.conftest import task_env
+
 
 __all__ = (
     'APIUser'
@@ -19,33 +21,27 @@ config_user = Config('apiuser.yml')
 
 
 @pytest.fixture()
-def user_api(video_env):
+def user_api(task_env):
     my_user = APIUser()
 
-    def parse_api_user(video_server, user_conf):
-        my_video = video_env(video_server)
-        my_user.login = my_video.login
-        my_user.parse_conf_user(my_video.server_id, user_conf)
+    def parse_api_user(user_conf):
+        my_user.parse_conf_user(task_env, user_conf)
         return my_user
-
     yield parse_api_user
-    if my_user.id:
-        my_user.delete_user()
+    my_user.delete_user()
     my_user.assert_user_attr('FAIL')
 
 
 @pytest.fixture(scope='module')
-def user_env(video_env):
+def user_env(task_env):
     my_user = APIUser()
     load_user_data()
 
-    def parse_api_user(video_server, user_conf):
-        my_video = video_env(video_server)
-        my_user.login = my_video.login
-        my_user.parse_conf_user(my_video.server_id, user_conf)
+    def parse_env_user(user_conf):
+        my_user.parse_conf_user(task_env, user_conf)
         my_user.id = my_user.get_user_attr("id")
         return my_user
-    yield parse_api_user
+    yield parse_env_user
 
 
 class APIUser(PRequest):
@@ -61,30 +57,51 @@ class APIUser(PRequest):
         self.id = None
         self.user = None
         self.password = None
+        self.channel_name_list = None
 
     @allure.step('ext - 0. 预处理数据，获取待添加用户的设备ID')
-    def parse_conf_user(self, server_id, user_conf):
+    def parse_conf_user(self, parse_env_task, user_conf):
         self.user_conf = config_user.get(user_conf)
         self.user = self.user_conf["userId"]
         self.password = self.user_conf["password"]
         self.user_conf["password"] = encrypt(self.user_conf["password"])
 
-        mysql = Sql()
-        channel_list = []
-        for channel_name in self.user_conf.get('cameraNames'):
-            query_camera_id = "SELECT F_ID FROM t_video_channel " \
-                              "WHERE F_Name = '{}' " \
-                              "AND F_Video_Server_ID = '{}';".format(channel_name, server_id)
-            req = mysql.query(query_camera_id)
-            if req:
-                channel_list.append(req[0][0])
-            else:
-                raise ValueError('错误：相机{}不存在'.format(channel_name))
-        mysql.close()
+        channel_id_list = []
+        channel_name_list = []
+        for channel_conf in self.user_conf.get('cameraNames'):
+            _task_obj = parse_env_task(channel_conf)
+            channel_id_list.append(_task_obj.channelId)
+            channel_name_list.append(_task_obj.tasks_conf["channelName"])
+            self.login = _task_obj.login
 
-        self.user_conf["cameraIds"] = json.dumps(channel_list)
+        self.user_conf["cameraIds"] = json.dumps(channel_id_list)
+        self.channel_name_list = channel_name_list
         logger.debug('获取用户 "{}" 待添加设备IDs: {} '.format(self.user, self.user_conf["cameraIds"]))
         return
+
+    # @allure.step('ext - 0. 预处理数据，获取待添加用户的设备ID')
+    # def parse_conf_user(self, server_id, user_conf):
+    #     self.user_conf = config_user.get(user_conf)
+    #     self.user = self.user_conf["userId"]
+    #     self.password = self.user_conf["password"]
+    #     self.user_conf["password"] = encrypt(self.user_conf["password"])
+    #
+    #     mysql = Sql()
+    #     channel_list = []
+    #     for channel_name in self.user_conf.get('cameraNames'):
+    #         query_camera_id = "SELECT F_ID FROM t_video_channel " \
+    #                           "WHERE F_Name = '{}' " \
+    #                           "AND F_Video_Server_ID = '{}';".format(channel_name, server_id)
+    #         req = mysql.query(query_camera_id)
+    #         if req:
+    #             channel_list.append(req[0][0])
+    #         else:
+    #             raise ValueError('错误：相机{}不存在'.format(channel_name))
+    #     mysql.close()
+    #
+    #     self.user_conf["cameraIds"] = json.dumps(channel_list)
+    #     logger.debug('获取用户 "{}" 待添加设备IDs: {} '.format(self.user, self.user_conf["cameraIds"]))
+    #     return
 
     @allure.step('api - 1. 添加用户')
     def add_user(self, status='PASS'):
@@ -154,7 +171,7 @@ class APIUser(PRequest):
     def assert_cameras(self):
         camera_role = self.user_detail()
         camera_list = [i.get('channelName') for i in camera_role if camera_role]
-        assert set(camera_list) == set(self.user_conf.get('cameraNames'))
+        assert set(camera_list) == set(self.channel_name_list)
         logger.info('用户相机列表分配，断言成功')
 
     @allure.step('api - 4. 修改用户信息')

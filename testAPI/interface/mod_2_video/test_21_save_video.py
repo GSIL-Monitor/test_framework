@@ -14,7 +14,7 @@ def test_2101_add_pvg(video_api, pvg_server):
     video_api.assert_server_count()
     # 删除
     video_api.del_video_server()
-    assert video_api.query_video_id() is None
+    assert video_api.query_video_id(video_api.video_conf) is None
 
 
 @allure.severity('blocker')
@@ -27,7 +27,7 @@ def test_2102_add_rtsp(video_api, rtsp_server):
     video_api.save_video(rtsp_server)
     # 删除
     video_api.del_rtsp_video()
-    assert video_api.query_video_id() is None
+    assert video_api.query_video_id(video_api.video_conf) is None
 
 
 @allure.severity('blocker')

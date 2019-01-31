@@ -6,7 +6,7 @@ import allure
 from utils.config import DATA_PATH
 
 
-channelName = ["19、上海外滩白天", "20、上海外滩夜晚", "mbf_47", "mbf_26", "24、人群通道效果", "10.0.10.200"]
+channelName = ["crowd_channel_1", "crowd_channel_2", "crowd_channel_3", "crowd_channel_4", "crowd_channel_5", "crowd_channel_6"]
 cover_default = os.path.join(DATA_PATH, 'covers', 'crowd_task_one.jpg')
 
 
@@ -15,8 +15,8 @@ cover_default = os.path.join(DATA_PATH, 'covers', 'crowd_task_one.jpg')
 @allure.story('添加删除任务')
 @pytest.mark.parametrize('channel_name', channelName)
 def test_3101_add_del_task(task_api, channel_name):
-    my_task = task_api(video_server='pvg_server_67', channel_name=channel_name, tasks_conf='crowd_template_one')
-    my_task.save_task(cover_default)
+    my_task = task_api(channel_name)
+    my_task.save_task()
     time.sleep(2)
     my_task.assert_task_status('run')
 

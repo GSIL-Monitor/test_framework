@@ -1,0 +1,24 @@
+2019-01-31 18:23:49,735 - framework - INFO - 连接到mysql服务器172.17.3.40
+2019-01-31 18:23:49,744 - framework - INFO - 载入SQL数据中……
+2019-01-31 18:23:49,745 - framework - DEBUG - load E:\Python\test_framework\data\sql\t_video_server.sql 
+2019-01-31 18:23:49,795 - framework - INFO - sql执行成功
+2019-01-31 18:23:49,805 - framework - INFO - sql执行成功
+2019-01-31 18:23:49,808 - framework - INFO - sql执行成功
+2019-01-31 18:23:49,809 - framework - DEBUG - load E:\Python\test_framework\data\sql\t_video_group.sql 
+2019-01-31 18:23:49,818 - framework - INFO - sql执行成功
+2019-01-31 18:23:49,829 - framework - INFO - sql执行成功
+2019-01-31 18:23:49,834 - framework - INFO - sql执行成功
+2019-01-31 18:23:49,835 - framework - DEBUG - load E:\Python\test_framework\data\sql\t_video_channel.sql 
+2019-01-31 18:23:49,936 - framework - INFO - sql执行成功
+2019-01-31 18:23:49,948 - framework - INFO - sql执行成功
+2019-01-31 18:23:50,468 - framework - INFO - sql执行成功
+2019-01-31 18:23:50,471 - framework - INFO - 载入完成
+2019-01-31 18:23:50,495 - framework - INFO - 连接到mysql服务器172.17.3.40
+2019-01-31 18:23:50,507 - framework - DEBUG - 查询结果为：[('4AEA19D4952A4C91B0D13F03F84B3262',)]
+2019-01-31 18:23:50,509 - framework - DEBUG - 获取 10.0.100.12 ID: 4AEA19D4952A4C91B0D13F03F84B3262
+2019-01-31 18:23:50,525 - framework - INFO - 请求开始 POST http://172.17.3.40/api/video/update-server-name
+2019-01-31 18:23:50,526 - framework - DEBUG - 请求内容: {'serverId': '4AEA19D4952A4C91B0D13F03F84B3262', 'serverName': 'test_rename', 'description': '123`!@#$%^&*()', 'version': 'PVG6-7'}
+2019-01-31 18:23:50,527 - framework - DEBUG - 响应结果: <Response [200]>
+响应文本: {"msg":"success","ext":null}
+2019-01-31 18:23:50,528 - framework - INFO - 请求结束
+

@@ -4,13 +4,19 @@ import allure
 from utils.config import Config
 from utils.support import encrypt
 from testAPI.common.pre_request import PRequest
+from testAPI.interface.mod_2_video.conftest import video_env
+from testAPI.interface.mod_3_task.conftest import task_env
+from testAPI.interface.mod_4_user.conftest import user_env
 
 __all__ = (
     'base_url',
     'auth_login',
     'auth_logout',
     'admin',
-    'user'
+    'user',
+    'video_env',
+    'task_env',
+    'user_env'
 )
 
 base_url = Config().get('BASE_URL', index=0)

@@ -1,34 +1,34 @@
 # coding = utf-8
 # api-接口请求， ext-结果提取处理， ast-自定义断言
+import os
 import json
 import base64
 import pytest
 import allure
-from utils.config import Config
+from utils.config import Config, DATA_PATH
 from utils.log import logger
 from utils.sql import Sql
 from testAPI.common.pre_request import PRequest
 from testAPI.common.pre_sql_data import *
-from ..mod_2_video.conftest import *
+from testAPI.interface.mod_2_video.conftest import video_env
 
 
 __all__ = (
-    'APITask'
+    'APITask',
+    'task_env'
 )
 
 config_task = Config('apitask.yml')
+config_channel = Config('apichannel.yml')
 
 
 @pytest.fixture()
 def task_api(video_env):
     my_task = APITask()
 
-    def parse_api_task(video_server, channel_name, tasks_conf, index=0, tasks_type='Crowd', task_name=None):
-        my_video = video_env(video_server)
-        my_task.login = my_video.login
-        my_task.parse_conf_task(my_video.server_id, channel_name, tasks_conf, index, tasks_type, task_name)
+    def parse_api_task(channel_conf, index=0):
+        my_task.parse_conf_task(video_env, channel_conf, index)
         return my_task
-
     yield parse_api_task
     my_task.del_task()
     assert my_task.get_task_attr("taskId") is None
@@ -39,10 +39,8 @@ def task_env(video_env):
     my_task = APITask()
     load_task_data()
 
-    def parse_env_task(video_server, channel_name, tasks_conf, index=0, tasks_type='Crowd', task_name=None):
-        my_video = video_env(video_server)
-        my_task.login = my_video.login
-        my_task.parse_conf_task(my_video.server_id, channel_name, tasks_conf, index, tasks_type, task_name)
+    def parse_env_task(channel_conf):
+        my_task.parse_conf_task(video_env, channel_conf, index=0)
         my_task.tasks_id = my_task.get_task_attr("taskId")
         return my_task
     yield parse_env_task
@@ -64,31 +62,42 @@ class APITask(PRequest):
         self.flag = 0
 
     @allure.step('ext - 0. 预处理数据，初始化任务基本信息<设备ID/名称,任务名称>')
-    def parse_conf_task(self, server_id, channel_name, tasks_conf, index=0, tasks_type='Crowd', task_name=None):
-        self.tasks_conf = config_task.get(tasks_conf, index)
-        self.tasks_type = tasks_type
+    def parse_conf_task(self, parse_env_video, channel_conf, index=0):
+        """
+        :param parse_env_video, 上承video模块，获取login的token、视频服务器的ID
+        :param channel_conf, 全局相机唯一配置，通过YML的index索引（键），获取内容，进行解析，得到相机ID
+        """
+        _task_type = channel_conf.split('_')[0].capitalize()
+        _channel_dict = config_channel.get(channel_conf, index)
+        _video_obj = parse_env_video(_channel_dict['server_name'])
+
+        self.login = _video_obj.login
         self.flag = index
-        self.tasks_conf["channelName"] = channel_name
-        self.tasks_conf["taskName"] = task_name if task_name else channel_name
+        self.tasks_type = _task_type
+        self.task_cover = os.path.join(DATA_PATH, 'covers', _channel_dict['task_cover'])
+        self.tasks_conf = config_task.get(_channel_dict['task_conf'], index)
+        self.tasks_conf["taskName"] = _channel_dict['task_name']
+        self.tasks_conf["channelName"] = _channel_dict['channel_name']
+
         mysql = Sql()
+        _channel_name = self.tasks_conf["channelName"]
         query_camera_id = "SELECT F_ID FROM t_video_channel " \
                           "WHERE F_Name = '{}' " \
-                          "AND F_Video_Server_ID = '{}';".format(channel_name, server_id)
+                          "AND F_Video_Server_ID = '{}';".format(_channel_name, _video_obj.server_id)
         req = mysql.query(query_camera_id)
         mysql.close()
-        if req:
-            self.channelId = self.tasks_conf["channelId"] = req[0][0]
-            logger.debug('获取相机"{}"的ID为{}'.format(channel_name, self.channelId))
-        else:
-            raise ValueError('错误：相机{}不存在'.format(channel_name))
+        if req is None:
+            raise ValueError('错误：相机{}不存在'.format(_channel_name))
+
+        self.channelId = self.tasks_conf["channelId"] = req[0][0]
+        logger.debug('获取相机"{}"的ID为{}'.format(_channel_name, self.channelId))
         return
 
     @allure.step('ext - 1. 添加任务获取ID <上传封面--添加任务--任务ID> ')
-    def save_task(self, cover_image, status='PASS'):
-        self.save_task_covers(cover_image, status)
+    def save_task(self, status='PASS'):
+        self.save_task_covers(self.task_cover, status)
         self.save_task_config(status)
         self.tasks_id = self.get_task_attr("taskId")
-        assert self.tasks_id is not None
         # yml文件以'---'分割，第一章节(index==0)为有效用例(断言成功），后续章节(index!=0)为无效用例（断言失败）
         assert self.tasks_id is None if self.flag else self.tasks_id is not None
 
@@ -132,7 +141,7 @@ class APITask(PRequest):
         >>>self.get_task_attr("taskId")
         >>>self.get_task_attr("taskKey")
         >>>self.get_task_attr("status")
-        >>>self.get_task_attr("taskId", "taskKey", "status")
+        >>>self.get_task_attr("taskId", "taskKey", "status", "taskName", "startDate", "taskType")
         """
         tasks_list_json = self.list_task()
         for row in tasks_list_json:
@@ -172,16 +181,17 @@ class APITask(PRequest):
                 'videoSize': '{"videoType": 1, "width": 1920, "height": 1080, "duration": 0}'
                 }
         res = self.send_request(api_url, method, status, data=data)
-        logger.info("{}".format(res.json()))
+        logger.debug("{}".format(res.json()))
 
     @allure.step('api - 4. 取流')
     def get_video_param(self, status='PASS'):
         api_url = "/api/video/get-video-param?" \
-                  "type=noFourScreen&channelId={}&taskType=Crowd".format(self.channelId)
+                  "type=noFourScreen&channelId={}&taskType={}".format(self.channelId, self.tasks_type)
         method = 'POST'
         res = self.send_request(api_url, method, status, extractor='ext')
-        channel_info = base64.b64decode(res)
-        logger.info("video param: {}".format(channel_info))
+        channel_info = base64.b64decode(res) if res else None
+        logger.debug("video param: {}".format(channel_info))
+        return channel_info
 
     @allure.step('api - 4. 获取任务状态？什么都没有')
     def is_enable_task(self, status='PASS'):
@@ -189,7 +199,7 @@ class APITask(PRequest):
         method = 'POST'
         data = {'taskType': 'Crowd'}
         res = self.send_request(api_url, method, status, data=data)
-        logger.info("{}".format(res.json()))
+        logger.debug("{}".format(res.json()))
 
     @allure.step('api - 4. 获取任务相机分组？有任务和相机的ID，任务和分组的名称，所属的视频服务')
     def getTaskCustomCameraGroup(self, status='PASS'):
@@ -197,7 +207,7 @@ class APITask(PRequest):
         method = 'GET'
         params = {'type': 'Crowd'}
         res = self.send_request(api_url, method, status, params=params)
-        logger.info("{}".format(res.json()))
+        logger.debug("{}".format(res.json()))
 
     @allure.step('api - 4. 启停任务')
     def update_task_status(self, ignition='Y', status='PASS'):
@@ -205,7 +215,7 @@ class APITask(PRequest):
         method = 'POST'
         data = {'taskId': self.tasks_id, 'status': ignition}
         res = self.send_request(api_url, method, status, data=data)
-        logger.info("{}".format(res.json()))
+        logger.debug("{}".format(res.json()))
 
     @allure.step('api - 4. 恢复上次配置')
     def use_last_config(self, tasks_type='Crowd', last_conf=None, status='PASS'):
@@ -213,7 +223,7 @@ class APITask(PRequest):
         method = 'POST'
         data = {'channelId': self.channelId, 'taskType': tasks_type}
         res = self.send_request(api_url, method, status, data=data, extractor='task')
-        logger.info("{}".format(res.json()))
+        logger.debug("{}".format(res.json()))
 
     @allure.step('api - 5. 删除任务')
     def del_task(self, status='PASS'):
@@ -221,6 +231,6 @@ class APITask(PRequest):
         method = 'POST'
         data = {'taskId': self.tasks_id}
         res = self.send_request(api_url, method, status, data=data)
-        logger.info("{}".format(res.json()))
+        logger.debug("{}".format(res.json()))
 
 

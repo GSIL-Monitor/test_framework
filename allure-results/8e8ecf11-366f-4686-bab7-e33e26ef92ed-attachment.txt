@@ -1,0 +1,8 @@
+connectionpool.py          205 DEBUG    Starting new HTTP connection (1): 172.17.3.40:80
+connectionpool.py          393 DEBUG    http://172.17.3.40:80 "POST /api/auth HTTP/1.1" 200 None
+log.py                      42 INFO     请求开始 POST http://172.17.3.40/api/auth
+log.py                      44 DEBUG    请求内容: {'username': 'user', 'password': '24d0a7e8de6ac931e44e30e3819ac680'}
+log.py                      44 DEBUG    响应结果: <Response [200]>
+响应文本: {"token":"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZSI6IlJPTEVfVVNFUiIsImNyZWF0ZWQiOjE1NDg5MzAxNjIzNzQsIm5hbWUiOiIlRTYlOTklQUUlRTklODAlOUElRTclOTQlQTglRTYlODglQjciLCJleHAiOjM2MDAxNTQ4OTMwMTYyfQ.znPnhKrgglWnGUJuKzwY6WffR83zPIUSbXVAtG9ty-jGhA_x1lSmYmkLxQUQAuYYLnjPFKNsbqmipLaueXBOUw"}
+log.py                      42 INFO     数据处理: 提取token的值为eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZSI6IlJPTEVfVVNFUiIsImNyZWF0ZWQiOjE1NDg5MzAxNjIzNzQsIm5hbWUiOiIlRTYlOTklQUUlRTklODAlOUElRTclOTQlQTglRTYlODglQjciLCJleHAiOjM2MDAxNTQ4OTMwMTYyfQ.znPnhKrgglWnGUJuKzwY6WffR83zPIUSbXVAtG9ty-jGhA_x1lSmYmkLxQUQAuYYLnjPFKNsbqmipLaueXBOUw 
+log.py                      42 INFO     请求结束

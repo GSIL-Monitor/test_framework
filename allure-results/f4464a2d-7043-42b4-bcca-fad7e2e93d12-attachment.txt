@@ -1,0 +1,19 @@
+2019-01-31 18:23:11,802 - framework - INFO - 请求开始 POST http://172.17.3.40/api/video/save-pvg-server
+2019-01-31 18:23:11,804 - framework - DEBUG - 请求内容: {'name': '10.0.100.12', 'ipAddress': '10.0.100.12', 'version': 'PVG6_7', 'port': 2100, 'description': '', 'ext': '{"uid":"admin","pwd":"admin"}', 'real_count': 150}
+2019-01-31 18:23:11,805 - framework - DEBUG - 响应结果: <Response [200]>
+响应文本: {"msg":"repeatName","ext":null}
+2019-01-31 18:23:11,807 - framework - INFO - 请求结束
+
+2019-01-31 18:23:11,815 - framework - INFO - 连接到mysql服务器172.17.3.40
+2019-01-31 18:23:12,365 - framework - DEBUG - 查询结果为：[('4AEA19D4952A4C91B0D13F03F84B3262',)]
+2019-01-31 18:23:12,367 - framework - DEBUG - 获取 10.0.100.12 ID: 4AEA19D4952A4C91B0D13F03F84B3262
+2019-01-31 18:23:12,376 - framework - INFO - 连接到mysql服务器172.17.3.40
+2019-01-31 18:23:12,397 - framework - DEBUG - 查询结果为：[(150,)]
+2019-01-31 18:23:12,399 - framework - INFO - 查询完毕，结果150匹配
+2019-01-31 18:23:12,400 - framework - INFO - 总耗时:0:00:00.031069
+2019-01-31 18:23:12,635 - framework - INFO - 请求开始 POST http://172.17.3.40/api/video/del-video-server
+2019-01-31 18:23:12,637 - framework - DEBUG - 请求内容: {'videoServerId': '4AEA19D4952A4C91B0D13F03F84B3262', 'flag': 'true'}
+2019-01-31 18:23:12,638 - framework - DEBUG - 响应结果: <Response [200]>
+响应文本: {"msg":"success","ext":null}
+2019-01-31 18:23:12,640 - framework - INFO - 请求结束
+

@@ -9,7 +9,7 @@ from testAPI.interface.conftest import *
 @allure.story('添加正确的用户')
 @pytest.mark.parametrize('user_success', ['user_one', 'user_two'])
 def test_4101_add_user(user_api, user_success):
-    my_user = user_api('pvg_server_67', user_success)
+    my_user = user_api(user_success)
     my_user.add_user()
     my_user.assert_user_attr()
     my_user.assert_cameras()
