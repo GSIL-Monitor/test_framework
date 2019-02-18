@@ -233,4 +233,48 @@ class APITask(PRequest):
         res = self.send_request(api_url, method, status, data=data)
         logger.debug("{}".format(res.json()))
 
+    @allure.step('设置/修改坐标')
+    def update_coordinate(self, coordinate=None, status='PASS'):
+        api_url = "/api/video/update-channel-coordinate"
+        method = 'POST'
+        data = {'channelId': self.channelId, 'channelName': self.tasks_conf["channelName"], 'coordinate': coordinate}
+        res = self.send_request(api_url, method, status, data=data)
+        return res
+
+    @allure.step('查看坐标')
+    def channel_detail(self, status='PASS'):
+        api_url = "/api/video/channel-detail"
+        method = 'POST'
+        data = {'channelId': self.channelId, 'taskType': 'Crowd'}
+        res = self.send_request(api_url, method, status, data=data, extractor='coordinate')
+        return res
+
+    @allure.step('导出坐标')
+    def exp_coordinates(self, status='PASS'):
+        api_url = "/export/CameraCoordinates.xls"
+        method = 'GET'
+        res = self.send_request(api_url, method, status)
+        abs_exp_file = Config('data/ex_rep/CameraCoordinates.xls').file
+        with open(abs_exp_file, "wb") as exp:
+            exp.write(res.content)
+        assert os.path.getsize(abs_exp_file)
+        return abs_exp_file
+
+    @allure.step('导入坐标')
+    def imp_coordinates(self, status='PASS'):
+        api_url = "/api/video/camera-coordinate-excel"
+        method = 'POST'
+        abs_exp_file = Config('data/ex_rep/CameraCoordinates.xls').file
+        with open(abs_exp_file, "rb") as exp:
+            res = self.send_request(api_url, method, status, files={"excel": exp})
+        return res
+
+
+        #
+        # res = self.send_request(api_url, method, status)
+        # abs_exp_file = Config('data/ex_rep/CameraCoordinates.xls').file
+        # with open(abs_exp_file, "wb") as exp:
+        #     exp.write(res.content)
+        # assert os.path.getsize(abs_exp_file)
+        # return abs_exp_file
 

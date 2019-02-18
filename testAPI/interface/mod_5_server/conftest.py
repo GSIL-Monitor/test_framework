@@ -189,5 +189,10 @@ class APIUser(PRequest):
         data = {'id': self.id}
         res = self.send_request(api_url, method, status, data=data)
 
+    @allure.step('api - 6. 设备状态')
+    def get_server_info(self, status='PASS'):
+        api_url = "/api/server/get-server-info"
+        method = 'POST'
+        res = self.send_request(api_url, method, status)
 
 

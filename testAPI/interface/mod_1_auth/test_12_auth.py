@@ -1,6 +1,7 @@
 # coding = utf-8
 import os
 import time
+import pytest
 import allure
 from utils.support import unzip
 from .conftest import *

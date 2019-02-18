@@ -27,6 +27,11 @@ def video_api(login_admin):
     """
     av = APIVideo(login_admin)
     yield av
+    if av.video_conf.get('version') == 'rtsp':
+        av.del_rtsp_video()
+    else:
+        av.del_video_server()
+    assert av.query_video_id(av.video_conf) is None
 
 
 @pytest.fixture(scope='module')
@@ -42,7 +47,7 @@ def video_env(login_admin):
         env_video.server_id = env_video.query_video_id(env_video.video_conf)
         return env_video
     yield parse_env_video
-    clear_all()
+    # clear_all()
 
 
 class APIVideo(PRequest):
@@ -194,5 +199,4 @@ class APIVideo(PRequest):
         data = {'channelId': self.server_id, 'taskType': 'Crowd', 'flag': 'false'}
         res = self.send_request(api_url, method, status, data=data)
         return res
-
 

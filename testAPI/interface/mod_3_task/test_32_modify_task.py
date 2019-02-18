@@ -4,6 +4,8 @@ import time
 import pytest
 import allure
 from utils.config import DATA_PATH
+from utils.log import logger
+
 
 cover_default = os.path.join(DATA_PATH, 'covers', 'crowd_task_one.jpg')
 
@@ -42,3 +44,19 @@ def test_3203_get_video_param(task_env):
     assert str(channel_info) is not None
 
 
+@allure.severity('critical')
+@allure.feature('地图坐标')
+def test_3204_map_coordinate(task_env):
+    my_task = task_env("crowd_channel_2")
+    my_task.update_coordinate('[22.2222, 19.9999]')
+    assert my_task.channel_detail() == '[22.2222, 19.9999]'
+    my_task.update_coordinate('')
+    assert not my_task.channel_detail()
+
+
+@allure.severity('critical')
+@allure.feature('坐标导出和导入')
+def test_3205_exp_coordinate(task_env):
+    my_task = task_env("crowd_channel_2")
+    my_task.exp_coordinates()
+    my_task.imp_coordinates()

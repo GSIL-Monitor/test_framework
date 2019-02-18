@@ -1,7 +1,7 @@
 [[source]]
 name = "pypi"
-url = "https://pypi.org/simple"
-# url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+# url = "https://pypi.org/simple"
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
 verify_ssl = true
 
 [dev-packages]
@@ -23,10 +23,7 @@ django = ">=2.1.4"
 injson = ">=0.2.2"
 allure-pytest = ">=2.5.4"
 unittest2pytest = "*"
-pytest-depends = ">=0.8.1"
-deptest = "*"
-pytest = "*"
-pyhocon = "*"
+pytest-sourceorder = "*"
 
 [requires]
 python_version  = "3.6"

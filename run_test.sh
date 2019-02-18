@@ -19,7 +19,8 @@ echo "切换路径"
 cd $ROOTPATH && pwd && ls
 
 echo "安装虚拟环境+依赖模块"
-pipenv update
+pipenv run pip install pip==18.0
+pipenv install --skip-lock
 
 echo "执行pytest"
 pipenv run pytest  testAPI/interface/video/ --alluredir allure-results

@@ -60,7 +60,8 @@ class HTTPClient(object):
         for body in (data, json, files):
             logger.debug('请求内容: {}'.format(body)) if body else ''
 
-        logger.debug('响应结果: {0}\n响应文本: {1}'.format(response, u'{}'.format(response.text)))
+        logger.debug('响应结果: {}'.format(response))
+        # logger.debug('响应文本: {}'.format(u'{}'.format(response.text)))
         return response
 
     def close(self):
