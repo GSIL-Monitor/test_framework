@@ -2,7 +2,7 @@
 读取配置。采用yaml格式配置文件，也可以采用xml、ini等，需要在file_rader添加响应Reader处理。
 """
 import os
-from utils.file_reader import YamlReader
+from utils.file_reader import YamlReader, JsonReader
 import json
 from json import JSONEncoder
 
@@ -46,6 +46,9 @@ class Config:
         self.config = YamlReader(self.file).data
         elem = self.config[index].get(element)
         return elem
+
+    def json(self):
+        return JsonReader(self.file).data
 
 
 if __name__ == '__main__':

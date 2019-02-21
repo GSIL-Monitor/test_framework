@@ -34,7 +34,7 @@ def task_api(video_env):
     assert my_task.get_task_attr("taskId") is None
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def task_env(video_env):
     my_task = APITask()
     load_task_data()
@@ -73,7 +73,7 @@ class APITask(PRequest):
 
         self.login = _video_obj.login
         self.flag = index
-        self.tasks_type = _task_type
+        self.tasks_type = _task_type if _task_type == 'Crowd' else 'CrossLine'
         self.task_cover = os.path.join(DATA_PATH, 'covers', _channel_dict['task_cover'])
         self.tasks_conf = config_task.get(_channel_dict['task_conf'], index)
         self.tasks_conf["taskName"] = _channel_dict['task_name']
@@ -185,6 +185,7 @@ class APITask(PRequest):
 
     @allure.step('api - 4. 取流')
     def get_video_param(self, status='PASS'):
+
         api_url = "/api/video/get-video-param?" \
                   "type=noFourScreen&channelId={}&taskType={}".format(self.channelId, self.tasks_type)
         method = 'POST'
@@ -197,7 +198,7 @@ class APITask(PRequest):
     def is_enable_task(self, status='PASS'):
         api_url = "/api/task/is-enable-task"
         method = 'POST'
-        data = {'taskType': 'Crowd'}
+        data = {'taskType': self.tasks_type}
         res = self.send_request(api_url, method, status, data=data)
         logger.debug("{}".format(res.json()))
 
@@ -205,7 +206,7 @@ class APITask(PRequest):
     def getTaskCustomCameraGroup(self, status='PASS'):
         api_url = "/api/video/getTaskCustomCameraGroup"
         method = 'GET'
-        params = {'type': 'Crowd'}
+        params = {'type': self.tasks_type}
         res = self.send_request(api_url, method, status, params=params)
         logger.debug("{}".format(res.json()))
 
@@ -218,10 +219,10 @@ class APITask(PRequest):
         logger.debug("{}".format(res.json()))
 
     @allure.step('api - 4. 恢复上次配置')
-    def use_last_config(self, tasks_type='Crowd', last_conf=None, status='PASS'):
+    def use_last_config(self, status='PASS'):
         api_url = "/api/task/use-last-config"
         method = 'POST'
-        data = {'channelId': self.channelId, 'taskType': tasks_type}
+        data = {'channelId': self.channelId, 'taskType': self.tasks_type}
         res = self.send_request(api_url, method, status, data=data, extractor='task')
         logger.debug("{}".format(res.json()))
 
@@ -269,12 +270,4 @@ class APITask(PRequest):
             res = self.send_request(api_url, method, status, files={"excel": exp})
         return res
 
-
-        #
-        # res = self.send_request(api_url, method, status)
-        # abs_exp_file = Config('data/ex_rep/CameraCoordinates.xls').file
-        # with open(abs_exp_file, "wb") as exp:
-        #     exp.write(res.content)
-        # assert os.path.getsize(abs_exp_file)
-        # return abs_exp_file
 

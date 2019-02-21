@@ -32,7 +32,7 @@ def user_api(task_env):
     my_user.assert_user_attr('FAIL')
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def user_env(task_env):
     my_user = APIUser()
     load_user_data()
@@ -78,30 +78,6 @@ class APIUser(PRequest):
         self.channel_name_list = channel_name_list
         logger.debug('获取用户 "{}" 待添加设备IDs: {} '.format(self.user, self.user_conf["cameraIds"]))
         return
-
-    # @allure.step('ext - 0. 预处理数据，获取待添加用户的设备ID')
-    # def parse_conf_user(self, server_id, user_conf):
-    #     self.user_conf = config_user.get(user_conf)
-    #     self.user = self.user_conf["userId"]
-    #     self.password = self.user_conf["password"]
-    #     self.user_conf["password"] = encrypt(self.user_conf["password"])
-    #
-    #     mysql = Sql()
-    #     channel_list = []
-    #     for channel_name in self.user_conf.get('cameraNames'):
-    #         query_camera_id = "SELECT F_ID FROM t_video_channel " \
-    #                           "WHERE F_Name = '{}' " \
-    #                           "AND F_Video_Server_ID = '{}';".format(channel_name, server_id)
-    #         req = mysql.query(query_camera_id)
-    #         if req:
-    #             channel_list.append(req[0][0])
-    #         else:
-    #             raise ValueError('错误：相机{}不存在'.format(channel_name))
-    #     mysql.close()
-    #
-    #     self.user_conf["cameraIds"] = json.dumps(channel_list)
-    #     logger.debug('获取用户 "{}" 待添加设备IDs: {} '.format(self.user, self.user_conf["cameraIds"]))
-    #     return
 
     @allure.step('api - 1. 添加用户')
     def add_user(self, status='PASS'):
@@ -189,5 +165,12 @@ class APIUser(PRequest):
         data = {'id': self.id}
         res = self.send_request(api_url, method, status, data=data)
 
+    @allure.step('api - 6. 重置密码')
+    def reset_pwd(self, newPwd, status='PASS'):
+        api_url = "/api/user/reset-pwd"
+        method = 'POST'
+        data = {'oldPwd': self.user_conf["password"], 'newPwd': newPwd}
+        res = self.send_request(api_url, method, status, data=data)
+        return res
 
 

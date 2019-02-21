@@ -1,0 +1,34 @@
+{
+  "serverTotal": 1,
+  "taskTotal": 8,
+  "taskMax": 16,
+  "crowedTask": 6,
+  "crossLineTask": 2,
+  "serverList": [
+    {
+      "ip": "172.17.3.40",
+      "taskServer": 6,
+      "taskServerCrowed": 6,
+      "taskServerCrossLine": 2,
+      "cpuNum": 16,
+      "gpuNum": 4,
+      "gpuMem": "44G",
+      "memory": "31",
+      "net": "1000",
+      "auth": [
+        {
+          "CrowdApp": {
+            "number": 8,
+            "time": "2021-08-03 17:39:56"
+          }
+        },
+        {
+          "CrossLineApp": {
+            "number": 8,
+            "time": "2021-08-03 17:39:56"
+          }
+        }
+      ]
+    }
+  ]
+}

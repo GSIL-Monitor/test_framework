@@ -6,7 +6,10 @@ import allure
 from utils.config import DATA_PATH
 
 
-channelName = ["crowd_channel_1", "crowd_channel_2", "crowd_channel_3", "crowd_channel_4", "crowd_channel_5", "crowd_channel_6"]
+channelName = [
+    "crowd_channel_1", "crowd_channel_2", "crowd_channel_3", "crowd_channel_4", "crowd_channel_5", "crowd_channel_6",
+    "cross_channel_1", "cross_channel_2"
+]
 cover_default = os.path.join(DATA_PATH, 'covers', 'crowd_task_one.jpg')
 
 

@@ -34,7 +34,7 @@ def video_api(login_admin):
     assert av.query_video_id(av.video_conf) is None
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def video_env(login_admin):
     """
     1)增删改查中的‘改查’ , 预先准备所需‘数据环境’; 2)固件执行范围为module级别
@@ -47,7 +47,7 @@ def video_env(login_admin):
         env_video.server_id = env_video.query_video_id(env_video.video_conf)
         return env_video
     yield parse_env_video
-    # clear_all()
+    clear_all()
 
 
 class APIVideo(PRequest):
